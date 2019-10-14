@@ -8,10 +8,13 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column( name = "name_product",nullable = false,unique = true)
-    private String name;
     @Column
+    private Integer id;
+
+    @Column( name = "name_product" ,nullable = false)
+    private String name;
+
+    @Column(name = "final_price")
     private double total_price;
 
     public Customer getCustomer() {
@@ -25,19 +28,16 @@ public class Product {
     @OneToOne(optional = false,mappedBy = "product")
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id",unique = true,nullable = false)
-
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "checklist_id",unique = true,nullable = false)
-    private CheckList_Customer checkList_customer;
+    private checklistCustomer checklist_customer;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Category_for_dogs> ctg_dog;
+    private List<categoryForDogs> ctg_dog;
 
-
-
-    public Long getId() {
+    public Integer getId() {
         return id;
 
     }
@@ -58,15 +58,6 @@ public class Product {
         this.total_price = total_price;
     }
 
-    public Product() {
 
-    }
-
-    public Product(Long id, String name, double total_price) {
-
-        this.id = id;
-        this.name = name;
-        this.total_price = total_price;
-    }
 
 }

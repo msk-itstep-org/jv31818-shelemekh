@@ -9,35 +9,37 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column
+    private Integer id;
 
-    @Column(unique = false, nullable = false)
+    @Column( name = "name", nullable = false)
     @NotNull
     @Size(min = 2, max = 10 ,
             message = "A form with name should be between 2 to 10")
     private String name;
+
+
     @Column(name = "user_email",
             nullable = false)
     @NotEmpty(message = "A form of email should not be empty")
     @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
     private String email;
+
     @Column(name = "phone_number")
-    @Pattern(regexp = "[7-9][0-9]{9}",message = "Invalid phone number")
+    @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
     @Size(max = 10,message = "the digits should be not more than 10")
     private String phone_number;
+
+
     @OneToOne(optional = false)
-    @JoinColumn(name = "product_id",unique = true,nullable = false,updatable = false)
+    @JoinColumn(name = "product_id",nullable = false,updatable = false)
     private Product product;
 
-    public List<CheckList_Customer> getCh_list() {
+
+    public List<checklistCustomer> getCh_list() {
         return ch_list;
     }
 
-
-
-    public void setCh_list(List<CheckList_Customer> ch_list) {
-        this.ch_list = ch_list;
-    }
 
     public Product getProduct() {
         return product;
@@ -48,9 +50,9 @@ public class Customer {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "checklist")
-    private List<CheckList_Customer> ch_list;
+    private List<checklistCustomer> ch_list;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -79,17 +81,5 @@ public class Customer {
         this.phone_number = phone_number;
     }
 
-    public Customer() {
 
-    }
-
-    public Customer(@NotNull @Size(min = 2, max = 10, message = "A form with name should be between 2 to 10") String name,
-                    @NotEmpty(message = "A form of email should not be empty") @Email(regexp = "^(.+)@(.+)$",
-                            message = "Incorrect email") String email, @Pattern(regexp = "[7-9][0-9]{9}",
-            message = "Invalid phone number")
-                    @Size(max = 10, message = "the digits should be not more than 10") String phone_number) {
-        this.name = name;
-        this.email = email;
-        this.phone_number = phone_number;
-    }
 }

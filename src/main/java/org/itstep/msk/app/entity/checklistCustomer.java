@@ -5,11 +5,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "checklist")
-public class CheckList_Customer {
+public class checklistCustomer {
   //  private Integer log;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    @Column
+    private Integer id ;
+
     @Column(name = "manager",nullable = false)
     private String phone_manager;
 
@@ -20,30 +22,30 @@ public class CheckList_Customer {
         return customer;
     }
 
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id",unique = true,nullable = false,updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id",nullable = false,updatable = false)
     private Customer customer;
 
 
-    public List<Product> getPr_list() {
+    public List<Product> Pr_list;
 
+    public List<Product> getPr_list() {
         return pr_list;
     }
 
-    public void setPr_list(List<Product> pr_list) {
-        this.pr_list = pr_list;
-    }
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
     private List<Product> pr_list;
 
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -65,13 +67,5 @@ public class CheckList_Customer {
         this.address_customer = address_customer;
     }
 
-    public CheckList_Customer() {
 
-    }
-
-    public CheckList_Customer(String phone_manager, String address_customer) {
-
-        this.phone_manager = phone_manager;
-        this.address_customer = address_customer;
-    }
 }
