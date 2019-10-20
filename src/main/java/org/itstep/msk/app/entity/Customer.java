@@ -36,9 +36,6 @@ public class Customer {
     private Product product;
 
 
-    public List<checklistCustomer> getCh_list() {
-        return ch_list;
-    }
 
 
     public Product getProduct() {
@@ -49,8 +46,8 @@ public class Customer {
         this.product = product;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "checklist")
-    private List<checklistCustomer> ch_list;
+    //@OneToMany(fetch = FetchType.LAZY,mappedBy = "checklist")
+   // private List<checklistCustomer> ch_list;
 
     public Integer getId() {
         return id;

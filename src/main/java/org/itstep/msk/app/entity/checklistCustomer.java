@@ -32,16 +32,9 @@ public class checklistCustomer {
     private Customer customer;
 
 
-    public List<Product> Pr_list;
 
-    public List<Product> getPr_list() {
-        return pr_list;
-    }
-
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
-    private List<Product> pr_list;
+  //  @OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
+  //  private List<Product> pr_list;
 
 
 

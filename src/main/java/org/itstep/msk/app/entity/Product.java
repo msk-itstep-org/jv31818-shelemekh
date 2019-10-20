@@ -31,11 +31,11 @@ public class Product {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "checklist_id",unique = true,nullable = false)
+    @JoinColumn(name = "checklist_id",nullable = false)
     private checklistCustomer checklist_customer;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<categoryForDogs> ctg_dog;
+    //@ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
+   // private List<categoryForDogs> ctg_dog;
 
     public Integer getId() {
         return id;

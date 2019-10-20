@@ -22,8 +22,9 @@ create table product (
 create table checklist (
         id int  unsigned not null auto_increment primary key
         references customer(id),
-        address_customer varchar (1000) not null ,
+        address_customer varchar (1000) not null,
         manager varchar (1000) not null
+
 
 
 
@@ -36,3 +37,6 @@ create table dogs_goods (
         quality varchar(100) not null
 
   );
+
+
+
