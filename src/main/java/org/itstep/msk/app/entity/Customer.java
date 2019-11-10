@@ -3,6 +3,7 @@ package org.itstep.msk.app.entity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table( name = "customer")
@@ -35,8 +36,19 @@ public class Customer {
     @JoinColumn(name = "product_id",nullable = false,updatable = false)
     private Product product;
 
+    @ManyToMany
+    @JoinTable(name = "custom_roles",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns =
+                @JoinColumn(name ="roles_id" ))
+    private Set<Roles> role;
 
 
+    public Set<Roles> getRole() {
+        return this.role;
+    }
+
+    public void setRole(final Set<Roles> role) {
+        this.role = role;
+    }
 
     public Product getProduct() {
         return product;

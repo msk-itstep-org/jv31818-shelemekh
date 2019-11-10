@@ -39,12 +39,32 @@ create table dogs_goods (
   );
 
 create table category_product(
-select db.dogs_goods(id) from db.dogs_goods
-left join db.product on db.product(id)
+dogs_good_id integer not null,
+product_id integer not null,
+
+foreign key (dogs_good_id) references dogs_goods(id),
+foreign key (product_id) references product(id),
+
+unique (dogs_good_id,product_id)
+
 );
 
+create table roles (
+id integer not null auto_increment primary key,
+name varchar (100) not null
 
 
+);
+
+create table custom_roles(
+customer_id integer not null,
+roles_id integer  not null,
+
+foreign key (customer_id) references customer(id),
+foreign key (roles_id) references roles(id),
+
+unique (customer_id,roles_id)
+);
 
 
 
