@@ -1,7 +1,8 @@
 package org.itstep.msk.app.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -15,27 +16,42 @@ public class Product {
     private String name;
 
     @Column(name = "final_price")
-    private double total_price;
+    private double totalPrice;
 
-    public Customer getCustomer() {
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    private Set<Customer> customer;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Double.compare(product.totalPrice, totalPrice) == 0 &&
+                id.equals(product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(customer, product.customer) &&
+                Objects.equals(checklist_customer, product.checklist_customer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Set<Customer> getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Set<Customer> customer) {
         this.customer = customer;
     }
-
-    @OneToOne(optional = false,mappedBy = "product")
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id",unique = true,nullable = false)
-    private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "checklist_id",nullable = false)
     private checklistCustomer checklist_customer;
 
-    //@ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
-   // private List<categoryForDogs> ctg_dog;
+
 
     public Integer getId() {
         return id;
@@ -50,12 +66,12 @@ public class Product {
         this.name = name;
     }
 
-    public double getTotal_price() {
-        return total_price;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(double total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
 

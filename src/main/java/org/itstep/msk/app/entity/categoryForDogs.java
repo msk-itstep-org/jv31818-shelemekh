@@ -3,6 +3,7 @@ package org.itstep.msk.app.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dogs_goods")
@@ -16,18 +17,31 @@ public class categoryForDogs {
     private String nameMerchen;
 
     @Column(name = "quality" )
-    private String special_quality;
+    private String specialQuality;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof categoryForDogs)) return false;
+        categoryForDogs that = (categoryForDogs) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     //Специально- качество каждой породы собаки
     @ManyToMany
     @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "dogs_goods_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
             )
-    List<Product> prod_list;
+    List<Product> prodList;
 
 
-    public List<Product> getProd_list() {
-        return prod_list;
+    public List<Product> getProdList() {
+        return prodList;
     }
 
 
@@ -46,13 +60,13 @@ public class categoryForDogs {
     }
 
 
-    public String getSpecial_quality() {
-        return special_quality;
+    public String getSpecialQuality() {
+        return specialQuality;
     }
 
 
-    public void setSpecial_quality(String special_quality) {
-        this.special_quality = special_quality;
+    public void setSpecialQuality(String specialQuality) {
+        this.specialQuality = specialQuality;
     }
 
 

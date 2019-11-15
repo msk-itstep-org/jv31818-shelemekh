@@ -2,7 +2,7 @@ package org.itstep.msk.app.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -26,27 +26,42 @@ public class Customer {
     @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
     private String email;
 
-    @Column(name = "phone_number")
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return id.equals(customer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Column(name = "phoneNumber")
     @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
     @Size(max = 10,message = "the digits should be not more than 10")
-    private String phone_number;
+    private String phoneNumber;
 
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "product_id",nullable = false,updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id",nullable = false)
     private Product product;
+
+
 
     @ManyToMany
     @JoinTable(name = "custom_roles",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns =
                 @JoinColumn(name ="roles_id" ))
-    private Set<Roles> role;
+    private Set<Role> role;
 
 
-    public Set<Roles> getRole() {
+    public Set<Role> getRole() {
         return this.role;
     }
 
-    public void setRole(final Set<Roles> role) {
+    public void setRole(final Set<Role> role) {
         this.role = role;
     }
 
@@ -82,12 +97,12 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 

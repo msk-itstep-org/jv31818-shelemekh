@@ -1,7 +1,7 @@
 package org.itstep.msk.app.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "checklist")
@@ -13,28 +13,10 @@ public class checklistCustomer {
     private Integer id ;
 
     @Column(name = "manager",nullable = false)
-    private String phone_manager;
+    private String phoneManager;
 
-    @Column(length = 1000,name ="address_customer",nullable = true)
-    private String address_customer;
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id",nullable = false,updatable = false)
-    private Customer customer;
-
-
-
-  //  @OneToMany(fetch = FetchType.LAZY, mappedBy = "checklist")
-  //  private List<Product> pr_list;
+    @Column(length = 1000,name ="addressCustomer",nullable = true)
+    private String addressCustomer;
 
 
 
@@ -44,21 +26,33 @@ public class checklistCustomer {
 
 
 
-    public String getPhone_manager() {
-        return phone_manager;
+    public String getPhoneManager() {
+        return phoneManager;
     }
 
-    public void setPhone_manager(String phone_manager) {
-        this.phone_manager = phone_manager;
+    public void setPhoneManager(String phoneManager) {
+        this.phoneManager = phoneManager;
     }
 
-    public String getAddress_customer() {
-        return address_customer;
+    public String getAddressCustomer() {
+        return addressCustomer;
     }
 
-    public void setAddress_customer(String address_customer) {
-        this.address_customer = address_customer;
+    public void setAddressCustomer(String addressCustomer) {
+        this.addressCustomer = addressCustomer;
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof checklistCustomer)) return false;
+        checklistCustomer that = (checklistCustomer) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
