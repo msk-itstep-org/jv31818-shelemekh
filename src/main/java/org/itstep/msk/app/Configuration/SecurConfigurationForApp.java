@@ -29,7 +29,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        String customQuery = "SELECT name, user_emai, phoneNumber, 1 as active FROM customer WHERE name =? ";
+        String customQuery = "SELECT name, email, phone, password  1 as active FROM customer WHERE name =? ";
 
         String authoriQuery = "SELECT n.name, r.roles "
                 + "FROM customer c "
@@ -57,13 +57,13 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
+
                 .antMatchers("/register").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority(AppRoles.ADMIN.toString())
+                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/register")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/successlogin")
                 .usernameParameter("name");

@@ -15,7 +15,7 @@ public class checklistCustomer {
     @Column(name = "manager",nullable = false)
     private String phoneManager;
 
-    @Column(length = 1000,name ="addressCustomer",nullable = true)
+    @Column(length = 1000,name ="address",nullable = true)
     private String addressCustomer;
 
 

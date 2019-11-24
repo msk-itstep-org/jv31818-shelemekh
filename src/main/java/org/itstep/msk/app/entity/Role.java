@@ -15,7 +15,7 @@ public class Role {
     private String name;
 
 
-    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
     private Set<Customer> custom ;
 
     @Override

@@ -32,6 +32,8 @@ public class categoryForDogs {
         return Objects.hash(id);
     }
 
+
+
     //Специально- качество каждой породы собаки
     @ManyToMany
     @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "dogs_goods_id", referencedColumnName = "id"),
@@ -42,6 +44,10 @@ public class categoryForDogs {
 
     public List<Product> getProdList() {
         return prodList;
+    }
+
+    public void setProdList(List<Product> prodList) {
+        this.prodList = prodList;
     }
 
 

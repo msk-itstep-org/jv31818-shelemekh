@@ -20,7 +20,7 @@ public class Customer {
     private String name;
 
 
-    @Column(name = "user_email",
+    @Column(name = "email",
             nullable = false)
     @NotEmpty(message = "A form of email should not be empty")
     @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
@@ -39,14 +39,24 @@ public class Customer {
         return Objects.hash(id);
     }
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phone")
     @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
     @Size(max = 10,message = "the digits should be not more than 10")
     private String phoneNumber;
 
+    @Column(name = "password")
+    private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id",nullable = false)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "product")
     private Product product;
 
 

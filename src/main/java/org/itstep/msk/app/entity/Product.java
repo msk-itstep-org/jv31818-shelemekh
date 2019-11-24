@@ -10,6 +10,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JoinTable(name = "category_product",joinColumns = @JoinColumn(name = "product_id"))
     private Integer id;
 
     @Column( name = "name_product" ,nullable = false)
@@ -19,8 +20,10 @@ public class Product {
     private double totalPrice;
 
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    @OneToMany(targetEntity = Customer.class)
+
     private Set<Customer> customer;
+
 
     @Override
     public boolean equals(Object o) {
@@ -30,14 +33,14 @@ public class Product {
         return Double.compare(product.totalPrice, totalPrice) == 0 &&
                 id.equals(product.id) &&
                 Objects.equals(name, product.name) &&
-                Objects.equals(customer, product.customer) &&
-                Objects.equals(checklist_customer, product.checklist_customer);
+                Objects.equals(customer, product.customer);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 
     public Set<Customer> getCustomer() {
         return customer;
@@ -47,9 +50,6 @@ public class Product {
         this.customer = customer;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "checklist_id",nullable = false)
-    private checklistCustomer checklist_customer;
 
 
 

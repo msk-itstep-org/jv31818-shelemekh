@@ -1,9 +1,9 @@
 server_address=127.0.0.1
-server_port=8080
+server_port=8888
 
 db_host=localhost
 db_port=3306
-db_name=app
+db_name=db
 db_username=root
-db_password=
+db_password=12345
 db_show_sql=true
