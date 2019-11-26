@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-public class Maincontroller {
+public class MainController {
 
     @GetMapping("/")
     public String getIndex(){
