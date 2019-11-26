@@ -10,7 +10,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    @JoinTable(name = "category_product",joinColumns = @JoinColumn(name = "product_id"))
     private Integer id;
 
     @Column( name = "name_product" ,nullable = false)

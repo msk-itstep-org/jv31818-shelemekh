@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "checklist")
-public class checklistCustomer {
+public class ChecklistCustomer {
   //  private Integer log;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +46,8 @@ public class checklistCustomer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof checklistCustomer)) return false;
-        checklistCustomer that = (checklistCustomer) o;
+        if (!(o instanceof ChecklistCustomer)) return false;
+        ChecklistCustomer that = (ChecklistCustomer) o;
         return id.equals(that.id);
     }
 

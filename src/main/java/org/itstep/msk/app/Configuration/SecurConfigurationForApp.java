@@ -29,12 +29,12 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        String customQuery = "SELECT name, email, phone, password  1 as active FROM customer WHERE name =? ";
+        String customQuery = "SELECT name, email, phone, password,  1 as active FROM customer WHERE name =? ";
 
         String authoriQuery = "SELECT n.name, r.roles "
                 + "FROM customer c "
-                + "INNER JOIN  custom_roles cr ON cd customer_id = c.id"
-                + "INNER JOIN  roles r ON r.id = cd.roles_id"
+                + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
+                + "INNER JOIN  roles r ON r.id = cd.roles_id "
                 + "WHERE n.name = ?";
 
         auth.jdbcAuthentication()

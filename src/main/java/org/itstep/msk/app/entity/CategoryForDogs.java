@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "dogs_goods")
-public class categoryForDogs {
+public class CategoryForDogs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -22,8 +22,8 @@ public class categoryForDogs {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof categoryForDogs)) return false;
-        categoryForDogs that = (categoryForDogs) o;
+        if (!(o instanceof CategoryForDogs)) return false;
+        CategoryForDogs that = (CategoryForDogs) o;
         return id.equals(that.id);
     }
 
@@ -36,10 +36,10 @@ public class categoryForDogs {
 
     //Специально- качество каждой породы собаки
     @ManyToMany
-    @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "dogs_goods_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
+    @JoinTable(name = "category_product", joinColumns = {@JoinColumn(name = "dogs_goods_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id",referencedColumnName = "id")}
             )
-    List<Product> prodList;
+    private List<Product> prodList;
 
 
     public List<Product> getProdList() {

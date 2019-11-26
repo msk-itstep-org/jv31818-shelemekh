@@ -1,7 +1,6 @@
 package org.itstep.msk.app.service;
 
 
-import javafx.scene.input.DataFormat;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.CustomRepository;
