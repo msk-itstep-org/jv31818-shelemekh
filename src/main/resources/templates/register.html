@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Registation pager</title>
+</head>
+<body>
+<h1>Regitration</h1>
+<!--/*@thymesVar id="customer" type=""*/-->
+
+        <form th:action="@{/register}" method="post">
+            <label>Name</label>
+            <input type="text" name="name"/><br/>
+            <label >Email:</label>
+            <input type="text" name="email"/><br/>
+            <label>Phone number:</label>
+            <input type="text" name="phoneNumber"/><br/>
+            <button type="submit">Зарегать себя</button>
+        </form>
+
+    </body>
+</html>

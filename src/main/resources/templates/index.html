@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    <div>
+<p>Hello in petshope</p>
+        <p sec: authorize ="hasRole('ROLE_ADMIN')">is Admin</p>
+        <p sec : aurhorize = "hasRole('ROLE_USER')">is Customer</p>
+        <p sec : authentication = "name"> Name</p>
+        <a th:href="@{/login}">Вход в магазин</a>
+        <a th:href="@{/register}">Зарегаться</a>
+    </div>
+</body>
+</html>
