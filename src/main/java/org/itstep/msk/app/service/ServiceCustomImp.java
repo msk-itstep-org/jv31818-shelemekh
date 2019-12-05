@@ -13,7 +13,7 @@ public class ServiceCustomImp {
     private CustomRepository customRepository;
 
 
-    @Query("SELECT id FROM customer")
+    @Query("select c FROM customer c WHERE c.id")
     public  void  findCustomerOnId(){
         Customer customer = new Customer();
         customRepository.findById(customer.getId());

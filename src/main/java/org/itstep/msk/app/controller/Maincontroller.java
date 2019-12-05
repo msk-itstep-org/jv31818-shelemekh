@@ -17,9 +17,10 @@ public class Maincontroller {
     public String getIndex(){
         return "index";
     }
+
     @GetMapping("/denypage")
     public String deny (){
-        return "denypage";
+        return "redirect:/register";
     }
 
 

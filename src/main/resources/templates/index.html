@@ -7,7 +7,7 @@
 <body>
     <div>
 <p>Hello in petshope</p>
-        <p sec: authorize ="hasRole('ROLE_ADMIN')">is Admin</p>
+        <p sec : authorize ="hasRole('ROLE_ADMIN')">is Admin</p>
         <p sec : aurhorize = "hasRole('ROLE_USER')">is Customer</p>
         <p sec : authentication = "name"> Name</p>
         <a th:href="@{/login}">Вход в магазин</a>

@@ -33,7 +33,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
         String authoriQuery = "SELECT n.name, r.roles "
                 + "FROM customer c "
-                + "INNER JOIN  custom_roles cr ON cd customer_id = c.id"
+                + "INNER JOIN  custom_roles cr ON cd custom_id = c.id"
                 + "INNER JOIN  roles r ON r.id = cd.roles_id"
                 + "WHERE n.name = ?";
 

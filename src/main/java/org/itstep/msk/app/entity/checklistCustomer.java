@@ -9,7 +9,7 @@ public class checklistCustomer {
   //  private Integer log;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "check_id")
     private Integer id ;
 
     @Column(name = "manager",nullable = false)
@@ -19,6 +19,8 @@ public class checklistCustomer {
     private String addressCustomer;
 
 
+    public checklistCustomer() {
+    }
 
     public Integer getId() {
         return id;

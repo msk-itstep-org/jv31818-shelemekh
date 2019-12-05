@@ -9,8 +9,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    @JoinTable(name = "category_product",joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "product_id")
     private Integer id;
 
     @Column( name = "name_product" ,nullable = false)
@@ -20,9 +19,11 @@ public class Product {
     private double totalPrice;
 
 
-    @OneToMany(targetEntity = Customer.class)
+    public Product() {
+    }
 
-    private Set<Customer> customer;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Customer> cust;
 
 
     @Override
@@ -33,7 +34,7 @@ public class Product {
         return Double.compare(product.totalPrice, totalPrice) == 0 &&
                 id.equals(product.id) &&
                 Objects.equals(name, product.name) &&
-                Objects.equals(customer, product.customer);
+                Objects.equals(cust, product.cust);
     }
 
     @Override
@@ -43,11 +44,11 @@ public class Product {
 
 
     public Set<Customer> getCustomer() {
-        return customer;
+        return cust;
     }
 
     public void setCustomer(Set<Customer> customer) {
-        this.customer = customer;
+        this.cust = cust;
     }
 
 

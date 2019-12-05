@@ -9,13 +9,14 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @Column(name = "name")
     private String name;
 
 
-    @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "role",cascade = CascadeType.ALL)
     private Set<Customer> custom ;
 
     @Override
@@ -49,8 +50,6 @@ public class Role {
     public Integer getId() {
         return this.id;
     }
-
-
     public String getName() {
         return this.name;
     }
@@ -58,11 +57,9 @@ public class Role {
     public void setName(final String name) {
         this.name = name;
     }
-
     public Set<Customer> getCustom() {
         return this.custom;
     }
-
     public void setCustom(final Set<Customer> custom) {
         this.custom = custom;
     }

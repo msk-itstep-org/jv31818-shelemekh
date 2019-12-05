@@ -10,7 +10,7 @@ import java.util.Set;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "customer_id")
     private Integer id;
 
     @Column( name = "name", nullable = false)
@@ -34,6 +34,9 @@ public class Customer {
         return id.equals(customer.id);
     }
 
+    public Customer() {
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -55,14 +58,14 @@ public class Customer {
         this.password = password;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "product")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", referencedColumnName = "product_id",nullable = false)
     private Product product;
 
 
 
     @ManyToMany
-    @JoinTable(name = "custom_roles",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns =
+    @JoinTable(name = "custom_roles",joinColumns = @JoinColumn(name = "custom_id"),inverseJoinColumns =
                 @JoinColumn(name ="roles_id" ))
     private Set<Role> role;
 
