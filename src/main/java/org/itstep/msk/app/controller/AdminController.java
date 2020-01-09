@@ -45,7 +45,7 @@ public class AdminController {
         adminServiceImp.updateProduct(name);
 
 
-        return "Ok";
+        return "update";
 
     }
 

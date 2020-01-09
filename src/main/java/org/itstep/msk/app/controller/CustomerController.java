@@ -24,7 +24,6 @@ public class CustomerController {
 
     @GetMapping("/register")
     private String register(){
-
         return "register";
     }
 
@@ -32,7 +31,7 @@ public class CustomerController {
     public String succesregister(Model model){
         model.addAttribute(new Customer());
 
-        return "register";
+        return new Customer().toString();
     }
 
     @GetMapping("/listproduct")

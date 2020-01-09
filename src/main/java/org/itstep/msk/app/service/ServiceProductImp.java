@@ -19,6 +19,7 @@ public class ServiceProductImp {
         String productOptional = findbyNameProduct(name);
 
         if(productOptional.equals(name)){
+
             return "Ok";
         }else {
             Product product = new Product();

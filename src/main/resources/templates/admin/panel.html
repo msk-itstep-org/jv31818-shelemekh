@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Панель админки</title>
@@ -8,7 +8,7 @@
 <body>
 
     <div>
-        <form th: action="@{/panel}">
+        <form th:action="@{/panel}">
         <input type="text" name="name">
         <label>Введите имя</label>
         <input type="text" name="password">

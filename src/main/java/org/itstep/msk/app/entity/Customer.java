@@ -2,15 +2,16 @@ package org.itstep.msk.app.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table( name = "customer")
-public class Customer {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     private Integer id;
 
     @Column( name = "name", nullable = false)
@@ -25,6 +26,16 @@ public class Customer {
     @NotEmpty(message = "A form of email should not be empty")
     @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
     private String email;
+
+    @Column(name = "phone")
+    @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
+    @Size(max = 10,message = "the digits should be not more than 10")
+    private String phoneNumber;
+
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
 
     @Override
     public boolean equals(Object o) {
@@ -42,13 +53,6 @@ public class Customer {
         return Objects.hash(id);
     }
 
-    @Column(name = "phone")
-    @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
-    @Size(max = 10,message = "the digits should be not more than 10")
-    private String phoneNumber;
-
-    @Column(name = "password")
-    private String password;
 
     public String getPassword() {
         return password;
@@ -59,7 +63,7 @@ public class Customer {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "product_id",nullable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "product_id",nullable = false, updatable = false, insertable = false)
     private Product product;
 
 
