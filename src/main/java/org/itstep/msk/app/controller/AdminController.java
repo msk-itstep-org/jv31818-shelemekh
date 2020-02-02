@@ -5,8 +5,10 @@ import org.apache.tomcat.jni.Status;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.enums.AppRoles;
+import org.itstep.msk.app.repository.CustomRepository;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.itstep.msk.app.service.AdminServiceImp;
+import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,32 +19,39 @@ import java.util.Optional;
 
 @Controller
 public class AdminController {
+    @Autowired
+    ProductRepository productRepository;
 
+
+    @Autowired
+  CustomRepository customRepository;
 
     @Autowired
     private AdminServiceImp adminServiceImp;
 
+
+
     @GetMapping("/panel")
-    public String seachAllCustomer(){
+    public String seachAllCustomer(@RequestBody Customer customer){
+        customRepository.findAll().stream().distinct();
 
         return "panel";
 
     }
 
-    @PostMapping("/panel")
-    @ResponseBody
-    public String enterInAdminka(){
-        adminServiceImp.findAllCustomer();
-
-        return "redirect:/panel";
 
 
-    }
+
 
     @PutMapping("/admin/update")
     @ResponseBody
-    public String changeProduct(@PathVariable String name){
+    public String changeProduct(@PathVariable String name,@PathVariable Double totalPrice, Product product){
         adminServiceImp.updateProduct(name);
+        adminServiceImp.updateProduct(totalPrice.toString());
+
+        productRepository.save(product);
+
+
 
 
         return "update";

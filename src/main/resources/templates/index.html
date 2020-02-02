@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th = "http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
 <body>
     <div>
-<p>Hello in petshope</p>
-        <a th:href="@{/login}">Вход в магазин</a>
-        <a th:href="@{/register}">Зарегаться</a>
+<p th: href = "@{/index}">Hello in petshope</p>
+        <a th:href="@{/login}">Enter a shop</a>
+        <a th:href="@{/register}">Register</a>
     </div>
 </body>
 </html>

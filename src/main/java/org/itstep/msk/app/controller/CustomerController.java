@@ -7,9 +7,7 @@ import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public String succesregister(Model model){
+    public String succesregister(@RequestBody Customer customer, Model model){
         model.addAttribute(new Customer());
 
         return new Customer().toString();

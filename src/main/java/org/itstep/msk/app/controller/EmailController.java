@@ -3,6 +3,7 @@ package org.itstep.msk.app.controller;
 import org.itstep.msk.app.entity.EmailAnswer;
 import org.itstep.msk.app.entity.EmailProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindingResult;
@@ -12,13 +13,15 @@ import javax.xml.bind.ValidationException;
 
 @RestController
 @RequestMapping("/checkmail")
+@EnableAutoConfiguration
 public class EmailController {
 
     @Autowired
     private EmailProperties properties;
 
     @PostMapping
-    public void sendMailfromUsers(@RequestBody EmailAnswer emailAnswer, BindingResult bindingResult) throws ValidationException {
+    public void sendMailfromUsers(@RequestBody EmailAnswer emailAnswer,@RequestParam Integer port,
+                                  BindingResult bindingResult) throws ValidationException {
 
         if (bindingResult.hasErrors()){
             throw new ValidationException("Answer is not valid");

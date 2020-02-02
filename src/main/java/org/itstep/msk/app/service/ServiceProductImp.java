@@ -18,16 +18,9 @@ public class ServiceProductImp {
     public String findbyNameProduct(String name){
         String productOptional = findbyNameProduct(name);
 
-        if(productOptional.equals(name)){
-
-            return "Ok";
-        }else {
+        if(productOptional.isEmpty()){
             Product product = new Product();
             productRepository.save(product);
-
-
-
-
         }
 
         return name;
