@@ -69,10 +69,15 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
                 .usernameParameter("name");
 
                 http.logout()
+               
 
                         .logoutSuccessUrl("/login");
+                		
+                		
                 http.exceptionHandling()
-                        .accessDeniedPage("/denypage");
+                        .accessDeniedPage("/denypage")
+                        .and()
+                        .rememberMe();
 
 
 

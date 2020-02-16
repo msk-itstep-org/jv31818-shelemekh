@@ -5,15 +5,23 @@ import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.List;
 
-@Controller
-public class CustomerController {
+@RestController
+@RequestMapping("/customer")
 
+public class CustomerController {
+	
+	RestTemplate rest = new RestTemplate();
+	
+	
     @Autowired
     private ProductRepository productRepository;
 
@@ -26,17 +34,15 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public String succesregister(@RequestBody Customer customer, Model model){
-        model.addAttribute(new Customer());
-
-        return new Customer().toString();
+    public  Customer createCustomer(Customer customer) {
+    	return rest.postForObject("http://localhost:8082/customer/register", customer, Customer.class);
     }
 
     @GetMapping("/listproduct")
-    public String listProducts(){
+    public Product listProducts(){
         List<Product> productList = productRepository.findAll();
 
-        return "listproduct";
+        return new Product();
 
     }
 }
