@@ -20,7 +20,7 @@ public class EmailController {
     private EmailProperties properties;
 
     @PostMapping
-    public void sendMailfromUsers(@RequestBody EmailAnswer emailAnswer,@RequestParam String port,
+    public void sendMailfromUsers(@RequestBody EmailAnswer emailAnswer,@RequestParam int port,
                                   BindingResult bindingResult) throws ValidationException {
 
         if (bindingResult.hasErrors()){

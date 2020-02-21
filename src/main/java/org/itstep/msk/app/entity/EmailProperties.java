@@ -10,13 +10,13 @@ public class EmailProperties {
     @Value("${spring.mail.host}")
     private String host;
 
-    @Value("${spring.mail.port")
-    private String port;
+    @Value("${spring.mail.port}")
+    private int port;
 
-    @Value("${spring.mail.username")
+    @Value("${spring.mail.username}")
     private String username;
 
-    @Value("${spring.mail.password")
+    @Value("${spring.mail.password}")
     private String password;
     
     public EmailProperties() {
@@ -32,11 +32,11 @@ public class EmailProperties {
         this.host = host;
     }
 
-    public String getPort() {
+    public int getPort() {
        return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(int port) {
         this.port = port;
     }
 
