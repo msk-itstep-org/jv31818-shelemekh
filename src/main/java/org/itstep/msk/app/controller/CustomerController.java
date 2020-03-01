@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping(value = "/customer", produces = "application/json")
 
 public class CustomerController {
 	
@@ -33,14 +33,16 @@ public class CustomerController {
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = "application/json")
     public  Customer createCustomer(Customer customer) {
     	return rest.postForObject("http://localhost:8082/customer/register", customer, Customer.class);
     }
 
     @GetMapping("/listproduct")
     public Product listProducts(){
-        List<Product> productList = productRepository.findAll();
+        List<Product> productList = (List<Product>) productRepository.findAll().stream()
+                .distinct();
+
 
         return new Product();
 

@@ -38,9 +38,18 @@ public class AdminController {
 
     @GetMapping("/panel")
     @ResponseStatus(HttpStatus.OK)
-    public String seachAllCustomer(@RequestBody Customer customer){
-        customRepository.findAll().stream().distinct();
+    public String seachAllCustomer(){
         	return "panel";
+
+    }
+
+    @GetMapping("/customers")
+    @ResponseStatus(HttpStatus.FOUND)
+    public Customer findAllforNow(){
+        return (Customer) customRepository.findAll().stream()
+                .filter(customer -> customer.getProduct().getTotalPrice()>0);
+
+
 
     }
 
@@ -51,13 +60,13 @@ public class AdminController {
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.UPGRADE_REQUIRED)
     
-    public String changeProduct(@PathVariable String name,@PathVariable Double totalPrice, Product product){
+    public Product changeProduct(@PathVariable String name,@PathVariable Double totalPrice, Product product){
         adminServiceImp.updateProduct(name);
         adminServiceImp.updateProduct(totalPrice.toString());
 
-        productRepository.save(product);
+        return productRepository.save(product);
 
-        return "update";
+
 
     }
 

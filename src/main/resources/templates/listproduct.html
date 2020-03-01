@@ -11,8 +11,8 @@
 <div>
 	<span>
     <td th:object="${product}">
-        <tr th:name="${name}">Название продукта</tr>
-        <tr  th:object = "${final_price}" > Цена товара</tr>
+        <tr th:name="*{name}">Название продукта</tr>
+        <tr  th:object = "*{final_price}" > Цена товара</tr>
         </td>
         </span>
 </div>
