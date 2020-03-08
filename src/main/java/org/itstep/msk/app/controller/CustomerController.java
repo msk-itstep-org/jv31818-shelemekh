@@ -5,14 +5,11 @@ import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/customer", produces = "application/json")
@@ -38,13 +35,21 @@ public class CustomerController {
     	return rest.postForObject("http://localhost:8082/customer/register", customer, Customer.class);
     }
 
-    @GetMapping("/listproduct")
-    public Product listProducts(){
-        List<Product> productList = (List<Product>) productRepository.findAll().stream()
-                .distinct();
+    @GetMapping(value = "/listproduct", produces = "application/json")
+    public List <Product> listProducts(){
+     List<Product> productList = (List<Product>) productRepository.findAll().stream()
+             .distinct();
 
+         return productList;
 
-        return new Product();
+    }
+
+    @PutMapping(value = "/product{id}")
+    public Optional<Product> update(@PathVariable("product_id") Integer id,
+                                    @RequestBody Product product){
+
+        return productRepository.findById(id).filter(product1 -> product.getTotalPrice()<1000);
+
 
     }
 }
