@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping(value = "/admin", produces = "application/json")
 public class AdminController {
 
 
@@ -41,25 +42,25 @@ public class AdminController {
 
     @PutMapping("/admin/update")
     @ResponseBody
-    public String changeProduct(@PathVariable String name){
+    public Product changeProduct(@RequestBody Product prod, @PathVariable String name, @PathVariable Double totalPrice){
         adminServiceImp.updateProduct(name);
 
 
-        return "Ok";
+        return new Product();
 
     }
 
 
     @DeleteMapping("/admin/delete{id}")
     @ResponseBody
-    public String deleteCustomer( @PathVariable Integer id){
+    public Product deleteCustomer( @PathVariable Integer id){
         adminServiceImp.deleteCustomerOnDate();
         if (deleteCustomer(id) == null){
             adminServiceImp.findAllCustomer();
         }else {
             throw new RuntimeException("Customer not found");
         }
-           return "Customer have been deleted";
+           return null;
 
     }
 

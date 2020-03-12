@@ -40,7 +40,8 @@ public class AdminServiceImp {
         Customer customer = new Customer();
         if(customer.getPhoneNumber()== null){
 
-            customRepository.delete(customer);
+            customRepository.delete(customer)
+            ;
 
         }
 

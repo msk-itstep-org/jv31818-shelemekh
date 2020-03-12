@@ -5,15 +5,16 @@ import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping(value = "/customer", produces = "application/json")
 public class CustomerController {
 
     @Autowired
@@ -27,12 +28,12 @@ public class CustomerController {
         return "register";
     }
 
-    @PostMapping("/register{id}")
-    public String succesregister(@PathVariable Integer id){
+    @PostMapping(value = "/register{id}",consumes = "application/json")
+    public Customer succesregister(@PathVariable Integer id){
 
        serviceCustomImp.findCustomerOnId();
 
-        return "register";
+        return new Customer();
     }
 
     @GetMapping("/listproduct")
