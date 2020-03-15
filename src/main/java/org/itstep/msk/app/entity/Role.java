@@ -5,10 +5,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table( name = "roles")
+@Table( name = "roles",schema = "db")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @Column(name = "name")
@@ -16,6 +17,7 @@ public class Role {
 
 
     @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", insertable = false,updatable = false)
     private Set<Customer> custom ;
 
     @Override

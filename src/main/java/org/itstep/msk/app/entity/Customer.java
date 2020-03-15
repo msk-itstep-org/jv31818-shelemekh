@@ -6,11 +6,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table( name = "customer")
+@Table( name = "customer",schema = "db")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Integer id;
 
     @Column( name = "name", nullable = false)
@@ -56,7 +56,7 @@ public class Customer {
     }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "product")
+    @JoinColumn(name = "id"  ,insertable = false ,updatable = false)
     private Product product;
 
 
@@ -83,8 +83,6 @@ public class Customer {
         this.product = product;
     }
 
-    //@OneToMany(fetch = FetchType.LAZY,mappedBy = "checklist")
-   // private List<checklistCustomer> ch_list;
 
     public Integer getId() {
         return id;

@@ -25,6 +25,7 @@ public class CustomerController {
 
     @GetMapping("/register")
     private String register(){
+
         return "register";
     }
 

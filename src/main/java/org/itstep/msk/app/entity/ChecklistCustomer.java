@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "checklist")
+@Table(name = "checklist",schema = "db")
 public class ChecklistCustomer {
   //  private Integer log;
     @Id

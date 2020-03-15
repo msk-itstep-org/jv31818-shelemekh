@@ -5,11 +5,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product",schema = "db")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Integer id;
 
     @Column( name = "name_product" ,nullable = false)
@@ -20,7 +20,7 @@ public class Product {
 
 
     @OneToMany(targetEntity = Customer.class)
-
+    @JoinColumn(name = "id", insertable = false,updatable = false)
     private Set<Customer> customer;
 
 

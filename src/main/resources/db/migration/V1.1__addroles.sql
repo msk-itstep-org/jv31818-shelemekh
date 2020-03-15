@@ -30,23 +30,6 @@ create table checklist (
 
 );
 
-create table dogs_goods (
-        id int  unsigned  not null auto_increment primary key,
-
-        name_product varchar(1000) not null,
-        quality varchar(100) not null
-
-  );
-
-create table category_product(
-dogs_goods_id int not null references dogs_goods(id),
-product_id int not null references  product(id),
-
-primary key (dogs_goods_id,product_id)
-
-
-
-);
 
 create table roles (
 id integer not null auto_increment primary key,
