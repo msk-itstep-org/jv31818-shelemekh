@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ServiceCustomImp {
 
@@ -15,8 +17,8 @@ public class ServiceCustomImp {
 
     @Query("SELECT id FROM customer")
     public  void  findCustomerOnId(){
-        Customer customer = new Customer();
-        customRepository.findById(customer.getId());
+        Optional<Customer> customer = Optional.of(new Customer());
+        customRepository.findById(customer.get().getId());
 
         if (customer == null) {
             Customer customer1 = new Customer();

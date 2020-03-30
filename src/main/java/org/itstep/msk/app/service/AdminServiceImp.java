@@ -8,11 +8,16 @@ import org.itstep.msk.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.TimeZone;
 
 @Service
 public class AdminServiceImp {
+
 
     @Autowired
     private CustomRepository customRepository;
@@ -26,22 +31,26 @@ public class AdminServiceImp {
 
     @Query("SELECT name_product, final_price FROM product")
     public  String updateProduct(String  name){
-        Product product = new Product();
-        product.setName("");
-        product.setTotalPrice(0.0);
-        productRepository.save(product);
+      Product product = new Product();
+        productRepository.findById(product.getId())
+                .map(Product::getName)
+                .get();
 
-        return name;
+       productRepository.save(product);
+
+       return name;
 
 
     }
 
     public void deleteCustomerOnDate(){
         Customer customer = new Customer();
-        if(customer.getPhoneNumber()== null){
+        if( customer.getName()== null){
+            customRepository.delete(customer);
 
-            customRepository.delete(customer)
-            ;
+
+
+
 
         }
 
@@ -50,6 +59,7 @@ public class AdminServiceImp {
     public void findAllCustomer(){
         customRepository.findAll().stream()
                 .limit(100)
+                .map(Customer::getName)
                 .distinct();
     }
 }

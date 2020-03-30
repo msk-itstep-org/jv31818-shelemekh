@@ -23,6 +23,8 @@ public class AdminController {
     @Autowired
     private AdminServiceImp adminServiceImp;
 
+
+
     @GetMapping("/panel")
     public String seachAllCustomer(){
 
@@ -56,7 +58,8 @@ public class AdminController {
     public Product deleteCustomer( @PathVariable Integer id){
         adminServiceImp.deleteCustomerOnDate();
         if (deleteCustomer(id) == null){
-            adminServiceImp.findAllCustomer();
+            adminServiceImp.findAllCustomer()
+            ;
         }else {
             throw new RuntimeException("Customer not found");
         }

@@ -38,7 +38,10 @@ public class ProductFluxWebController {
 
     @GetMapping("/{id}")
     public Mono<Product> getProductById(@PathVariable("id") Integer id) {
-        return webClient.get().uri("/product/{id}", id)
+        return webClient.get()
+
+                .uri("/product/{id}", id)
+
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Product.class);
@@ -50,9 +53,11 @@ public class ProductFluxWebController {
     public Mono<Product> createProduct(@RequestBody Product prod) {
         return webClient.post().uri("/product")
                 .accept(MediaType.APPLICATION_JSON)
+
                 .body(BodyInserters.fromObject(prod))
                 .retrieve()
                 .bodyToMono(Product.class);
+
 
 
     }

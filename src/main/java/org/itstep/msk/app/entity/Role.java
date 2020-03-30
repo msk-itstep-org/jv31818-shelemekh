@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table( name = "roles",schema = "db")
+@Table( name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,7 @@ public class Role {
     private String name;
 
 
-    @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", insertable = false,updatable = false)
+   @ManyToMany(mappedBy = "role" ,cascade =  CascadeType.ALL , fetch =  FetchType.LAZY)
     private Set<Customer> custom ;
 
     @Override
