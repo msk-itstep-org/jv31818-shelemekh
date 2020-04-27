@@ -16,9 +16,10 @@ public class ServiceProductImp {
 
     @Query("SELECT name_product FROM product")
     public String findbyNameProduct(String name){
-        String productOptional = findbyNameProduct(name);
+       Optional<Product> productOptional = Optional.of(new
+               Product());
 
-        if(productOptional.equals(name)){
+        if(productOptional.get().getName().equals(name)){
             return "Ok";
         }else {
             Product product = new Product();
