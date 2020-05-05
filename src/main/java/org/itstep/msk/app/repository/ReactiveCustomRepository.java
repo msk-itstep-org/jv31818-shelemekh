@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface ReactiveCustomRepository extends ReactiveCrudRepository<Integer, Customer> {
+public interface ReactiveCustomRepository extends ReactiveCrudRepository<Customer, Integer> {
     Mono<Customer> save(Integer id);
 }

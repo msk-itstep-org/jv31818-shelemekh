@@ -2,7 +2,7 @@ package org.itstep.msk.app.service;
 
 
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.repository.CustomRepository;
+
 import org.itstep.msk.app.repository.ReactiveCustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ReactCustomServImplement {
 
 
 
-    public Flux<Integer> allCustomer(){
+    public Flux<Customer> allCustomer(){
         return reactiveCustomRepository.findAll()
                 .take(5);
     }

@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 public class MysqlAppConfiguration  extends AbstractR2dbcConfiguration {
     @Override
     public ConnectionFactory connectionFactory() {
-        String url = "mysql://root:12345@127.0.0.1:3306/db";
+        String url = "mysql://root:12345@127.0.0.1:3306/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         return new JasyncConnectionFactory(new MySQLConnectionFactory(
                 URLParser.INSTANCE.parseOrDie(url, StandardCharsets.UTF_8)
         ));

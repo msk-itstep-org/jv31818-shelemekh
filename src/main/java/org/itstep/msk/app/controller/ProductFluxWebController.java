@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/product")
 public class ProductFluxWebController {
 
-    private WebClient webClient = WebClient.create("http://localhost:9000");
+    private WebClient webClient = WebClient.create("http://localhost:8083");
 
     @GetMapping
     public Flux<Product> getProduct() {
