@@ -5,12 +5,14 @@ import org.itstep.msk.app.entity.Customer;
 
 import org.itstep.msk.app.repository.ReactiveCustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class ReactCustomServImplement {
+
     private final ReactiveCustomRepository reactiveCustomRepository;
 
     @Autowired
@@ -20,14 +22,14 @@ public class ReactCustomServImplement {
 
 
 
-
+    @Query("SELECT * FROM customer WHERE c.name=? , c.id =?")
     public Flux<Customer> allCustomer(){
         return reactiveCustomRepository.findAll()
                 .take(5);
     }
 
     public Mono<Customer> addOne(Customer customer){
-        return reactiveCustomRepository.save(customer.getId());
+        return reactiveCustomRepository.save(customer);
 
     }
 
