@@ -1,45 +1,55 @@
 package org.itstep.msk.app.controller;
 
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.service.ReactCustomServImplement;
+import org.itstep.msk.app.entity.Product;
+import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.service.ServiceCustomImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
+import java.awt.*;
 
 @RestController
-@RequestMapping(value = "/customer", produces ="application/json")
+@RequestMapping(value = "/customer")
 public class CustomerController {
 
-    @Autowired
-    private ReactiveCrudRepository reactiveCrudRepository;
+
+    private ServiceCustomImp customImp;
 
     @Autowired
-    private ReactCustomServImplement reactservice;
+    public CustomerController( ServiceCustomImp customImp) {
+
+        this.customImp = customImp;
+    }
 
     @GetMapping("/register")
     private String register(){
         return "register";
     }
 
-    @PostMapping(value = "/register",consumes = "application/json")
-    public Mono<Customer> succesregister(Customer customer){
-        return reactservice.addOne(customer);
+    @PostMapping(value = "/register{id}")
+    public  void  succesregister(@RequestBody Customer customer, @PathVariable Integer id){
+        customImp.findCustomerOnId();
+
 
 
     }
 
     @GetMapping("/listproduct")
-    public  Flux<Customer> listProducts(){
-        return  reactservice.allCustomer()
-                .filter(customer -> customer.getId()==
-                        customer.getProduct().getTotalPrice());
+    public String productList(@RequestBody Customer customer){
+        return String.valueOf(customImp.findAllCustomerofProduct());
+
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteCustomerof(@RequestBody Customer customer){
+        customImp.deleteCustomer();
+
+    }
 
 
 
@@ -53,4 +63,4 @@ public class CustomerController {
 
 
     }
-}
+

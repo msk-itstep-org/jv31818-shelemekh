@@ -58,7 +58,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
 
-                .antMatchers("/register").permitAll()
+                .antMatchers("/customer/register").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()

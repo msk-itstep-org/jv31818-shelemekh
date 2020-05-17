@@ -15,25 +15,23 @@ public class ServiceProductImp {
     private ProductRepository productRepository;
 
     @Query("SELECT name_product FROM product")
-    public String findbyNameProduct(String name){
+    public void findbyNameProduct(){
        Optional<Product> productOptional = Optional.of(new
                Product());
 
-        if(productOptional.get().getName().equals(name)){
-            return "Ok";
-        }else {
+        if(!productOptional.get().getName().equals(productOptional.get().toString().isEmpty())) {
             Product product = new Product();
             productRepository.save(product);
-
+        }
 
 
 
         }
 
-        return name;
+
 
 
 
 
     }
-}
+

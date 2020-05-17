@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -57,9 +58,13 @@ public class AdminServiceImp {
     }
 
     public void findAllCustomer(){
-        customRepository.findAll().stream()
-                .limit(100)
-                .map(Customer::getName)
-                .distinct();
+       // customRepository.findAll().stream()
+             //   .limit(100)
+              //  .map(Customer::getName)
+              // .distinct();
+        Flux<Customer>  flux = Flux.fromIterable(customRepository.findAll())
+                .filter(customer -> customer.getPassword()!= null)
+                .flatMap(cust-> Flux.just(cust).delayElements(Duration.ofMillis(100)));
+
     }
 }

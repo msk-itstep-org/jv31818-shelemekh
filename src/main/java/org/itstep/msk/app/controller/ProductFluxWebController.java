@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/product", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 public class ProductFluxWebController {
 
     private WebClient webClient = WebClient.create("http://localhost:9000");
@@ -73,7 +73,7 @@ public class ProductFluxWebController {
 
     }
 
-    @DeleteMapping("/product")
+    @DeleteMapping("/productdel")
     public Mono<Void> deleteProductById (
             @RequestBody Product product, @PathVariable("id") Integer id){
 
