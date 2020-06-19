@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +29,16 @@ public class AdminController {
 
     @GetMapping("/panel")
     @PreAuthorize("hasRole('ADMIN')")
-    public String seachAllCustomer(){
+    public String seachAllCustomer(Model model){
+    model.addAttribute("panel");
+    return "panel";
 
-        return "panel";
 
     }
 
     @PostMapping("/panel")
     @ResponseBody
-    public String enterInAdminka(){
+    public String enterInAdminka(@RequestBody Customer customer){
         adminServiceImp.findAllCustomer();
 
         return "redirect:/panel";
@@ -48,8 +50,6 @@ public class AdminController {
     @ResponseBody
     public Product changeProduct(@RequestBody Product prod, @PathVariable String name, @PathVariable Double totalPrice){
         adminServiceImp.updateProduct(name);
-
-
         return new Product();
 
     }
@@ -60,8 +60,8 @@ public class AdminController {
     public Product deleteCustomer( @PathVariable Integer id){
         adminServiceImp.deleteCustomerOnDate();
         if (deleteCustomer(id) == null){
-            adminServiceImp.findAllCustomer()
-            ;
+            adminServiceImp.findAllCustomer();
+
         }else {
             throw new RuntimeException("Customer not found");
         }

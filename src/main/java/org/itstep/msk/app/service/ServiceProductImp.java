@@ -27,6 +27,25 @@ public class ServiceProductImp {
 
 
         }
+        @Query("SELECT * FROM product")
+        public void findAllofProduct(){
+            productRepository.findAll()
+                    .stream()
+                        .distinct();
+
+        }
+        @Query("SELECT * FROM product WHERE p.id =?")
+        public void deleteProductfromBucket(){
+            Optional<Product> productOptional = Optional.of(new Product());
+                productRepository.findById(productOptional.get().getId());
+
+                if (productOptional== null){
+                    Product prod1 = new Product();
+                    prod1.getId();
+                    productRepository.save(prod1);
+                }
+
+        }
 
 
 

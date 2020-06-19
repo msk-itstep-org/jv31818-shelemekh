@@ -58,7 +58,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
 
-                .antMatchers("/customer/register").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -70,7 +70,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
                 http.logout()
 
-                        .logoutSuccessUrl("/login");
+                        .logoutSuccessUrl("/register");
                 http.exceptionHandling()
                         .accessDeniedPage("/denypage");
 

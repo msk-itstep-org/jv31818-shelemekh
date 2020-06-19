@@ -9,9 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,19 +41,20 @@ import java.util.stream.Collectors;
 
         }
 
-    public Flux<Customer> findAllCustomerofProduct(){
-            return (Flux<Customer>) Flux.fromIterable(productRepository.findAll())
-                 .subscribe(product -> product.getTotalPrice());
+        @Query("SELECT * FROM customer WHERE c.name=?")
+    public   List<Customer> findAllCustomerofProduct() {
+            Predicate<Customer> preCust =
+                    (c)-> c.getName()!= null;
+
+
+       return (List<Customer>) customRepository.findAll()
+               .stream()
+               .filter(preCust);
+    }
 
 
 
 
-
-
-
-
-
-        }
 
     public void deleteCustomer(){
             Optional<Customer> cust = Optional.of(new Customer());

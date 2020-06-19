@@ -19,7 +19,7 @@ public class EmailController {
     @Autowired
     private EmailProperties properties;
 
-    @PostMapping
+    @PostMapping("/mail")
     public void sendMailfromUsers(@RequestBody EmailAnswer emailAnswer, BindingResult bindingResult)
             throws ValidationException {
 

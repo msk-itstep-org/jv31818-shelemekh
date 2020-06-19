@@ -58,13 +58,9 @@ public class AdminServiceImp {
     }
 
     public void findAllCustomer(){
-       // customRepository.findAll().stream()
-             //   .limit(100)
-              //  .map(Customer::getName)
-              // .distinct();
-        Flux<Customer>  flux = Flux.fromIterable(customRepository.findAll())
-                .filter(customer -> customer.getPassword()!= null)
-                .flatMap(cust-> Flux.just(cust).delayElements(Duration.ofMillis(100)));
-
+     customRepository.findAll()
+             .stream()
+             .filter(customer -> customer.getProduct()!= null)
+             .forEach(Customer::getId);
     }
 }

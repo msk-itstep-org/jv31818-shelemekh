@@ -51,7 +51,7 @@ public class ProductFluxWebController {
 
     @PostMapping(value = "/product")
     public Mono<Product> createProduct(@RequestBody Product prod) {
-        return webClient.post().uri("/product")
+        return webClient.post().uri("/")
                 .accept(MediaType.APPLICATION_JSON)
 
                 .body(BodyInserters.fromObject(prod))
@@ -63,7 +63,7 @@ public class ProductFluxWebController {
     }
 
     @PutMapping("/product")
-    public Mono<Product> updateProduct(@RequestBody Product prod, @PathVariable("name_product") String name, @PathVariable("final_price") Double totalPrice) {
+    public Mono<Product> updateProduct(@RequestBody Product prod, @RequestParam("name_product") String name, @RequestParam("final_price") Double totalPrice) {
         return webClient.put().uri("/product", name, totalPrice)
                 .accept(MediaType.APPLICATION_JSON)
                 .syncBody(prod)
@@ -73,11 +73,11 @@ public class ProductFluxWebController {
 
     }
 
-    @DeleteMapping("/productdel")
+    @DeleteMapping("/productdel{id}")
     public Mono<Void> deleteProductById (
             @RequestBody Product product, @PathVariable("id") Integer id){
 
-        return webClient.delete().uri("/product/{id}",id)
+        return webClient.delete().uri("/{id}",id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Void.class);
