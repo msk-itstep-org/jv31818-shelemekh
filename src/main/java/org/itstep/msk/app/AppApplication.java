@@ -8,8 +8,8 @@ package org.itstep.msk.app;
 		import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 
-@ComponentScan
-@SpringBootApplication
+
+@SpringBootApplication(scanBasePackages = {"org.itstep.msk.app"})
 public class AppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);

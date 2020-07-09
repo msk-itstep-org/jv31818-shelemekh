@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th = "http://www.thymeleaf.org">
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
     <meta charset="UTF-8">
-    <title>Registation pager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Registation page</title>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 
 </head>
 <body>
+
 <h1>Regitration</h1>
 <!--/*@thymesVar id="customer" type=""*/-->
+
 <div>
 
-    <form method="POST" th:action = "@{/register}" th:object ="${customer}" >
-        <h1 class="enter">Ввоведите ваши логин, пароль, телефон</h1>
-                <div class="reg">
-            <input type="text" id=" username" th:name="*{username}" placeholder="Введите имя"/> <br/>
-            <input type="text" id=" email" th:name="*{email}" placeholder="Введите пароль"/><br/>
-            <input type="text"   id= "phone" th:name="*{phoneNumber}" placeholder="Ввести номер телефона"/><br/>
-                </div>
-                <div th:if = "${#customer.hasErrors()}">
-                    <span>Введи коректные данные</span>
-                </div>
+    <form method="POST" th:action = "@{/register}" th:object="${customer}">
+        <h1 >Ввоведите ваши логин, пароль, телефон</h1>
+        <label th:field="*{name}">Name:</label>
+        <input type="text" name="customname"/><br/>
+
+        <label th:field="*{password}">Password:</label>
+        <input type="text" name="password"/><br/>
+
+        <label th:field="*{email}">Email:</label>
+        <input type="text" name="email"/><br/>
+
+
+    </form>
             <div >
                 <span>
             <button type="submit">Зарегать себя</button>
                     </span>
                 </div>
-        </form>
-
 
 </div>
     </body>

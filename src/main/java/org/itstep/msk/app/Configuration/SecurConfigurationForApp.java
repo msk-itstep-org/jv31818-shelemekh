@@ -57,15 +57,17 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-
-                .antMatchers("/register").permitAll()
+                .antMatchers("/customer").permitAll()
+                .antMatchers("/customer/register").permitAll()
+                .antMatchers("/customer/delete")
+                .access("hasRole('ROLE_USER')")
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/register")
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/successlogin")
+                .failureUrl("/index")
+                .defaultSuccessUrl("/listproduct")
                 .usernameParameter("name");
 
                 http.logout()

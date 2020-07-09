@@ -21,11 +21,12 @@ import java.util.Optional;
 @RequestMapping(value = "/admin", produces = "application/json")
 public class AdminController {
 
+    private final  AdminServiceImp adminServiceImp;
 
     @Autowired
-    private AdminServiceImp adminServiceImp;
-
-
+    public AdminController(AdminServiceImp adminServiceImp) {
+        this.adminServiceImp = adminServiceImp;
+    }
 
     @GetMapping("/panel")
     @PreAuthorize("hasRole('ADMIN')")
@@ -40,7 +41,6 @@ public class AdminController {
     @ResponseBody
     public String enterInAdminka(@RequestBody Customer customer){
         adminServiceImp.findAllCustomer();
-
         return "redirect:/panel";
 
 

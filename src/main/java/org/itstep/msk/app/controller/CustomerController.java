@@ -19,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/customer", produces = "application/json")
+@RequestMapping(value = "/customer")
 public class CustomerController {
 
 
@@ -39,7 +39,7 @@ public class CustomerController {
 
 
 
-    @PostMapping(value = "/register{id}")
+    @PostMapping(value = "/register")
     public  void  succesregister(@RequestBody Customer customer, @PathVariable Integer id){
         customImp.findCustomerOnId();
 
