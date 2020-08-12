@@ -1,5 +1,8 @@
     package org.itstep.msk.app.entity;
 
+    import org.hibernate.validator.constraints.Email;
+    import org.hibernate.validator.constraints.NotEmpty;
+
     import javax.persistence.*;
     import javax.validation.constraints.*;
     import java.util.Objects;
@@ -26,6 +29,9 @@
         @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
         @Size(max = 20)
         private String email;
+
+        public Customer() {
+        }
 
         @Override
         public boolean equals(Object o) {

@@ -7,11 +7,12 @@ package org.itstep.msk.app;
 		import org.springframework.context.annotation.ComponentScan;
 		import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
+		import java.io.IOException;
 
 
 @SpringBootApplication(scanBasePackages = {"org.itstep.msk.app"})
 public class AppApplication {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(AppApplication.class, args);
 	}
 }

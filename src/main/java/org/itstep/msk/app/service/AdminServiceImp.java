@@ -34,9 +34,7 @@ import java.util.TimeZone;
         @Query("SELECT name_product, final_price FROM product")
         public  String updateProduct(String  name){
           Product product = new Product();
-            productRepository.findById(product.getId())
-                    .map(Product::getName)
-                    .get();
+            productRepository.findById(product.getId());
 
            productRepository.save(product);
 

@@ -3,8 +3,8 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8" >
 
     <title>Registation page</title>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
@@ -13,29 +13,30 @@
 <body>
 
 <h1>Regitration</h1>
-<!--/*@thymesVar id="customer" type=""*/-->
-
 <div>
 
-    <form method="POST" th:action = "@{/register}" th:object="${customer}">
-        <h1 >Ввоведите ваши логин, пароль, телефон</h1>
+
+    <h1 >Ввеведите ваш логин, пароль</h1></br>
+
+        <form method="post" th:action="@{/customer}" th:object="${customer}">
+        <table>
+            <td>
         <label th:field="*{name}">Name:</label>
         <input type="text" name="customname"/><br/>
 
         <label th:field="*{password}">Password:</label>
         <input type="text" name="password"/><br/>
 
-        <label th:field="*{email}">Email:</label>
-        <input type="text" name="email"/><br/>
+            </td>
+        </table>
 
 
-    </form>
             <div >
                 <span>
             <button type="submit">Зарегать себя</button>
                     </span>
                 </div>
-
+        </form>
 </div>
     </body>
 </html>

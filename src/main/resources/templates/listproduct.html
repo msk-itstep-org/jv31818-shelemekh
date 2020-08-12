@@ -2,7 +2,7 @@
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8">
     <title>Cписок всех товаров</title>
 </head>
 
@@ -10,7 +10,7 @@
 
 <!--/*@thymesVar id="product" type=""*/-->
 <div>
-    <td th:action = "@{/listproduct}" th:object="${product}" method="GET"><br/>
+    <td  th:object="${product}" method="GET"><br/>
         <tr th:field = "*{name_product}}" >Название продукта</tr><br/>
         <tr th:field ="*{final_price}"> Цена товара</tr>
         </td>

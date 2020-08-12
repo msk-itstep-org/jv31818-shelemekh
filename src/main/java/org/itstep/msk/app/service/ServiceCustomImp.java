@@ -8,6 +8,7 @@
     import org.springframework.data.jpa.repository.Query;
     import org.springframework.stereotype.Service;
     import reactor.core.publisher.Flux;
+    import reactor.core.publisher.Mono;
 
     import java.util.Comparator;
     import java.util.List;
@@ -31,19 +32,20 @@
             this.productRepository = productRepository;
         }
 
-            @Query("SELECT * FROM customer WRERE c.id =?")
-            public void findCustomerOnId(){
-                Optional<Customer> customer = Optional.of(new Customer());
-                customRepository.findById(customer.get().getId());
 
-                if (customer == null) {
+            public Optional<Customer> findCustomerOnId(){
+                Optional<Customer> cust = Optional.of(new Customer());
+                customRepository.findById(cust.get().getId());
+
+                if (cust == null) {
                     Customer customer1 = new Customer();
                     customer1.getId();
-                    customRepository.save(customer1);
-                }
-
-
+                customRepository.save(customer1);
             }
+
+        return cust;
+
+    }
 
             @Query("SELECT * FROM customer WHERE c.name=?")
         public   List<Customer> findAllCustomerofProduct() {
@@ -64,10 +66,14 @@
             if (cust == null) {
                Customer customer2 = new Customer();
                customRepository.deleteById(customer2.getId());
-
-
             }
+
         }
 
+        @Query("INSERT INTO customer VALUES(c.name=?, c.password=?)")
+        public Customer saveinDb(Customer customer){
+                return customRepository.save(customer);
+
+        }
 
     }

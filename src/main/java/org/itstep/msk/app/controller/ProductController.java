@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.*;
 
 @RestController
-@RequestMapping(value = "/product", produces = "application/json")
+@RequestMapping(value = "/products", produces = "application/json")
 public class ProductController {
 
     private final ServiceProductImp productImp;

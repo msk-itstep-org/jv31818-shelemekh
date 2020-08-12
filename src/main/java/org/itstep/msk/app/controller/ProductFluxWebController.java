@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/product", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 public class ProductFluxWebController {
 
-    private WebClient webClient = WebClient.create("http://localhost:9000");
+    private WebClient webClient = WebClient.create("http://localhost:8089");
 
     @GetMapping
     public Flux<Product> getProduct() {

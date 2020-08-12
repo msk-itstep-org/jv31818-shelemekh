@@ -59,20 +59,22 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/customer").permitAll()
                 .antMatchers("/customer/register").permitAll()
-                .antMatchers("/customer/delete")
-                .access("hasRole('ROLE_USER')")
+                .antMatchers("/customer/listproduct").permitAll()
+                .antMatchers("/product**").permitAll()
+                .antMatchers("/customer/delete").hasAnyAuthority("ROLE_USER")
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/register")
+                .loginPage("/cusomer/register")
+                .defaultSuccessUrl("/registersuccess")
                 .failureUrl("/index")
-                .defaultSuccessUrl("/listproduct")
-                .usernameParameter("name");
+                .passwordParameter("password");
+
 
                 http.logout()
-
-                        .logoutSuccessUrl("/register");
+                        .logoutSuccessUrl("/customer/register");
                 http.exceptionHandling()
                         .accessDeniedPage("/denypage");
 
