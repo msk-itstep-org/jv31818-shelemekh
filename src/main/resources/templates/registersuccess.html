@@ -3,18 +3,17 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-
-
-
-    <title>Registation succecc</title>
-
+    <title>Regisrtation succecc</title>
+    <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8">
 </head>
 <body>
 
-<p>Регистрация прошла успешно</p>
-    <span>
-<button type="button">Log out</button>
-    </span>
+<h1>Регистрация прошла успешно</h1>
+<p th:text = "${customer.name}">
+<p th:text="${customer.password}">
 
+<div>
+<button type="button">Log out</button>
+</div>
 </body>
 </html>

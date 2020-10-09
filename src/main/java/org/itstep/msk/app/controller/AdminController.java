@@ -30,24 +30,23 @@ public class AdminController {
 
     @GetMapping("/panel")
     @PreAuthorize("hasRole('ADMIN')")
-    public String seachAllCustomer(Model model){
-    model.addAttribute("panel");
+    public String seachAllCustomer(@RequestBody Customer customer,@RequestParam String name, @RequestParam String password,
+                                  Model model ){
+    model.addAttribute("panel",customer);
     return "panel";
 
 
     }
 
     @PostMapping("/panel")
-    @ResponseBody
-    public String enterInAdminka(@RequestBody Customer customer){
+    public void enterInAdminka(@RequestBody Customer customer){
         adminServiceImp.findAllCustomer();
-        return "redirect:/panel";
+
 
 
     }
 
     @PutMapping("/admin/update")
-    @ResponseBody
     public Product changeProduct(@RequestBody Product prod, @PathVariable String name, @PathVariable Double totalPrice){
         adminServiceImp.updateProduct(name);
         return new Product();
@@ -56,7 +55,6 @@ public class AdminController {
 
 
     @DeleteMapping("/admin/delete{id}")
-    @ResponseBody
     public Product deleteCustomer( @PathVariable Integer id){
         adminServiceImp.deleteCustomerOnDate();
         if (deleteCustomer(id) == null){

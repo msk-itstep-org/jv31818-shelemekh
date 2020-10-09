@@ -29,18 +29,17 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        String customQuery = "SELECT name, email, phone, password,  1 as active FROM customer WHERE name =? ";
-
-        String authoriQuery = "SELECT n.name, r.roles "
-                + "FROM customer c "
-                + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
-                + "INNER JOIN  roles r ON r.id = cd.roles_id "
-                + "WHERE n.name = ?";
+      // String passQuery="SELECT password, 1 as active FROM customer WHERE password=?";
+   //     String authoriQuery = "SELECT n.name, r.roles "
+     //           + "FROM customer c "
+       //         + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
+         //       + "INNER JOIN  roles r ON r.id = cd.roles_id "
+           //     + "WHERE n.name = ?";
 
         auth.jdbcAuthentication()
-                .usersByUsernameQuery(customQuery)
-                    .authoritiesByUsernameQuery(authoriQuery)
-                    .dataSource(dataSource)
+                    .dataSource(this.dataSource)
+                        .usersByUsernameQuery("select name,password from customer where name=?")
+             //   .authoritiesByUsernameQuery(authoriQuery)
                     .passwordEncoder(passwordEncoder);
 
     }
@@ -57,26 +56,29 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/customer").permitAll()
-                .antMatchers("/customer/register").permitAll()
-                .antMatchers("/customer/listproduct").permitAll()
+
+                .antMatchers("/register").permitAll()
+                .antMatchers("listproduct").permitAll()
                 .antMatchers("/product**").permitAll()
-                .antMatchers("/customer/delete").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/delete").hasAnyAuthority("ROLE_CUSTOMER")
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 
-                .anyRequest().authenticated()
+              //  .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/cusomer/register")
-                .defaultSuccessUrl("/registersuccess")
-                .failureUrl("/index")
-                .passwordParameter("password");
-
+                .loginPage("/register").successForwardUrl("/registersucces")
+                .failureUrl("/");
 
                 http.logout()
-                        .logoutSuccessUrl("/customer/register");
+                        .logoutSuccessUrl("/register");
                 http.exceptionHandling()
-                        .accessDeniedPage("/denypage");
+                        .accessDeniedPage("/denypage")
+                       .and()
+                       .httpBasic();
+
+
+
+
 
 
 

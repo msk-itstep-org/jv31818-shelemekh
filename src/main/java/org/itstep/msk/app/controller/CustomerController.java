@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 //import reactor.core.publisher.Mono;
 
 import javax.jws.WebParam;
+import javax.validation.Valid;
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,6 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/customer" )
 public class CustomerController {
 
     private  ServiceCustomImp customImp;
@@ -44,47 +44,42 @@ public class CustomerController {
     @GetMapping(value = "/register")
     @ResponseStatus(HttpStatus.OK)
     private String register(
-            @RequestParam(value = "customname",required = false) String name,
+            @RequestParam(value = "name",required = false) String name,
            @RequestParam(value = "password", required = false) String password
-           ,Model model){
-       Customer customer1 = new Customer();
-
-
-    model.addAttribute("customer",customer1);
+           ,@ModelAttribute Customer customer){
          return "register";
 
     }
 
 
 
-
+/*
+    Save in db customer with cridetials name , password
+    return view "registersuccess"
+ */
     @PostMapping(value = "/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Customer succesreg( @ModelAttribute("customer") Customer customer,BindingResult res,Model model) {
-        if (res.hasErrors()) {
-            model.addAttribute("/register");
-        } else {
-
-            model.addAttribute("/registersuccess");
-
-        }
-        return customImp.saveinDb(customer);
+    public String succesreg( @ModelAttribute("name") String name,
+                             @ModelAttribute("password") String password,
+                             Customer customer
+             ) {
+        customer.setName(name);
+        customer.setPassword(password);
+        customImp.saveinDb(customer);
+      return "registersuccess";
     }
 
 
     @GetMapping("/listproduct")
-    public List<Customer> productList(@RequestBody Product product, @RequestParam(value = "name_product", required = false)
+    public List<Customer> productList( @RequestBody Product product,@RequestParam (value = "name_product", required = false)
             String name,
     @RequestParam(value = "final_price",required = false) Double price,Model model){
         Product product1= new Product();
-        product1.setName(product.getName());
-        product1.setTotalPrice(product.getTotalPrice());
         model.addAttribute("product", product);
         return customImp.findAllCustomerofProduct();
 
 
     }
-
+    @PreAuthorize("ROLE_USER")
     @DeleteMapping("/delete")
     public void deleteCustomerof(@RequestBody Customer customer){
         customImp.deleteCustomer();

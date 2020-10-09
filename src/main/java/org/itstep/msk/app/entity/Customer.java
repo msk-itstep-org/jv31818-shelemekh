@@ -5,12 +5,13 @@
 
     import javax.persistence.*;
     import javax.validation.constraints.*;
+    import java.io.Serializable;
     import java.util.Objects;
     import java.util.Set;
 
     @Entity
     @Table( name = "customer")
-    public class Customer {
+    public class Customer implements Serializable {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "customer_id")
@@ -25,7 +26,6 @@
 
         @Column(name = "email",
                 nullable = false)
-        @NotEmpty(message = "A form of email should not be empty")
         @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
         @Size(max = 20)
         private String email;
@@ -52,6 +52,7 @@
         private String phoneNumber;
 
         @Column(name = "password")
+        @NotNull
         private String password;
 
         public String getPassword() {

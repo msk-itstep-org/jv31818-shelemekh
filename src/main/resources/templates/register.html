@@ -3,33 +3,28 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-
     <meta http-equiv="Content-Type " content="text/html; charset=UTF-8" >
 
     <title>Registation page</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
 
 </head>
 <body>
 
-<h1>Regitration</h1>
+<h1>Registration</h1>
 <div>
 
 
     <h1 >Ввеведите ваш логин, пароль</h1></br>
 
-        <form method="post" th:action="@{/customer}" th:object="${customer}">
-        <table>
-            <td>
+        <form method="POST" th:action="@{/register}" th:object="${customer}">
+
+            <table>
         <label th:field="*{name}">Name:</label>
-        <input type="text" name="customname"/><br/>
+        <input type="text" name="name"/><br/>
 
         <label th:field="*{password}">Password:</label>
         <input type="text" name="password"/><br/>
-
-            </td>
-        </table>
-
+            </table>
 
             <div >
                 <span>

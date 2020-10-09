@@ -12,7 +12,7 @@ package org.itstep.msk.app;
 
 @SpringBootApplication(scanBasePackages = {"org.itstep.msk.app"})
 public class AppApplication {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(AppApplication.class, args);
 	}
 }
