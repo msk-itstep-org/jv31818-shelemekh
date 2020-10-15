@@ -20,7 +20,6 @@ import javax.sql.DataSource;
 public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("bcryptEncoder")
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -29,17 +28,17 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-      // String passQuery="SELECT password, 1 as active FROM customer WHERE password=?";
-   //     String authoriQuery = "SELECT n.name, r.roles "
-     //           + "FROM customer c "
-       //         + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
-         //       + "INNER JOIN  roles r ON r.id = cd.roles_id "
-           //     + "WHERE n.name = ?";
+       String passQuery="SELECT password, 1 as active FROM customer WHERE password=?";
+       String authoriQuery = "SELECT n.name, r.roles "
+               + "FROM customer c "
+               + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
+               + "INNER JOIN  roles r ON r.id = cd.roles_id "
+                + "WHERE n.name = ?";
 
         auth.jdbcAuthentication()
                     .dataSource(this.dataSource)
                         .usersByUsernameQuery("select name,password from customer where name=?")
-             //   .authoritiesByUsernameQuery(authoriQuery)
+               .authoritiesByUsernameQuery(authoriQuery)
                     .passwordEncoder(passwordEncoder);
 
     }
@@ -66,7 +65,8 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
               //  .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/register").successForwardUrl("/registersucces")
+                .loginPage("/register")
+                .defaultSuccessUrl("/registersuccess")
                 .failureUrl("/");
 
                 http.logout()

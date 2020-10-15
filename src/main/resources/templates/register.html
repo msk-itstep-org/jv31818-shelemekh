@@ -14,16 +14,14 @@
 <div>
 
 
-    <h1 >Ввеведите ваш логин, пароль</h1></br>
+    <h1 >Ввеведите ваш логин, пароль, email </h1></br>
 
-        <form method="POST" th:action="@{/register}" th:object="${customer}">
+        <form method="post" action="/register" th:object="${customer}">
 
             <table>
-        <label th:field="*{name}">Name:</label>
-        <input type="text" name="name"/><br/>
-
-        <label th:field="*{password}">Password:</label>
-        <input type="text" name="password"/><br/>
+        <input type="text" name="name" placeholder="Введите имя" class="form-control"/><br/>
+                 <input type="text" name="password" placeholder="Введите пароль" class="form-control"/><br/>
+                         <input type="text" name="email" placeholder="Ведите email" class="form-control"><br/>
             </table>
 
             <div >

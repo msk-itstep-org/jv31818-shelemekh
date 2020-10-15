@@ -45,7 +45,8 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     private String register(
             @RequestParam(value = "name",required = false) String name,
-           @RequestParam(value = "password", required = false) String password
+           @RequestParam(value = "password", required = false) String password,
+           @RequestParam(value = "email", required = false) String email
            ,@ModelAttribute Customer customer){
          return "register";
 
@@ -57,15 +58,14 @@ public class CustomerController {
     Save in db customer with cridetials name , password
     return view "registersuccess"
  */
-    @PostMapping(value = "/register")
-    public String succesreg( @ModelAttribute("name") String name,
-                             @ModelAttribute("password") String password,
-                             Customer customer
-             ) {
+    @PostMapping( "/register")
+    public @ResponseBody  String  succesreg(@ModelAttribute("name") String name, @ModelAttribute("password") String password,
+                            @ModelAttribute("email") String email,Customer customer ){
         customer.setName(name);
         customer.setPassword(password);
+        customer.setEmail(email);
         customImp.saveinDb(customer);
-      return "registersuccess";
+      return "/registersuccess";
     }
 
 
@@ -73,7 +73,6 @@ public class CustomerController {
     public List<Customer> productList( @RequestBody Product product,@RequestParam (value = "name_product", required = false)
             String name,
     @RequestParam(value = "final_price",required = false) Double price,Model model){
-        Product product1= new Product();
         model.addAttribute("product", product);
         return customImp.findAllCustomerofProduct();
 

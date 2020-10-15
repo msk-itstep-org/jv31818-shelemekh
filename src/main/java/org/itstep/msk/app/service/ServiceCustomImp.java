@@ -6,7 +6,9 @@
     import org.itstep.msk.app.repository.ProductRepository;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.data.jpa.repository.Query;
+    import org.springframework.data.repository.query.Param;
     import org.springframework.stereotype.Service;
+    import org.springframework.web.bind.annotation.RequestBody;
     import reactor.core.publisher.Flux;
     import reactor.core.publisher.Mono;
 
@@ -64,18 +66,13 @@
                 Customer customer2 = new Customer();
                 customRepository.deleteById(customer2.getId());
             }
-
         }
+
 
 
         public Customer saveinDb(Customer customer) {
-            Optional<Customer> cust = Optional.of(new Customer());
-            if (!cust.isPresent()) {
-                Customer customer1 = new Customer();
-                customer1.setName(customer.getName());
-                customer1.setPassword(customer.getPassword());
-
-            }
             return customRepository.save(customer);
         }
+
+
     }

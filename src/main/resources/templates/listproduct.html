@@ -10,7 +10,7 @@
 
 <!--/*@thymesVar id="product" type=""*/-->
 <div>
-    <form th:object="${product}" method="POST"><br/>>
+    <form action="/listproduct" th:object="${product}" method="POST"><br/>>
            <table>
         <tr th:field = "*{name_product}}" >Название продукта</tr><br/>
         <tr th:field ="*{final_price}"> Цена товара</tr>

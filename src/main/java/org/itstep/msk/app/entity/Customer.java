@@ -121,5 +121,11 @@
             this.phoneNumber = phoneNumber;
         }
 
-
+        public Customer(@NotNull @Size(min = 2, max = 20,
+                message = "A form with name should be between 2 to 10") String name, @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email") @Size(max = 20) String email
+                , @NotNull String password) {
+            this.name = name;
+            this.email = email;
+            this.password = password;
+        }
     }

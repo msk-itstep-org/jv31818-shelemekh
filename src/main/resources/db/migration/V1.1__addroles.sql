@@ -2,8 +2,8 @@ create table customer (
           customer_id  integer not null auto_increment primary key
           references  product(product_id),
           name varchar(20) not null,
-          email varchar (20) not null,
-          phone varchar (20) not null,
+          email varchar (20) ,
+          phone varchar (20) ,
           password varchar (10) not null
 
 );
