@@ -15,20 +15,13 @@ public class MainConfiguration  {
 
 
     @Bean
-    public PasswordEncoder bcryptEncoder(){
-        return new BCryptPasswordEncoder();
-
-
+    public SpringResourceTemplateResolver thymeleafresolev(){
+        final SpringResourceTemplateResolver resolver= new SpringResourceTemplateResolver();
+       resolver.setPrefix("classpath:/templates/");
+       resolver.setSuffix(".html");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        return resolver;
     }
-
-   // @Bean
-   // public SpringResourceTemplateResolver thymeleafresolev(){
- //       final SpringResourceTemplateResolver resolver= new SpringResourceTemplateResolver();
-     //   resolver.setPrefix("classpath:/templates/");
-     //   resolver.setSuffix(".html");
-    //    resolver.setTemplateMode(TemplateMode.HTML);
-     //   return resolver;
-   // }
 
 
 

@@ -35,11 +35,10 @@
         }
 
 
-        public Optional<Customer> findCustomerOnId() {
+        public Optional<Customer> findCustomerById() {
             Optional<Customer> cust = Optional.of(new Customer());
             customRepository.findById(cust.get().getId());
-
-            if (cust == null) {
+            if (!cust.isPresent() ) {
                 Customer customer1 = new Customer();
                 customer1.getId();
                 customRepository.save(customer1);
@@ -50,13 +49,11 @@
         }
 
         @Query("SELECT * FROM customer WHERE c.name=?")
-        public List<Customer> findAllCustomerofProduct() {
-            Predicate<Customer> preCust =
-                    (c) -> c.getName() != null;
-            return customRepository.findAll()
-                    .stream()
-                    .filter(preCust)
-                    .collect(Collectors.toList());
+        public Iterable<Customer> findAllCustomerofProduct() {
+            return customRepository.findAll();
+
+
+
         }
 
 

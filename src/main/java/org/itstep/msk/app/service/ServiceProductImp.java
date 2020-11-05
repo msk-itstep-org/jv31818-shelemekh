@@ -14,7 +14,8 @@ public class ServiceProductImp {
     @Autowired
     private ProductRepository productRepository;
 
-    @Query("SELECT name_product FROM product")
+
+    @Query("SELECT name_product FROM product WHERE name_product=?")
     public void findbyNameProduct(){
        Optional<Product> productOptional = Optional.of(new
                Product());
@@ -27,11 +28,10 @@ public class ServiceProductImp {
 
 
         }
-        @Query("SELECT * FROM product")
+        @Query("SELECT * FROM product WHERE p.final_price=?")
         public void findAllofProduct(){
             productRepository.findAll()
-                    .stream()
-                        .distinct();
+                    .forEach(Product::getTotalPrice);
 
         }
         @Query("SELECT * FROM product WHERE p.id =?")

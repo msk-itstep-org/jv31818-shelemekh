@@ -28,12 +28,12 @@ import java.util.Optional;
 
 
 
-@Slf4j
 @Controller
+@RequestMapping("/customers")
 public class CustomerController {
 
     private  ServiceCustomImp customImp;
-    private  CustomRepository repo;
+   private  CustomRepository repo;
 
     @Autowired
     public CustomerController() {
@@ -42,13 +42,16 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/register")
-    @ResponseStatus(HttpStatus.OK)
-    private String register(
-            @RequestParam(value = "name",required = false) String name,
-           @RequestParam(value = "password", required = false) String password,
-           @RequestParam(value = "email", required = false) String email
-           ,@ModelAttribute Customer customer){
-         return "register";
+    private String register(Model model){
+        model.addAttribute("customer",new Customer());
+               return "register";
+
+    }
+    @GetMapping
+    public String fromAll(Model model){
+        Iterable<Customer> iterator= repo.findAll();
+        model.addAttribute("iterator",iterator);
+        return "redirect:/";
 
     }
 
@@ -58,26 +61,34 @@ public class CustomerController {
     Save in db customer with cridetials name , password
     return view "registersuccess"
  */
-    @PostMapping( "/register")
-    public @ResponseBody  String  succesreg(@ModelAttribute("name") String name, @ModelAttribute("password") String password,
-                            @ModelAttribute("email") String email,Customer customer ){
-        customer.setName(name);
-        customer.setPassword(password);
-        customer.setEmail(email);
-        customImp.saveinDb(customer);
-      return "/registersuccess";
+    @PostMapping
+    public   String  succesreg(@RequestParam String name, @RequestParam String password,
+                               @RequestParam String email, Model model){
+        Customer cust= new Customer(name,password,email);
+        model.addAttribute("cust",cust);
+        customImp.saveinDb(cust);
+
+      return "redirect:/registersuccess";
     }
 
 
     @GetMapping("/listproduct")
-    public List<Customer> productList( @RequestBody Product product,@RequestParam (value = "name_product", required = false)
+    public String productList( @RequestBody Product product,@RequestParam (value = "name_product", required = false)
             String name,
     @RequestParam(value = "final_price",required = false) Double price,Model model){
-        model.addAttribute("product", product);
-        return customImp.findAllCustomerofProduct();
+        model.addAttribute("product" , new Product());
+        return "listproduct";
 
 
     }
+
+    @PostMapping("/listorders")
+    public Iterable<Customer> allProductWithPrice(@RequestBody Product product){
+        return customImp.findAllCustomerofProduct();
+    }
+
+
+
     @PreAuthorize("ROLE_USER")
     @DeleteMapping("/delete")
     public void deleteCustomerof(@RequestBody Customer customer){

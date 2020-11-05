@@ -4,11 +4,13 @@ import org.itstep.msk.app.entity.Role;
 import org.itstep.msk.app.enums.AppRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -19,8 +21,13 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    @Bean
+    public PasswordEncoder bcryptEncoder(){
+        return new BCryptPasswordEncoder();
+
+
+    }
 
     @Autowired
     private DataSource dataSource;
@@ -39,7 +46,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
                     .dataSource(this.dataSource)
                         .usersByUsernameQuery("select name,password from customer where name=?")
                .authoritiesByUsernameQuery(authoriQuery)
-                    .passwordEncoder(passwordEncoder);
+                    .passwordEncoder(bcryptEncoder());
 
     }
 
@@ -48,12 +55,15 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("/js/**")
-                .antMatchers("/images/**");
+                .antMatchers("/images/**")
+                .antMatchers("/templates/**")
+                .antMatchers("/static/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/resources/**","/static/**","/js/**").permitAll()
                 .antMatchers("/").permitAll()
 
                 .antMatchers("/register").permitAll()

@@ -3,7 +3,7 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8" >
+    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8" />
 
     <title>Registation page</title>
 
@@ -11,19 +11,19 @@
 <body>
 
 <h1>Registration</h1>
-<div>
-
-
+<br>
     <h1 >Ввеведите ваш логин, пароль, email </h1></br>
 
-        <form method="post" action="/register" th:object="${customer}">
-
-            <table>
-        <input type="text" name="name" placeholder="Введите имя" class="form-control"/><br/>
-                 <input type="text" name="password" placeholder="Введите пароль" class="form-control"/><br/>
-                         <input type="text" name="email" placeholder="Ведите email" class="form-control"><br/>
+        <form method="POST" th:action="@{/customers}"  th:object="${customer}">
+            <h2>Введите ваши данные в поля</h2></br>
+            <br>
+        <input type="text" th:field="*{name}"  class="form-control"/>
+                <label>Name</label></br>
+                 <input type="text" th:field="*{password}"  class="form-control"/>
+            <label >Password</label></br>
+                         <input type="text" th:field="*{email}"  class="form-control/">
+    <label>Email</label></br>
             </table>
-
             <div >
                 <span>
             <button type="submit">Зарегать себя</button>

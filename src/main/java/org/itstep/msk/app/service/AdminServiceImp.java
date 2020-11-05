@@ -18,12 +18,8 @@ import java.util.TimeZone;
 
     @Service
     public class AdminServiceImp {
-
-
-         private  final ProductRepository productRepository;
-
+        private  final ProductRepository productRepository;
          private final CustomRepository customRepository;
-
 
             @Autowired
             public AdminServiceImp(ProductRepository productRepository, CustomRepository customRepository) {
@@ -35,7 +31,6 @@ import java.util.TimeZone;
         public  String updateProduct(String  name){
           Product product = new Product();
             productRepository.findById(product.getId());
-
            productRepository.save(product);
 
            return name;
@@ -49,17 +44,12 @@ import java.util.TimeZone;
                 customRepository.delete(customer);
 
 
-
-
-
             }
 
         }
 
         public void findAllCustomer(){
          customRepository.findAll()
-                 .stream()
-                 .filter(customer -> customer.getProduct()!= null)
-                 .forEach(Customer::getId);
+                 .forEach(Customer::getProduct);
         }
     }
