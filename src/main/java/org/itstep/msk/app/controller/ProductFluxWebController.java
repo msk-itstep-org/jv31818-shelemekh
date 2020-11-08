@@ -51,7 +51,7 @@ public class ProductFluxWebController {
 
     @PostMapping(value = "/product")
     public Mono<Product> createProduct(@RequestBody Product prod) {
-        return webClient.post().uri("/")
+        return webClient.post().uri("/product")
                 .accept(MediaType.APPLICATION_JSON)
 
                 .body(BodyInserters.fromObject(prod))

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,7 +16,6 @@ public class ServiceProductImp {
     private ProductRepository productRepository;
 
 
-    @Query("SELECT name_product FROM product WHERE name_product=?")
     public void findbyNameProduct(){
        Optional<Product> productOptional = Optional.of(new
                Product());
@@ -28,13 +28,13 @@ public class ServiceProductImp {
 
 
         }
-        @Query("SELECT * FROM product WHERE p.final_price=?")
-        public void findAllofProduct(){
-            productRepository.findAll()
-                    .forEach(Product::getTotalPrice);
+
+        public List<Product> findAllofProduct(){
+           return productRepository.findAll();
+
 
         }
-        @Query("SELECT * FROM product WHERE p.id =?")
+
         public void deleteProductfromBucket(){
             Optional<Product> productOptional = Optional.of(new Product());
                 productRepository.findById(productOptional.get().getId());

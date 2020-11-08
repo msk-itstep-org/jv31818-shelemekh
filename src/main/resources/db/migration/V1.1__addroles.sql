@@ -20,15 +20,6 @@ create table product (
 
 );
 
-create table checklist (
-        check_id  integer  unsigned not null auto_increment primary key,
-         address varchar (1000) not null,
-        manager varchar (1000) not null
-
-
-
-
-);
 
 
 create table role (
