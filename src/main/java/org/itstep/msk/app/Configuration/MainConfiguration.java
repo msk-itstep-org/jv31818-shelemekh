@@ -16,12 +16,12 @@ public class MainConfiguration  {
 
     @Bean
     public SpringResourceTemplateResolver thymeleafresolev(){
-        final SpringResourceTemplateResolver resolver= new SpringResourceTemplateResolver();
+       final SpringResourceTemplateResolver resolver= new SpringResourceTemplateResolver();
        resolver.setPrefix("classpath:/templates/");
        resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
-    }
+   }
 
 
 

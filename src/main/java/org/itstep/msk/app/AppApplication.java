@@ -10,8 +10,9 @@ package org.itstep.msk.app;
 		import java.io.IOException;
 
 
-@SpringBootApplication(scanBasePackages = {"org.itstep.msk.app","src/main/resources"})
-@EnableAutoConfiguration
+@SpringBootApplication
+@ComponentScan(basePackages = {"org.itstep.msk.app.Configuration","org.itstep.msk.app.controller","org.itstep.msk.app.repository",
+"org.itstep.msk.app.service","org.itstep.msk.app.entity"})
 public class AppApplication {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(AppApplication.class, args);

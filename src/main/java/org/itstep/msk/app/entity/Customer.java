@@ -18,7 +18,7 @@
         private Integer id;
 
         @Column( name = "name", nullable = false)
-        @NotNull
+        @NotBlank
         @Size(min = 2, max = 20 ,
                 message = "A form with name should be between 2 to 10")
         private String name;
@@ -47,7 +47,7 @@
         }
 
         @Column(name = "phone")
-        @Pattern(regexp = "^((\\+7|7|8)+([0-9]){10})$",message = "Invalid phone number")
+        @Pattern(regexp = "^((\\+7|7|8)+([0-9]{10})$)",message = "Invalid phone number")
         @Size(max = 20,message = "the digits should be not more than 10")
         private String phoneNumber;
 
@@ -121,11 +121,9 @@
             this.phoneNumber = phoneNumber;
         }
 
-        public Customer(@NotNull @Size(min = 2, max = 20,
-                message = "A form with name should be between 2 to 10") String name, @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email") @Size(max = 20) String email
-                , @NotNull String password) {
+        public Customer(String password,String name) {
             this.name = name;
-            this.email = email;
+          //  this.email = email;
             this.password = password;
         }
     }

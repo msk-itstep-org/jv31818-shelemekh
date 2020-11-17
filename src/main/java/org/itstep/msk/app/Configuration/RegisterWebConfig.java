@@ -15,7 +15,7 @@ public class RegisterWebConfig  implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/register").setViewName("register");
+       registry.addViewController("/register").setViewName("register");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){

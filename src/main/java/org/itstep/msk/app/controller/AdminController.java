@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequestMapping(value = "/admin", produces = "application/json")
 public class AdminController {
 
-    private final  AdminServiceImp adminServiceImp;
+    private   AdminServiceImp adminServiceImp;
 
     @Autowired
     public AdminController(AdminServiceImp adminServiceImp) {
