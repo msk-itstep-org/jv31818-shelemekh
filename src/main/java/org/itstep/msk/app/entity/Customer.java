@@ -2,6 +2,8 @@
 
     import org.hibernate.validator.constraints.Email;
     import org.hibernate.validator.constraints.NotEmpty;
+    import org.springframework.security.core.userdetails.User;
+    import org.springframework.security.crypto.password.PasswordEncoder;
 
     import javax.persistence.*;
     import javax.validation.constraints.*;
@@ -11,7 +13,7 @@
 
     @Entity
     @Table( name = "customer")
-    public class Customer implements Serializable {
+    public class Customer  implements Serializable {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "customer_id")

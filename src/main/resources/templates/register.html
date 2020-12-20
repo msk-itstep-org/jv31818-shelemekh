@@ -3,7 +3,7 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <meta http-equiv="Content-Type " content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html ; charset= utf-8"/>
 
     <title>Registation page</title>
 
@@ -11,10 +11,10 @@
 <br>
 
     <h1>Регистрация</h1>
-<br>
+<br/>
     <h1 >Ввеведите ваш логин, пароль, email </h1></br>
 
-        <form action="/register"  th:action="@{/register}"  th:object="${customer}" method="post">
+        <form method="POST"  th:action="@{/login}"  th:object="${customer}" >
             <label >Name:</label>
         <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Введите имя"/>
             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/></br>
@@ -23,7 +23,7 @@
     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></br>
             <div >
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
                     <label class="form-check-label" for="exampleCheck1">Remember me</label>
                 </div>
                 <span>

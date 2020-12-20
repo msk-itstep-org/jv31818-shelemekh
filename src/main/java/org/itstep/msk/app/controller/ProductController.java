@@ -25,9 +25,9 @@ public class ProductController {
     }
 
     @GetMapping("/product{id}")
-    public Product getMeOneProductByName(@RequestBody Product product,@PathVariable Integer id){
+    public void getMeOneProductByName(@RequestBody Product product,@PathVariable Integer id){
         productImp.findbyNameProduct();
-        return product;
+
     }
     
 }

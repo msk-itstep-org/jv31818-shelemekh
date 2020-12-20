@@ -27,7 +27,7 @@ import java.util.TimeZone;
                 this.customRepository = customRepository;
             }
 
-        @Query("SELECT name_product, final_price FROM product")
+        @Query("SELECT name_product, final_price FROM product GROUP BY final_price")
         public  String updateProduct(String  name){
           Product product = new Product();
             productRepository.findById(product.getId());
