@@ -1,6 +1,6 @@
 create table customer (
-          customer_id  integer not null auto_increment primary key
-          references  product(product_id),
+          id  integer  unsigned not null auto_increment primary key
+          references  product(id),
           name varchar(20) not null,
           email varchar (20) ,
           phone varchar (20) ,
@@ -9,8 +9,8 @@ create table customer (
 );
 
 create table product (
-        product_id integer  unsigned not null auto_increment primary key
-        references customer(customer_id),
+        id integer unsigned not null auto_increment primary key
+        references customer(id),
         name_product varchar (100) not null,
         final_price double (10,0) not null
 
@@ -29,14 +29,17 @@ name varchar (100) not null
 
 );
 
-create table custom_roles(
-customer_id integer not null references customer(id),
-roles_id integer  not null references roles(id),
-
-primary key (customer_id,roles_id)
-
-
+create table custom_roles
+(
+    customer_id integer not null references role (id),
+    roles_id    integer not null references customer (id),
+      primary key auto_increment
+    (customer_id,
+    roles_id)
 );
+
+
+
 
 
 

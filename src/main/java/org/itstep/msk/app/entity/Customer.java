@@ -16,7 +16,7 @@
     public class Customer  implements Serializable {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "customer_id")
+        @Column(unique = true,nullable = false)
         private Integer id;
 
         @Column( name = "name", nullable = false)
@@ -53,7 +53,7 @@
         @Size(max = 20,message = "the digits should be not more than 10")
         private String phoneNumber;
 
-        @Column(name = "password")
+        @Column(name = "password",nullable = false)
         @NotNull
         private String password;
 
@@ -64,11 +64,6 @@
         public void setPassword(String password) {
             this.password = password;
         }
-
-        @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @JoinColumn(name = "customer_id"  ,insertable = false ,updatable = false,referencedColumnName ="product_id",nullable = false)
-        private Product product;
-
 
 
         @ManyToMany
@@ -85,13 +80,6 @@
             this.role = role;
         }
 
-        public Product getProduct() {
-            return product;
-        }
-
-        public void setProduct(Product product) {
-            this.product = product;
-        }
 
 
         public Integer getId() {

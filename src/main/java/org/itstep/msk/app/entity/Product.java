@@ -10,7 +10,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(unique = true,nullable = false)
     private Integer id;
 
     @Column( name = "name_product" ,nullable = false)
@@ -20,7 +20,9 @@ public class Product {
     private double totalPrice;
 
 
-    @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id"  ,insertable = false ,
+            updatable = true,referencedColumnName ="id",nullable = true)
     private Set<Customer> customer;
 
 
@@ -40,6 +42,9 @@ public class Product {
         return Objects.hash(id);
     }
 
+
+    public Product() {
+    }
 
     public Set<Customer> getCustomer() {
         return customer;

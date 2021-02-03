@@ -16,7 +16,7 @@ public class RegisterWebConfig  implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
        registry.addViewController("/login").setViewName("register");
-       registry.addViewController("/main").setViewName("/");
+       registry.addViewController("/").setViewName("index");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
@@ -26,8 +26,7 @@ public class RegisterWebConfig  implements WebMvcConfigurer {
 
     @Bean
     public HttpMessageConverter<Object> createJsonconverter(){
-        MappingJackson2HttpMessageConverter jacson= new MappingJackson2HttpMessageConverter();
-        return jacson;
+        return new MappingJackson2HttpMessageConverter();
     }
 
 

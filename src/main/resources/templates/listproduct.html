@@ -12,13 +12,16 @@
 <div>
     <form  th:action="@{/customers}" th:object="${product}" method="POST"><br/>>
            <table>
-        <tr th:field = "*{name_product}}" >Название продукта</tr><br/>
+               <td>
+        <tr th:field = "*{name_product}" >Название продукта</p><br/>
         <tr th:field ="*{final_price}"> Цена товара</tr>
+               </td>
            </table>
     </form>
 </div>
 
 <div>
+    <span>
   <p>Новенький? Перейди
       <a th:href = "@{/register}">по ссылке</a>зарегистрироваться.</p>
     </span>

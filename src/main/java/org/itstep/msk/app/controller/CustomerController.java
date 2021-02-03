@@ -22,8 +22,8 @@ import java.util.Optional;
 public class CustomerController {
 
 
-  private CustomRepository customRepository;
-    private ProductRepository productRepository;
+  private  final CustomRepository customRepository;
+    private  final ProductRepository productRepository;
 
 
     public CustomerController(CustomRepository customRepository, ProductRepository productRepository) {

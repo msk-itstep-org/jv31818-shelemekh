@@ -8,19 +8,21 @@
     <title>Registation page</title>
 
 </head>
+<body>
 <br>
-
     <h1>Регистрация</h1>
 <br/>
-    <h1 >Ввеведите ваш логин, пароль, email </h1></br>
+    <h1 >Ввеведите ваш логин, пароль</h1>
+</br>
 
-        <form method="POST"  th:action="@{/login}"  th:object="${customer}" >
+        <form method="POST"  th:action="@{/register/login}"  th:object="${customer}"
+        >
             <label >Name:</label>
-        <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Введите имя"/>
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/></br>
-            <label >Password</label></br>
-                 <input type="text" name="password" th:field="*{password}" class="form-control" placeholder="Введите пароль"/>
-    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></br>
+            <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Введите имя"/></br>
+            <label >Password:</label></br>
+                 <input type="text" name="password" th:field="*{password}" class="form-control" placeholder="Введите пароль"/></br>
+            <label>Email:</label>
+            <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Введите email"/></br>
             <div >
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
@@ -30,8 +32,6 @@
             <button type="submit" class="btn btn-primary">Зарегать себя</button>
                     </span>
                 </div>
-
-
         </form>
 
     </body>
