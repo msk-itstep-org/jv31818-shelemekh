@@ -35,9 +35,9 @@ public class CustomerController {
     //Get from Customer credentials as name ,password
     @GetMapping("/currentcustomer/{id}")
     private Customer getcurrent(@RequestBody Customer cust, @RequestParam Integer id ){
-        return customRepository.findById(id
-        ).get();
+        return customRepository.findById(id).orElse(cust);
     }
+
 
 
         @GetMapping("/listproduct")
@@ -50,7 +50,7 @@ public class CustomerController {
         @GetMapping("/listproduct/{id}")
         public ResponseEntity<Product> getCurrentProduct (@PathVariable Integer id){
             Optional<Product> optionalProduct = productRepository.findById(id);
-            if (optionalProduct.isPresent())
+            if (!optionalProduct.isPresent())
                 return ResponseEntity.ok(optionalProduct.get());
             return ResponseEntity.notFound().build();
         }
@@ -61,7 +61,7 @@ public class CustomerController {
         }
 
 
-        @PreAuthorize("ROLE_USER")
+        @PreAuthorize("CUSTOMER")
         @DeleteMapping("/delete/{id}")
         public void deleteCustomerof (@PathVariable Integer id, @RequestBody Customer customer){
             customRepository.delete(customer);

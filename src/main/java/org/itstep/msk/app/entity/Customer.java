@@ -1,7 +1,6 @@
     package org.itstep.msk.app.entity;
 
-    import org.hibernate.validator.constraints.Email;
-    import org.hibernate.validator.constraints.NotEmpty;
+
     import org.springframework.security.core.userdetails.User;
     import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -28,7 +27,7 @@
 
         @Column(name = "email",
                 nullable = false)
-        @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
+      //  @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
         @Size(max = 20)
         private String email;
 

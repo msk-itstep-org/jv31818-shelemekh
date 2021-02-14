@@ -1,6 +1,6 @@
 package org.itstep.msk.app.mail;
 
-import org.hibernate.validator.constraints.Email;
+
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ public class EmailAnswer {
     @NotNull
     private String name;
     @NotNull
-    @Email
+  //  @Email
     private String email;
 
     @NotNull

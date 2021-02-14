@@ -2,13 +2,17 @@ package org.itstep.msk.app.service;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.graalvm.compiler.lir.CompositeValue;
 import org.itstep.msk.app.entity.Customer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+
+
 
 @Getter
 @Setter
