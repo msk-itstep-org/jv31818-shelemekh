@@ -20,9 +20,6 @@ public class CustomDetailsClass implements UserDetails {
 
     private Customer customer;
 
-    public CustomDetailsClass(Customer customer) {
-        this.customer = customer;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

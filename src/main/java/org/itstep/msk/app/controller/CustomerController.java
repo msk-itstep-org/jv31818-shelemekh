@@ -4,13 +4,12 @@ import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.itstep.msk.app.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 //import reactor.core.publisher.Flux;
@@ -41,16 +40,16 @@ public class CustomerController {
 
 
         @GetMapping("/listproduct")
-        public String productList (@RequestBody Product product, @RequestParam(value = "name_product", required = false) String name,
-                @RequestParam(value = "final_price", required = false) Double price){
-            productRepository.findAll();
+        public String productList (){
+            productRepository.findAll().stream()
+            .distinct().collect(Collectors.toList());
             return "listproduct";
 
         }
         @GetMapping("/listproduct/{id}")
         public ResponseEntity<Product> getCurrentProduct (@PathVariable Integer id){
             Optional<Product> optionalProduct = productRepository.findById(id);
-            if (!optionalProduct.isPresent())
+            if (optionalProduct.isPresent())
                 return ResponseEntity.ok(optionalProduct.get());
             return ResponseEntity.notFound().build();
         }
@@ -61,7 +60,7 @@ public class CustomerController {
         }
 
 
-        @PreAuthorize("CUSTOMER")
+        @PreAuthorize("ROLE_CUSTOMER")
         @DeleteMapping("/delete/{id}")
         public void deleteCustomerof (@PathVariable Integer id, @RequestBody Customer customer){
             customRepository.delete(customer);

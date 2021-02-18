@@ -11,20 +11,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerDetailServiceRepo implements UserDetailsService {
 
+    @Autowired
+    private   CustomRepository customRepository;
 
-    private final   CustomRepository customRepository;
 
-    public CustomerDetailServiceRepo(CustomRepository customRepository) {
-        this.customRepository = customRepository;
-    }
 
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
             Customer customer= customRepository.findByName(name);
-           CustomDetailsClass customDetailsClass= null;
+           CustomDetailsClass customDetailsClass = null;
             if (customer!=null){
-                customDetailsClass = new CustomDetailsClass(customer);
+                customDetailsClass= new CustomDetailsClass();
+                customDetailsClass.setCustomer(customer);
             }else {
                 throw new UsernameNotFoundException("Customer is not exist.."+ name);
             }
