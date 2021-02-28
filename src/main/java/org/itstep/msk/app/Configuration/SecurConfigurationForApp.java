@@ -3,6 +3,8 @@ package org.itstep.msk.app.Configuration;
 import org.itstep.msk.app.service.CustomDetailsClass;
 import org.itstep.msk.app.service.CustomerDetailServiceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,8 +23,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
+
     @Autowired
-   private CustomerDetailServiceRepo customerDetailServiceRepo;
+    CustomerDetailServiceRepo customerDetailServiceRepo;
 
 
     @Bean
@@ -33,6 +36,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
+    @Value("${spring.datasource.url}")
     private DataSource dataSource;
 
     @Override

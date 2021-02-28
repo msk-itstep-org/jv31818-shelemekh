@@ -11,8 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerDetailServiceRepo implements UserDetailsService {
 
+
     @Autowired
-    private   CustomRepository customRepository;
+    public CustomerDetailServiceRepo(CustomRepository customRepository) {
+        this.customRepository = customRepository;
+    }
+
+    private  final CustomRepository customRepository;
+
+
 
 
 
