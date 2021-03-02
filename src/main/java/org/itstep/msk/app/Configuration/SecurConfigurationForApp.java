@@ -23,9 +23,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
-
-    @Autowired
-    CustomerDetailServiceRepo customerDetailServiceRepo;
+        @Autowired
+        private UserDetailsService userDetailsService;
 
 
     @Bean
@@ -53,7 +52,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
           //      .usersByUsernameQuery("select name,password,enabled from customer where username = ?")
             //    .groupAuthoritiesByUsername(authoriQuery)
             //    .passwordEncoder(bcryptEncoder());
-        auth.userDetailsService(customerDetailServiceRepo).passwordEncoder(bcryptEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bcryptEncoder());
 
     }
 
@@ -69,6 +68,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.authorizeRequests()
 
                 .antMatchers("/","/**").permitAll()

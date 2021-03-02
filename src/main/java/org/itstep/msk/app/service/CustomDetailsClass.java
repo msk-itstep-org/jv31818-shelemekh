@@ -1,7 +1,6 @@
 package org.itstep.msk.app.service;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.graalvm.compiler.lir.CompositeValue;
 import org.itstep.msk.app.entity.Customer;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class CustomDetailsClass implements UserDetails {
 
     private Customer customer;

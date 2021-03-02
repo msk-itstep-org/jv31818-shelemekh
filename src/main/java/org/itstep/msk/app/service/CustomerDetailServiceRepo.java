@@ -17,23 +17,21 @@ public class CustomerDetailServiceRepo implements UserDetailsService {
         this.customRepository = customRepository;
     }
 
-    private  final CustomRepository customRepository;
-
-
-
-
+    private final CustomRepository customRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-            Customer customer= customRepository.findByName(name);
-           CustomDetailsClass customDetailsClass = null;
-            if (customer!=null){
-                customDetailsClass= new CustomDetailsClass();
-                customDetailsClass.setCustomer(customer);
-            }else {
-                throw new UsernameNotFoundException("Customer is not exist.."+ name);
-            }
+        Customer customer = customRepository.findByName(name);
+        CustomDetailsClass detailsClass = null;
+        if (customer != null) {
+            detailsClass = new CustomDetailsClass();
+            detailsClass.setCustomer(customer);
+        } else {
+            throw new UsernameNotFoundException("Customer not found" + name);
+        }
         return null;
+
     }
 }
+
