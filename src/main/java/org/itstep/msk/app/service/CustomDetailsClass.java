@@ -15,9 +15,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class CustomDetailsClass implements UserDetails {
 
     private Customer customer;

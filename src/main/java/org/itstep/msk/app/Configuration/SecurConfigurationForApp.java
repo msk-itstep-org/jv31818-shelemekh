@@ -1,9 +1,6 @@
 package org.itstep.msk.app.Configuration;
 
-import org.itstep.msk.app.service.CustomDetailsClass;
-import org.itstep.msk.app.service.CustomerDetailServiceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,9 +19,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
-        @Autowired
-        private UserDetailsService userDetailsService;
-
+    @Autowired
+   private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder bcryptEncoder(){
@@ -34,8 +29,6 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Autowired
-    @Value("${spring.datasource.url}")
     private DataSource dataSource;
 
     @Override
@@ -52,6 +45,7 @@ public class SecurConfigurationForApp extends WebSecurityConfigurerAdapter {
           //      .usersByUsernameQuery("select name,password,enabled from customer where username = ?")
             //    .groupAuthoritiesByUsername(authoriQuery)
             //    .passwordEncoder(bcryptEncoder());
+
         auth.userDetailsService(userDetailsService).passwordEncoder(bcryptEncoder());
 
     }

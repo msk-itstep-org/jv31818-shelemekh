@@ -44,8 +44,9 @@ public class UserController {
         String name =customer.getName();
         String email= customer.getEmail();
         String pass = customer.getPassword();
-        String  enc = encoder.encode(pass);
+        String  enc = encoder.encode(customer.getPassword());
         repo.save(customer);
+
         return "registersuccess";
         
     }

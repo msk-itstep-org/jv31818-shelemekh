@@ -11,15 +11,12 @@ import org.springframework.stereotype.Service;
     @Service
     public class AdminServiceImp {
 
+        @Autowired
+        private  ProductRepository productRepository;
 
-        private  final ProductRepository productRepository;
-         private final CustomRepository customRepository;
+         @Autowired
+         private CustomRepository customRepository;
 
-            @Autowired
-            public AdminServiceImp(ProductRepository productRepository, CustomRepository customRepository) {
-                this.productRepository = productRepository;
-                this.customRepository = customRepository;
-            }
 
         public  String updateProduct(String  name){
           Product product = new Product();
