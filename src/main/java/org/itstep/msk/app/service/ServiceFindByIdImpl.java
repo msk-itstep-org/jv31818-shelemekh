@@ -17,7 +17,7 @@ public class ServiceFindByIdImpl {
         this.productRepository = productRepository;
     }
 
-    public Product findById(){
+    public Product findById(Integer id){
         Optional<Product> optionalProduct = Optional.of(new Product());
             if (optionalProduct.isPresent()) {
                 productRepository.findById(optionalProduct.get().getId());

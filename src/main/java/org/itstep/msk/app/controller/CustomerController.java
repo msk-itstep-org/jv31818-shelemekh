@@ -4,10 +4,15 @@ import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.itstep.msk.app.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,14 +22,14 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/customer")
 public class CustomerController {
 
 
   private  final CustomRepository customRepository;
     private  final ProductRepository productRepository;
 
-
+    @Autowired
     public CustomerController(CustomRepository customRepository, ProductRepository productRepository) {
         this.customRepository = customRepository;
         this.productRepository = productRepository;
@@ -32,20 +37,21 @@ public class CustomerController {
     }
 
     //Get from Customer credentials as name ,password
-    @GetMapping("/currentcustomer/{id}")
-    private Customer getcurrent(@RequestBody Customer cust, @RequestParam Integer id ){
-        return customRepository.findById(id).orElse(cust);
+    @GetMapping("/find/{id}")
+    private Optional<Customer> getcurrent(@PathVariable Integer id){
+        return customRepository.findById(id).filter(customer -> customer.getId()!= null);
+
+
     }
-
-
-
+//Get all products from db
         @GetMapping("/listproduct")
-        public String productList (){
-            productRepository.findAll().stream()
+        public List<Product> productList (){
+          return productRepository.findAll().stream()
             .distinct().collect(Collectors.toList());
-            return "listproduct";
+
 
         }
+
         @GetMapping("/listproduct/{id}")
         public ResponseEntity<Product> getCurrentProduct (@PathVariable Integer id){
             Optional<Product> optionalProduct = productRepository.findById(id);
@@ -54,17 +60,12 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
         }
 
-        @PostMapping("/listorders")
-        public Iterable<Product> allProductWithPrice (@RequestBody Product product){
-            return productRepository.findAll();
-        }
 
 
-        @PreAuthorize("ROLE_CUSTOMER")
         @DeleteMapping("/delete/{id}")
-        public void deleteCustomerof (@PathVariable Integer id, @RequestBody Customer customer){
-            customRepository.delete(customer);
-
+        ResponseEntity<?> delete (@PathVariable Integer id){
+            customRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
         }
 
     }

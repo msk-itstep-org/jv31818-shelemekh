@@ -1,18 +1,29 @@
     package org.itstep.msk.app.entity;
 
 
-    import org.springframework.security.core.userdetails.User;
-    import org.springframework.security.crypto.password.PasswordEncoder;
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import lombok.Data;
 
-    import javax.persistence.*;
-    import javax.validation.constraints.*;
-    import java.io.Serializable;
-    import java.util.Objects;
-    import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.Objects;
+import java.util.Set;
 
+    @Data
     @Entity
     @Table( name = "customer")
-    public class Customer  implements Serializable {
+    public class Customer {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(unique = true,nullable = false)
@@ -68,6 +79,7 @@
         @ManyToMany
         @JoinTable(name = "custom_roles",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns =
                     @JoinColumn(name ="roles_id" ))
+        @JsonIgnore
         private Set<Role> role;
 
 
