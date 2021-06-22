@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 
         }
 
-        public void deleteCustomerOnDate(){
+        public void deleteCustomerOn(){
             Customer customer = new Customer();
             if( customer.getName()!= null){
                 customRepository.delete(customer);

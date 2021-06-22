@@ -4,32 +4,33 @@
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.Objects;
-import java.util.Set;
+    import javax.persistence.Column;
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+    import javax.persistence.JoinColumn;
+    import javax.persistence.JoinTable;
+    import javax.persistence.ManyToMany;
+    import javax.persistence.Table;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.NotNull;
+    import javax.validation.constraints.Pattern;
+    import javax.validation.constraints.Size;
+    import java.util.Objects;
+    import java.util.Set;
 
     @Data
     @Entity
     @Table( name = "customer")
     public class Customer {
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(unique = true,nullable = false)
         private Integer id;
 
-        @Column( name = "name", nullable = false)
+        @Column( name = "name", nullable =false)
         @NotBlank
         @Size(min = 2, max = 20 ,
                 message = "A form with name should be between 2 to 10")

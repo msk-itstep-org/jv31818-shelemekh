@@ -46,9 +46,9 @@ public class AdminController {
     }
 
 
-    @DeleteMapping("/admin/delete{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public Product deleteCustomer( @PathVariable Integer id){
-        adminServiceImp.deleteCustomerOnDate();
+        adminServiceImp.deleteCustomerOn();
         if (deleteCustomer(id) == null){
             adminServiceImp.findAllCustomer();
 

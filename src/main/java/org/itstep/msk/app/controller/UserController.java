@@ -24,27 +24,27 @@ public class UserController {
         this.repo = repo;
         this.encoder = encoder;
     }
-    //Get login page and fill it with credentials
 
+    //Get login page and fill it with  user's credentials
     @GetMapping("/login")
-    public String registerform(Model model){
+    public String Login(Model model){
         model.addAttribute("customer", new Customer());
         return "register";
     }
 
     /*
-    Save in database customer with parameters  name , password
-    return view of HTML
+    Save in database customer with parameters  name , password.
+    And if credentials are valid, return html page with successfully registration
  */
     @PostMapping("/login")
-    public String createCustomer( @Valid @ModelAttribute("customer") Customer customer,BindingResult result){
+    public String successfully( @Valid @ModelAttribute("customer") Customer customer,BindingResult result){
         if (result.hasErrors()) {
             return "register";
         }
-        String name =customer.getName();
+       String name =customer.getName();
         String email= customer.getEmail();
         String pass = customer.getPassword();
-        String  enc = encoder.encode(customer.getPassword());
+       String  enc = encoder.encode(customer.getPassword());
         repo.save(customer);
 
         return "registersuccess";

@@ -11,7 +11,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 public class MainConfiguration  {
 
-
     @Bean
     public SpringResourceTemplateResolver thymeleafresolev(){
        final SpringResourceTemplateResolver resolver= new SpringResourceTemplateResolver();
