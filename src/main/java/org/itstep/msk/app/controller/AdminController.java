@@ -1,65 +1,62 @@
 package org.itstep.msk.app.controller;
 
-import jdk.net.SocketFlow;
-import org.apache.tomcat.jni.Status;
+
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
-import org.itstep.msk.app.enums.AppRoles;
-import org.itstep.msk.app.repository.ProductRepository;
 import org.itstep.msk.app.service.AdminServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
-
-@Controller
+@RestController
+@RequestMapping(value = "/admin", produces = "application/json")
 public class AdminController {
 
+    private   final AdminServiceImp adminServiceImp;
 
     @Autowired
-    private AdminServiceImp adminServiceImp;
+    public AdminController(AdminServiceImp adminServiceImp) {
+        this.adminServiceImp = adminServiceImp;
+    }
 
     @GetMapping("/panel")
-    public String seachAllCustomer(){
+    @PreAuthorize("hasRole('ADMIN')")
+    public String seachAllCustomer(@RequestBody Customer customer,@RequestParam String name, @RequestParam String password,
+                                  Model model ){
+    model.addAttribute("panel",customer);
+    return "panel";
 
-        return "panel";
 
     }
 
     @PostMapping("/panel")
-    @ResponseBody
-    public String enterInAdminka(){
+    public void enterInAdminka(@RequestBody Customer customer){
         adminServiceImp.findAllCustomer();
 
-        return "redirect:/panel";
 
 
     }
 
     @PutMapping("/admin/update")
-    @ResponseBody
-    public String changeProduct(@PathVariable String name){
+    public Product changeProduct(@RequestBody Product prod, @RequestParam  String name){
         adminServiceImp.updateProduct(name);
-
-
-        return "Ok";
+        return new Product();
 
     }
 
 
-    @DeleteMapping("/admin/delete{id}")
-    @ResponseBody
-    public String deleteCustomer( @PathVariable Integer id){
-        adminServiceImp.deleteCustomerOnDate();
+    @DeleteMapping("/admin/delete/{id}")
+    public Product deleteCustomer( @PathVariable Integer id){
+        adminServiceImp.deleteCustomerOn();
         if (deleteCustomer(id) == null){
             adminServiceImp.findAllCustomer();
+
         }else {
             throw new RuntimeException("Customer not found");
+
         }
-           return "Customer have been deleted";
+           return null;
 
     }
 

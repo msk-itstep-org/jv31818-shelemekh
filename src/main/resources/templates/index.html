@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org">
+<html xmlns:th = "http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8">
     <title>Main</title>
+    <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
 </head>
 <body>
+
     <div>
 <p>Hello in petshope</p>
-        <p sec:authorize ="hasRole('ROLE_ADMIN')">is Admin</p>
-        <p sec:aurhorize = "hasRole('ROLE_USER')">is Customer</p>
-        <p sec:authentication = "name"> Name</p>
+            <span>
         <a th:href="@{/login}">Вход в магазин</a>
         <a th:href="@{/register}">Зарегаться</a>
+            </span>
     </div>
 </body>
 </html>

@@ -1,45 +1,70 @@
 package org.itstep.msk.app.controller;
 
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.entity.Product;
-import org.itstep.msk.app.repository.ProductRepository;
-import org.itstep.msk.app.service.ServiceCustomImp;
+import org.itstep.msk.app.service.ServiceCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
-@Controller
+//import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+//import reactor.core.publisher.Flux;
+//import reactor.core.publisher.Mono;
+
+
+@RestController
+@RequestMapping(value = "/customers")
 public class CustomerController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ServiceCustomer serviceCustomer;
 
     @Autowired
-    private ServiceCustomImp serviceCustomImp;
-
-    @GetMapping("/register")
-    private String register(){
-        return "register";
+    public CustomerController(ServiceCustomer serviceCustomer) {
+        this.serviceCustomer = serviceCustomer;
     }
 
-    @PostMapping("/register{id}")
-    public String succesregister(@PathVariable Integer id){
 
-       serviceCustomImp.findCustomerOnId();
+    //Get from Customer credentials as name ,password
+    @GetMapping("/{id}")
+    public Optional<Customer> retrieveCustomer( @PathVariable Integer id){
+      return serviceCustomer.findById(id);
+    }
+    //Get customer by name , email
+    @GetMapping("/find/{name}")
+    public Customer FindByName(@PathVariable String name){
+        return serviceCustomer.retrieveCustomerByName(name);
+    }
+    //Upgrade customer should return a new Customer with  replacing name , email
+    @PutMapping("/update/{id}")
+    public Customer updateCustomer(@RequestBody Customer customer
+                                   ,@PathVariable Integer id){
+        return serviceCustomer.changeCustomer(id);
 
-        return "register";
+    }
+    //Should  delete customer from db  by his id
+    @DeleteMapping("/delete/{id}")
+    public void removeCustomer( @PathVariable Integer id){
+        serviceCustomer.deleteCustomerById(id);
     }
 
-    @GetMapping("/listproduct")
-    public String listProducts(){
-        List<Product> productList = productRepository.findAll();
-
-        return "listproduct";
-
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
