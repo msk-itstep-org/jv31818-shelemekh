@@ -1,14 +1,24 @@
 package org.itstep.msk.app.service;
 
 
+import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Service
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+    @RequiredArgsConstructor
+    @Slf4j
     public class AdminServiceImp {
 
         @Autowired
@@ -17,28 +27,36 @@ import org.springframework.stereotype.Service;
          @Autowired
          private CustomRepository customRepository;
 
-
-        public  String updateProduct(String  name){
-          Product product = new Product();
-            productRepository.findById(product.getId());
-           productRepository.save(product);
-           return name;
+        @Transactional(readOnly = true)
+        public  Product updateProduct(String  name){
+            Optional<Product> prod = Optional.of(new Product());
+            if (!prod.isPresent()){
+                throw new IllegalArgumentException("not such " + name);
+            }
+            log.info("create new prod with credetils name");
+            Product product = new Product();
+            product.setName(prod.get().getName());
+            return productRepository.save(product);
 
 
         }
 
-        public void deleteCustomerOn(){
+        @SneakyThrows
+        public void deleteCustomerOn()  {
             Customer customer = new Customer();
             if( customer.getName()!= null){
                 customRepository.delete(customer);
 
 
+            }else {
+                throw new NotFoundException("not such customer with  name");
             }
 
         }
 
         public void findAllCustomer(){
          customRepository.findAll()
-                .stream().filter(customer -> customer.getId()==null);
+                .stream().filter(customer -> customer.getId()!=null)
+                 .collect(Collectors.toList());
         }
     }

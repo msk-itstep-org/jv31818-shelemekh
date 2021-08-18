@@ -26,7 +26,7 @@ public class ServiceCustomer {
             return customerRepository.findByName(name);
     }
     //Retrieve all customers from db where his email is not null
-    public List<Customer> retrieveAllCustomer(){
+    public List<Customer> retrieveAllCustomerByEmail(){
       return  customerRepository.findAll()
                 .stream()
                 //    .map(Customer::getName)
@@ -51,8 +51,8 @@ public class ServiceCustomer {
 
                 }
                 Customer customer = new Customer();
-                customer.getEmail();
-                customer.getName();
+                customer.setEmail(customer.getEmail());
+                customer.setName(customer.getName());
          return  customerRepository.save(customer);
     }
 

@@ -28,6 +28,7 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     }
     private DataSource dataSource;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 

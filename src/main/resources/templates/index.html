@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th = "http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type " content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale= 1.0, minimum-scale=1.0">
     <title>Main</title>
-    <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
+    <link rel="stylesheet " type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css/}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 
     <div>
 <p>Hello in petshope</p>
+        <div class="container-fluid">
             <span>
         <a th:href="@{/login}">Вход в магазин</a>
         <a th:href="@{/register}">Зарегаться</a>
             </span>
+            </div>
     </div>
 </body>
 </html>

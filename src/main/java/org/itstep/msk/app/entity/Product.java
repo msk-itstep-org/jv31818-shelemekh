@@ -69,8 +69,8 @@ public class Product {
 
 
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
 
     }
 
