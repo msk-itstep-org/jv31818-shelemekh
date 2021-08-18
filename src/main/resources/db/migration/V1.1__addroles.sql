@@ -34,7 +34,12 @@ create table if not exists  custom_roles
     roles_id)
 );
 
+create table if not exists cart
+(
+    id integer not null auto_increment primary key,
+    prod_list varchar (100)
 
+);
 
 
 
