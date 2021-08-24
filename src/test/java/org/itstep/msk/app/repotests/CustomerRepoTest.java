@@ -1,23 +1,24 @@
 package org.itstep.msk.app.repotests;
 
+import org.hamcrest.collection.IsEmptyCollection;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
+@ActiveProfiles("test")
+@RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false)
-@WebAppConfiguration
+@SpringBootTest
 public class CustomerRepoTest {
 
     @Autowired
@@ -27,11 +28,19 @@ public class CustomerRepoTest {
 
     @Test
     public void testCreateCustomer(){
-        Customer precust =manager.find(Customer.class,1);
-        Customer customer = new Customer("1234","njj");
+      Customer customer = new Customer("1234","Jolly");
+      manager.persist(customer);
+     // Customer customer1 = new Customer("ert123","Freddy");
+     // manager.persist(customer1);
+      //actual
+        customRepository.deleteAll();
 
-        Customer saveCust= customRepository.save(customer);
+        assertThat(customRepository.findAll(), IsEmptyCollection.empty());
 
-        assertThat(saveCust.getId()).isGreaterThan(0);
+
     }
+
+
+
+
 }

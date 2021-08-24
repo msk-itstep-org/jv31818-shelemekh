@@ -3,18 +3,22 @@
 
 <head>
     <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <title>Regisrtation succecc</title>
+    <title class="text-center">Regisrtation has been done!!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
+<h1>
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+</h1>
 
 <div>
-<h1>Регистрация прошла успешно!!!</h1>
-
+<h2 class="alert-success text-center">Регистрация прошла успешно!!!</h2>
 </div>
 
 <div>
-<button type="button" >Log out</button >
+<button type="button"  class="bt btn-secondary">Log out</button >
 </div>
 </body>
 </html>

@@ -20,12 +20,9 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Autowired
    private CustomerDetails customerDetails;
-
     @Bean
-    public PasswordEncoder bcryptEncoder(){
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-
-
     }
     private DataSource dataSource;
 
@@ -44,7 +41,7 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
             //    .groupAuthoritiesByUsername(authoriQuery)
             //    .passwordEncoder(bcryptEncoder());
 
-        auth.userDetailsService(customerDetails).passwordEncoder(bcryptEncoder());
+        auth.userDetailsService(customerDetails).passwordEncoder(passwordEncoder());
 
     }
 

@@ -2,36 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <a href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></a>
-    <meta http-equiv="Content-Type" content="text/html ; charset= utf-8"/>
 
-    <title>Registation page</title>
+    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale= 1.0, minimum-scale=1.0">
+    <link rel="stylesheet " type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css/}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <title>Registration page</title>
 
 </head>
 <body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#buttonCanel").on("click", function ()
+        {
+        window.location= "[[@{/main}]]"
+        });
+    });
+
+
+    </script>
 <br>
-    <h1>Регистрация</h1>
+    <h1>Log in</h1>
 <br/>
-    <h1 >Ввеведите ваш логин, пароль</h1>
+    <h2 >Please, enter your login and password</h2>
 </br>
 
-        <form method="POST"  th:action="@{/register/login}"  th:object="${customer}"
-        >
-            <label >Name:</label>
-            <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Введите имя"/></br>
-            <label >Password:</label></br>
+        <form method="POST"  th:action="@{/register/login}"  th:object="${customer}" style="max-width: 600px; margin: 0 auto" >
+            <div class="border border-secondary rounded p-3">
+            <div class="form-group-row">
+
+            <label class="col-sm-4 col-form-label">Name:</label>
+            <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Введите имя" required minlength="2" maxlength="45"/></br>
+            <label class="col-sm-4 col-form-label">Password:</label>
                  <input type="text" name="password" th:field="*{password}" class="form-control" placeholder="Введите пароль"/></br>
-            <label>Email:</label>
-            <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Введите email"/></br>
-            <div >
+            <label class="col-sm-5 col-form-label">Email:</label>
+            <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Введите email" required minlength="8" maxlength="128"/></br>
+            </div>
+            </div>
+            <div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                    <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                    <label class="font-weight-bold" for="exampleCheck1">Remember me</label>
                 </div>
+                <div class="text-center" >
                 <span>
             <button type="submit" class="btn btn-primary">Зарегать себя</button>
+                    <button type="submit"   class="bt btn-secondary" id="buttonCanel">Отмена</button>
                     </span>
                 </div>
+            </div>
         </form>
 
     </body>

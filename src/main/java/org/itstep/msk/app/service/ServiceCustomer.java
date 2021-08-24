@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 public class ServiceCustomer {
 
     private final CustomRepository customerRepository;
+
+
 
     @Autowired
     public ServiceCustomer(CustomRepository customerRepository) {
@@ -37,6 +40,7 @@ public class ServiceCustomer {
     @SneakyThrows
     public Optional<Customer> findById(Integer id){
         return    customerRepository.findById(id);
+
 
     }
     //Update name , email of customer
