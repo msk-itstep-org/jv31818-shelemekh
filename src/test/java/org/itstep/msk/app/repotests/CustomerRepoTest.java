@@ -1,9 +1,8 @@
 package org.itstep.msk.app.repotests;
 
-import org.hamcrest.collection.IsEmptyCollection;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,14 +10,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.assertj.core.api.junit.jupiter.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@SpringBootTest
 public class CustomerRepoTest {
 
     @Autowired
@@ -35,11 +35,17 @@ public class CustomerRepoTest {
       //actual
         customRepository.deleteAll();
 
-        assertThat(customRepository.findAll(), IsEmptyCollection.empty());
+      //  assertThat(customRepository.findAll(), IsEmptyCollection.empty());
 
 
     }
+    @Test
+    public  void testGetCustomByEmail(){
+        String email ="ravi@gmail.com";
+        Customer customer = customRepository.getCustomerByEmail(email);
 
+        assertNotNull(customer);
+    }
 
 
 

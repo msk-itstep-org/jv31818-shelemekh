@@ -3,13 +3,8 @@ package org.itstep.msk.app.controller;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.service.ServiceCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -17,6 +12,9 @@ import java.util.Optional;
 //import reactor.core.publisher.Flux;
 //import reactor.core.publisher.Mono;
 
+/*
+  @cretated by shele
+ */
 
 @RestController
 @RequestMapping(value = "/customers")
@@ -32,28 +30,33 @@ public class CustomerController {
 
     //Get from Customer credentials as name ,password
     @GetMapping("/{id}")
-    public Optional<Customer> retrieveCustomer( @PathVariable Integer id){
-      return serviceCustomer.findById(id);
+    public Optional<Customer> retrieveCustomer(@PathVariable Integer id) {
+        return serviceCustomer.findById(id);
     }
+
     //Get customer by name , email
     @GetMapping("/find/{name}")
-    public Customer FindByName(@PathVariable String name){
+    public Customer FindByName(@PathVariable String name) {
         return serviceCustomer.retrieveCustomerByName(name);
     }
+
     //Upgrade customer should return a new Customer with  replacing name , email
     @PutMapping("/update/{id}")
     public Customer updateCustomer(@RequestBody Customer customer
-                                   ,@PathVariable Integer id){
+            , @PathVariable Integer id) {
         return serviceCustomer.changeCustomer(id);
 
     }
+
     //Should  delete customer from db  by his id
     @DeleteMapping("/delete/{id}")
-    public void removeCustomer( @PathVariable Integer id){
+    public void removeCustomer(@PathVariable Integer id) {
         serviceCustomer.deleteCustomerById(id);
     }
 
-    }
+    //Check duplicated email in Customer
+
+}
 
 
 

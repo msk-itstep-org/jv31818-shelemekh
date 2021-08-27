@@ -70,6 +70,10 @@ public class ServiceCustomer {
                 }
             }
     }
+    public boolean isCustomerEmailisUnique(String email){
+        Customer custemail= customerRepository.getCustomerByEmail(email);
+        return custemail ==null;
+    }
 
 
 }

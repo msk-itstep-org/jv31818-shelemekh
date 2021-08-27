@@ -3,6 +3,7 @@ package org.itstep.msk.app.controller;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final CustomRepository repo;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -46,14 +48,15 @@ public class UserController {
         if (result.hasErrors()) {
             return "register";
         }
-       String name =customer.getName();
-        String email= customer.getEmail();
+      // String name =customer.getName();
+    //    String email= customer.getEmail();
         String pass = passwordEncoder.encode(customer.getPassword());
      //  String  enc = encoder.encode(customer.getPassword());
         repo.save(customer);
         attributes.addFlashAttribute("message","The registration has been successfully passed ");
         return "registersuccess";
     }
+
 }
 
 
