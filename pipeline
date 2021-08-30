@@ -1,4 +1,4 @@
-CODE_CHANGES= gitChanges()
+
 pipeline{
        agent any
        tools{
@@ -8,7 +8,7 @@ pipeline{
         stage("build"){
             when{
                 expression{
-                    BRANCH_NAME =='version2'&& CODE_CHANGES==true
+                    BRANCH_NAME =='version2'
                 }
             }
             steps{
