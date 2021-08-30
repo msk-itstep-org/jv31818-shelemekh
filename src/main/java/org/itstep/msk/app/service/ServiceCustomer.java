@@ -33,7 +33,7 @@ public class ServiceCustomer {
       return  customerRepository.findAll()
                 .stream()
                 //    .map(Customer::getName)
-                    .filter(customer -> customer.getEmail()!= null)
+                    .filter(customer ->customer!= null)
                 .collect(Collectors.toList());
     }
     // Get specific customer by id
