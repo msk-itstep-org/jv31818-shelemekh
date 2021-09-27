@@ -13,7 +13,7 @@ public class CustomEmailController {
     private ServiceCustomer serviceCustomer;
 
     @PostMapping("/customer/check_email")
-    public String checkDuplicateEmail(@Param("emai") String email) {
+    public String checkDuplicateEmail(@Param("email") String email) {
         return serviceCustomer.isCustomerEmailisUnique(email) ? "ok" : "duplicated";
     }
 

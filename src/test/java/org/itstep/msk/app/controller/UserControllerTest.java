@@ -23,4 +23,5 @@ public class UserControllerTest {
         assertThat(body).contains("register");
 
     }
+
 }

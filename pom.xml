@@ -68,6 +68,20 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!--Actuator for metrics-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>2.3.4.RELEASE</version>
+		</dependency>
+
+		<!--Micrometer Prometheus using for http statistics-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
