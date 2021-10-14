@@ -1,16 +1,20 @@
 package org.itstep.msk.app.Configuration;
 
 import org.itstep.msk.app.service.CustomerDetails;
+import org.itstep.msk.app.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
 
@@ -20,6 +24,10 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Autowired
    private CustomerDetails customerDetails;
+
+    @Autowired
+    private JwtRequestFilter filter;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -28,22 +36,16 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-     //  String passQuery="SELECT password, 1 as active FROM customer WHERE password=?";
-    //   String authoriQuery = "SELECT n.name, r.roles "
-      //         + "FROM customer c "
-       //        + "INNER JOIN  custom_roles cr ON cd customer_id = c.id "
-        //       + "INNER JOIN  roles r ON r.id = cd.roles_id "
-        //        + "WHERE n.name = ?";
-
-     //   auth.jdbcAuthentication()
-          //      .usersByUsernameQuery("select name,password,enabled from customer where username = ?")
-            //    .groupAuthoritiesByUsername(authoriQuery)
-            //    .passwordEncoder(bcryptEncoder());
-
         auth.userDetailsService(customerDetails).passwordEncoder(passwordEncoder());
 
     }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManager()throws Exception{
+        return super.authenticationManager();
+    }
+
 
     @Override
     public void configure(WebSecurity web)  {
@@ -68,9 +70,9 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
                         .defaultSuccessUrl("/registersuccess")
                 .failureUrl("/login")
                 .and()
-                .csrf()
-                .disable()
-                .httpBasic();
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
 
 

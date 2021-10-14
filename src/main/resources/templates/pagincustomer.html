@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html  xmlns:th = "http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type " content="text/html; charset=UTF-8">
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale= 1.0, minimum-scale=1.0">
     <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
     <link rel="stylesheet " type="text/css" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}"   crossorigin="anonymous" />
-
+    <title></title>
 </head>
+
 <body>
 <h1 class="h3 flex-header">
     List of Customers :
@@ -17,7 +18,15 @@
         <thead class="thead-dark">
         <tr>
             <th class="h3 module-graph">Customer ID</th>
-            <th> Customer name</th>
+            <th>
+                <a th:if="${sortField!='name'}"
+                th:href="@{'/register/page' + ${currentpage}+ '?sortField=name&sortDir='+ ${sortDir}}">Customer name</a>
+                <span th:if="${sortField=='name'}"
+                      th:class="${sortDir =='asc'? 'fas fa-sort-up':'fas fa-sort-down'}"
+                ></span>
+
+
+            </th>
             <th>Customer password</th>
             <th>Customer email<th>
         </tr>
@@ -51,11 +60,10 @@
             <li th:class="${currentpage != i ? 'page-item': 'page-item-active'}"
                 th:each="i:${#numbers.sequence(1,totalPage)}">
                 <a class="page-link" th:href="@{'/register/page' + ${i}}">[[${i}]]</a></li>
+            <li>
                 <a class="page-link" th:href="@{'/register/page' + ${currentpage + 1}}">Next</a></li>
         </ul>
     </nav>
 </div>
-</body>
-
 </body>
 </html>

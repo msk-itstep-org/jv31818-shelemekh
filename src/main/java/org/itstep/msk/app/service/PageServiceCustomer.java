@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,8 +19,10 @@ public class PageServiceCustomer {
     @Autowired
     private PagingCustomer pagingCustomer;
 
-    public Page<Customer> listByPage(int pageNum){
-        Pageable pageable = PageRequest.of(pageNum-1, USER_PER_PAGE);
+    public Page<Customer> listByPage(int pageNum,String sortField,String sorDir){
+        Sort sort =Sort.by(sortField);
+        sort = sorDir.equals("asd")? sort.ascending(): sort.descending();
+        Pageable pageable = PageRequest.of(pageNum-1, USER_PER_PAGE,sort);
         return pagingCustomer.findAll(pageable);
     }
 

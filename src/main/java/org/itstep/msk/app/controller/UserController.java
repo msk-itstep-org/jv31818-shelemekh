@@ -17,14 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author shele
+ *
+ */
 @Controller
 @RequestMapping("/register")
 public class UserController {
 
     private final CustomRepository repo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private PageServiceCustomer pageServiceCustomer;
@@ -44,24 +46,21 @@ public class UserController {
 
     /*
     Save in database customer with parameters  name , password.
-    And if credentials are valid, return html page with successfully registration
+     if credentials are valid, return view  with successfully registration,
+
  */
     @PostMapping("/login")
     public String successfully(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, RedirectAttributes attributes){
         if (result.hasErrors()) {
             return "register";
         }
-      // String name =customer.getName();
-    //    String email= customer.getEmail();
-        String pass = passwordEncoder.encode(customer.getPassword());
-     //  String  enc = encoder.encode(customer.getPassword());
         repo.save(customer);
         attributes.addFlashAttribute("message","The registration has been successfully passed ");
         return "registersuccess";
     }
     @GetMapping("/page/{pageNum}")
-    public String listPage(@PathVariable(name = "pageNum") int pageNum,Model model){
-        Page<Customer> page = pageServiceCustomer.listByPage(pageNum);
+    public String listPage(@PathVariable(name = "pageNum") int pageNum,Model model,@Param("sortField")String sortField, @Param("sortDir")String sortDir){
+        Page<Customer> page = pageServiceCustomer.listByPage(pageNum,sortField,sortDir);
         List<Customer> list = page.getContent();
         long firstcount =(pageNum-1)* PageServiceCustomer.USER_PER_PAGE+1;
         long secodcount = firstcount* PageServiceCustomer.USER_PER_PAGE-1;
@@ -75,6 +74,8 @@ public class UserController {
             model.addAttribute("secodcount",secodcount);
             model.addAttribute("totalItem",page.getTotalElements());
         model.addAttribute("customer",list);
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
         return "pagincustomer";
     }
 

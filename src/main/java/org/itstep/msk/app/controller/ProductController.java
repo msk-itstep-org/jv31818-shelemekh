@@ -28,7 +28,8 @@ public class ProductController {
         this.serviceProduct = serviceProduct;
     }
 
-//Retrieve all products which product.name is not empty
+/*Retrieve all products which
+product.name should  not be empty */
     @GetMapping("/all")
     public List<Product> giveAllProduct() {
        return serviceProduct.findAllProduct();

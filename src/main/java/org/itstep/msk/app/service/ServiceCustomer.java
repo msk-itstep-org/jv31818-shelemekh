@@ -36,10 +36,11 @@ public class ServiceCustomer {
                     .filter(customer ->customer!= null)
                 .collect(Collectors.toList());
     }
-    // Get specific customer by id
+    // Get specific customer by his id
     @SneakyThrows
     public Optional<Customer> findById(Integer id){
         return    customerRepository.findById(id);
+
 
 
     }
