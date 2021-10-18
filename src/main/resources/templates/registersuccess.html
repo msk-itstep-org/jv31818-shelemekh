@@ -19,6 +19,7 @@
 <div>
 <h2 class="alert-success text-center">Регистрация прошла успешно!!!</h2>
 </div>
+
     <div>
         <table class="table  table-bordered table-hover table-responsive-xl">
             <thead class="thead-dark">
@@ -42,9 +43,28 @@
                 </tbody>
         </table>
     </div>
-
 <div>
-<button type="button"  class="bt btn-secondary">Log out</button >
+    <form method="post" th:action="@{/logout}"th:hidden="true", name="logoutForm">
+<input type="submit" />
+    </form>
 </div>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" id="logoutlink" href="">Logout</a>
+
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $("#logoutlink").on("click",function (e) {
+            e.preventDefault();
+            document.logoutForm.onsubmit;
+
+        });
+    });
+
+
+
+    </script>
+
 </body>
 </html>

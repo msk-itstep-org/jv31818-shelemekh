@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,9 +56,10 @@ import java.util.stream.Collectors;
 
         }
 
-        public void findAllCustomer(){
+        public Collection<Customer> findAllCustomer(){
          customRepository.findAll()
                 .stream().filter(customer -> customer.getId()!=null)
                  .collect(Collectors.toList());
+            return Collections.emptyList();
         }
     }

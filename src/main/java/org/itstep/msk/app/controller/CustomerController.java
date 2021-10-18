@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.util.Collection;
 import java.util.Optional;
 
 //import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -37,8 +41,11 @@ public class CustomerController {
     //Get customer by name , email
     @GetMapping("/find/{name}")
     public Customer FindByName(@PathVariable String name) {
+
         return serviceCustomer.retrieveCustomerByName(name);
     }
+
+
 
     //Upgrade customer should return a new Customer with  replacing name , email
     @PutMapping("/update/{id}")

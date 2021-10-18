@@ -9,6 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collection;
+
 @RestController
 @RequestMapping(value = "/admin", produces = "application/json")
 public class AdminController {
@@ -30,7 +34,8 @@ public class AdminController {
 
     }
 
-    @PostMapping("/panel")
+
+        @PostMapping("/panel")
     public void enterInAdminka(@RequestBody Customer customer){
         adminServiceImp.findAllCustomer();
 

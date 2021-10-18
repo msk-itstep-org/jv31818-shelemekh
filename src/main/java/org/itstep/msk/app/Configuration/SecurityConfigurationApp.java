@@ -64,11 +64,17 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/","/**").permitAll()
                 .antMatchers("/register**").permitAll()
+                .antMatchers("/customers**").fullyAuthenticated()
+                .antMatchers("/admin**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
                     .loginPage("/login")
                         .defaultSuccessUrl("/registersuccess")
+
                 .failureUrl("/login")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
