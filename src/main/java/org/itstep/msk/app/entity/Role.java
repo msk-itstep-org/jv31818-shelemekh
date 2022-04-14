@@ -63,7 +63,6 @@ public class Role {
         return this.id;
     }
 
-
     public String getName() {
         return this.name;
     }

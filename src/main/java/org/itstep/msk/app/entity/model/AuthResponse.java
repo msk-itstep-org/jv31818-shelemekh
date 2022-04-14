@@ -1,6 +1,6 @@
 package org.itstep.msk.app.entity.model;
 
-public class AuthResponce {
+public class AuthResponse {
 
     public String getJwt() {
         return jwt;
@@ -8,7 +8,7 @@ public class AuthResponce {
 
     private final String jwt;
 
-    public AuthResponce(String jwt) {
+    public AuthResponse(String jwt) {
         this.jwt = jwt;
     }
 

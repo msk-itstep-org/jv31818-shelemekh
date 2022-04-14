@@ -8,12 +8,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-/**+
+/**
+ * +
+ *
  * @author shele
  */
 @Service
 public class CustomerDetails implements UserDetailsService {
-
 
     private final CustomRepository customerRepo;
 
@@ -27,9 +28,7 @@ public class CustomerDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         //Get such customer with his name from db , if not exists throw exception
         Customer customer = customerRepo.findByName(name);
-            return new CustomerDetailsImpl(customer);
-
-
+        return new CustomerDetailsImpl(customer);
 
 
     }

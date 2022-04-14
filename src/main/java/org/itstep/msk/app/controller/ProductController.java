@@ -28,28 +28,29 @@ public class ProductController {
         this.serviceProduct = serviceProduct;
     }
 
-/*Retrieve all products which
-product.name should  not be empty */
     @GetMapping("/all")
     public List<Product> giveAllProduct() {
-       return serviceProduct.findAllProduct();
+        return serviceProduct.findAllProduct();
     }
-// Given product by its id
+
+    // Given product by its id
     @GetMapping("/find/{id}")
     public Optional<Product> oneProduct(@PathVariable Integer id) {
-      return serviceProduct.findById(id);
+        return serviceProduct.findById(id);
 
     }
-    // Update product
-    @PutMapping(value = "/update/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE}
-    ,produces = {MediaType.APPLICATION_JSON_VALUE})
+
+    // Update product finds by item id
+    @PutMapping(value = "/update/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}
+            , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Product updateProduct(@PathVariable Integer id, @Valid @RequestBody Product product) {
-        return serviceProduct.upgrade(id);
+        return serviceProduct.updateProduct(id);
     }
+
     // Delete product from db by its id
     @DeleteMapping("/product/{id}")
     public void deleteProdById(@PathVariable Integer id, @RequestBody Product product) {
         serviceProduct.removeProdById(id);
     }
-    
+
 }

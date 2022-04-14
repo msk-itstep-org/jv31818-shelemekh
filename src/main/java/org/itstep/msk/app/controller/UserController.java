@@ -44,7 +44,7 @@ public class UserController {
         return "register";
     }
 
-    /*
+    /**
     Save in database customer with parameters  name , password.
      if credentials are valid, return view  with successfully registration,
 

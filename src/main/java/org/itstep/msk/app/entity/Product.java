@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Objects;
 import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "product")
@@ -21,10 +22,10 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private Integer id;
 
-    @Column( name = "name_product" )
+    @Column(name = "name_product", unique = true)
     private String name;
 
     @Column(name = "final_price")
@@ -32,8 +33,8 @@ public class Product {
 
 
     @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id"  ,insertable = false ,
-            updatable = true,referencedColumnName ="id",nullable = true)
+    @JoinColumn(name = "id", insertable = false,
+            updatable = true, referencedColumnName = "id", nullable = true)
     @JsonIgnore
     private Set<Customer> customer;
 
@@ -67,8 +68,6 @@ public class Product {
     }
 
 
-
-
     public String getId() {
         return String.valueOf(id);
 
@@ -89,7 +88,5 @@ public class Product {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-
-
 
 }

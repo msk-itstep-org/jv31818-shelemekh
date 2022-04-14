@@ -14,30 +14,31 @@ import java.util.stream.Collectors;
 @Service
 public class ServiceProduct {
 
-    private  final ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ServiceProduct(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    
+
     @SneakyThrows
     public Optional<Product> findById(Integer id) {
-           return productRepository.findById(id);
+        return Optional.ofNullable(productRepository.findById(id).orElseThrow(
+                () -> new org.webjars.NotFoundException("not found such product")));
     }
 
-    public List<Product> findAllProduct(){
-        return    productRepository.findAll()
+    public List<Product> findAllProduct() {
+        return productRepository.findAll()
                 .stream()
-                    .filter(product -> product.getName()!=null)
+                .filter(product -> product.getName() != null && product.getTotalPrice() > 0)
                 .collect(Collectors.toList());
     }
 
     @SneakyThrows
-    public Product upgrade (Integer id){
+    public Product updateProduct(Integer id) {
         Optional<Product> productOptional = Optional.of(new Product());
-        if (!productOptional.isPresent()){
-            throw new NotFoundException("not such product "+ productOptional);
+        if (!productOptional.isPresent()) {
+            throw new NotFoundException("not such product " + productOptional);
         }
         Product product = new Product();
         product.setTotalPrice(product.getTotalPrice());
@@ -45,8 +46,11 @@ public class ServiceProduct {
         return productRepository.save(product);
     }
 
-    public void removeProdById(Integer id){
+    @SneakyThrows
+    public void removeProdById(Integer id) {
+        if (id == null) {
+            throw new NoSuchFieldException("not such field" + id + "exist in database ");
+        }
         productRepository.deleteById(id);
-
     }
 }

@@ -1,4 +1,4 @@
-package org.itstep.msk.app.Configuration;
+package org.itstep.msk.app.configuration;
 
 import org.itstep.msk.app.service.CustomerDetails;
 import org.itstep.msk.app.service.JwtRequestFilter;
@@ -23,15 +23,16 @@ import javax.sql.DataSource;
 public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Autowired
-   private CustomerDetails customerDetails;
+    private CustomerDetails customerDetails;
 
     @Autowired
     private JwtRequestFilter filter;
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     private DataSource dataSource;
 
     @Override
@@ -42,13 +43,13 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManager()throws Exception{
+    public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
 
     @Override
-    public void configure(WebSecurity web)  {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("/js/**")
@@ -62,33 +63,25 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
 
-                .antMatchers("/","/**").permitAll()
+                .antMatchers("/", "/**").permitAll()
                 .antMatchers("/register**").permitAll()
                 .antMatchers("/customers**").fullyAuthenticated()
                 .antMatchers("/admin**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                        .defaultSuccessUrl("/registersuccess")
+                .loginPage("/login")
+                .defaultSuccessUrl("/registersuccess")
 
                 .failureUrl("/login")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")
+                .and().rememberMe().key("AbcDefHijKnRopQs_12345")
+                .tokenValiditySeconds(7*24*60*60)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
-
-
-
-
-
-
-
-
-
 
 
     }

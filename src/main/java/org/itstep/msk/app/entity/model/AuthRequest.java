@@ -1,5 +1,8 @@
 package org.itstep.msk.app.entity.model;
 
+/**
+ * DTO model for auth request
+ */
 public class AuthRequest {
 
     public AuthRequest() {

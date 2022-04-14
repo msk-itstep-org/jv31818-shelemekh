@@ -8,17 +8,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ * Customer details service for authorization
+ */
 public class CustomerDetailsImpl implements UserDetails {
 
-    private final Customer customer;
+    private Customer c;
 
-    public CustomerDetailsImpl(Customer customer) {
-        this.customer = customer;
+    public CustomerDetailsImpl(Customer c) {
+        this.c = c;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return customer.getRole()
+        return c.getRole()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
@@ -26,12 +29,12 @@ public class CustomerDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return customer.getPassword();
+        return c.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return customer.getName();
+        return c.getName();
     }
 
     @Override
