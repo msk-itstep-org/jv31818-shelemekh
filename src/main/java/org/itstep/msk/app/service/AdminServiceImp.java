@@ -7,13 +7,13 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.entity.Product;
-import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.repository.CustomerRepository;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class AdminServiceImp {
     private ProductRepository productRepository;
 
     @Autowired
-    private CustomRepository customRepository;
+    private CustomerRepository customRepository;
 
     @Transactional(readOnly = true)
     public Product updateProduct(String name) {
@@ -45,22 +45,20 @@ public class AdminServiceImp {
     }
 
     @SneakyThrows
-    public void deleteCustomerOn() {
-        Customer customer = new Customer();
-        if (customer.getName() != null) {
-            customRepository.delete(customer);
-        } else {
-            throw new NotFoundException("not such customer with  name");
-        }
+    public void deleteCustomer(Integer id) {
+        Optional<Customer> optionalCustomer = Optional.ofNullable(customRepository.findById(id)
+                .orElseThrow(() -> new org.webjars.NotFoundException("customer not found ")));
+        optionalCustomer.ifPresent(customer -> customRepository.delete(customer));
     }
 
+
     public List<Customer> findAllCustomer() {
-       List<Customer> customerList= customRepository.findAll()
+        List<Customer> customers = customRepository.findAll()
                 .stream().filter(customer -> customer.getId() != null)
                 .collect(Collectors.toList());
-       if (customerList.isEmpty()){
-           return Collections.emptyList();
-       }
-        return customerList;
+        if (customers.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return customers;
     }
 }

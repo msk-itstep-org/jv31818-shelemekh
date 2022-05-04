@@ -13,7 +13,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class MainConfiguration {
 
     @Bean
-    public SpringResourceTemplateResolver thymeleafresolver() {
+    public SpringResourceTemplateResolver thymeleafResolver() {
         final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setPrefix("classpath:/templates/");
         resolver.setSuffix(".html");

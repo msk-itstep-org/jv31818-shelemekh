@@ -13,10 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.Set;
 
@@ -38,7 +35,7 @@ public class Customer {
 
     @Column(name = "email",
             nullable = false, unique = true)
-    //  @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
+    @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
     @Size(max = 20)
     private String email;
 
@@ -121,5 +118,17 @@ public class Customer {
         this.name = name;
         //  this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

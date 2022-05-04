@@ -12,5 +12,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface PagingCustomer  extends PagingAndSortingRepository<Customer,Integer> {
 
     @Query("SELECT c from Customer c where c.name like %?1%")
-    public Page<Customer> findAll(String keyword, Pageable pageable);
+    Page<Customer> findAll(String keyword, Pageable pageable);
 }

@@ -36,9 +36,9 @@ public class ServiceProduct {
 
     @SneakyThrows
     public Product updateProduct(Integer id) {
-        Optional<Product> productOptional = Optional.of(new Product());
+        Optional<Product> productOptional = productRepository.findById(id);
         if (!productOptional.isPresent()) {
-            throw new NotFoundException("not such product " + productOptional);
+            throw new NotFoundException("not such product " + productOptional.get());
         }
         Product product = new Product();
         product.setTotalPrice(product.getTotalPrice());

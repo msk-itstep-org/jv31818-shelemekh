@@ -1,13 +1,11 @@
 package org.itstep.msk.app.controller;
 
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.repository.CustomerRepository;
 import org.itstep.msk.app.service.PageServiceCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,19 +23,18 @@ import java.util.List;
 @RequestMapping("/register")
 public class UserController {
 
-    private final CustomRepository repo;
+    private final CustomerRepository repo;
 
 
     @Autowired
     private PageServiceCustomer pageServiceCustomer;
 
     @Autowired
-    public UserController(CustomRepository repo) {
+    public UserController(CustomerRepository repo) {
         this.repo = repo;
-      //  this.encoder = encoder;
-    }
 
-    //Get login page and fill it with  user's credentials
+    }
+    
     @GetMapping("/login")
     public String Login(Model model){
         model.addAttribute("customer", new Customer());
