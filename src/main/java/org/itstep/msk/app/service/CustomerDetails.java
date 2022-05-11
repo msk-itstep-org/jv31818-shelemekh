@@ -1,7 +1,7 @@
 package org.itstep.msk.app.service;
 
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerDetails implements UserDetailsService {
 
-    private final CustomRepository customerRepo;
+    private final CustomerRepository customerRepo;
 
     @Autowired
-    public CustomerDetails(CustomRepository customerRepo) {
+    public CustomerDetails(CustomerRepository customerRepo) {
         this.customerRepo = customerRepo;
     }
 

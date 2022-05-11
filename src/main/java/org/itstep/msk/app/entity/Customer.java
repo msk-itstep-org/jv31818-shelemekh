@@ -2,6 +2,7 @@ package org.itstep.msk.app.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -31,12 +32,14 @@ public class Customer {
     @NotBlank
     @Size(min = 2, max = 20,
             message = "A form with name should be between 2 to 10")
+    @ApiModelProperty(value = "This is customer`s name", required = true)
     private String name;
 
     @Column(name = "email",
             nullable = false, unique = true)
     @Email(regexp = "^(.+)@(.+)$", message = "Incorrect email")
     @Size(max = 20)
+    @ApiModelProperty(value = "This is customer`s email should be unique", required = true)
     private String email;
 
     public Customer() {
@@ -58,6 +61,7 @@ public class Customer {
     @Column(name = "phone")
     @Pattern(regexp = "^((\\+7|7|8)+([0-9]{10})$)", message = "Invalid phone number")
     @Size(max = 20, message = "the digits should be not more than 10")
+    @ApiModelProperty(value = "This is number of phone customer ", required = true)
     private String phoneNumber;
 
     @Column(name = "password", nullable = false)

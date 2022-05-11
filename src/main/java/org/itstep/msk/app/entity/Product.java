@@ -1,6 +1,7 @@
 package org.itstep.msk.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -26,9 +27,11 @@ public class Product {
     private Integer id;
 
     @Column(name = "name_product", unique = true)
+    @ApiModelProperty(value = "This is name of product ",required = true)
     private String name;
 
     @Column(name = "final_price")
+    @ApiModelProperty(value = "This is final cost of product",required = true)
     private double totalPrice;
 
 

@@ -1,6 +1,7 @@
 package org.itstep.msk.app.controller;
 
 
+import io.swagger.annotations.ApiOperation;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.service.ServiceProduct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/all")
+    @ApiOperation(value = "Retrieve all products")
     public List<Product> giveAllProduct() {
         return serviceProduct.findAllProduct();
     }

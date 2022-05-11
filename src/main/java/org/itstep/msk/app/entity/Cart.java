@@ -1,5 +1,6 @@
 package org.itstep.msk.app.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,5 +20,6 @@ public class Cart {
 
     @OneToMany(targetEntity = Product.class, cascade= CascadeType.ALL)
     @Column(nullable = true,table = "prod_list")
+    @ApiModelProperty(value = "It is a cart of product ",required = true)
     private List<Product> productList;
 }

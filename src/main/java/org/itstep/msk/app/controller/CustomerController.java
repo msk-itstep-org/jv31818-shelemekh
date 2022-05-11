@@ -1,19 +1,15 @@
 package org.itstep.msk.app.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.service.ServiceCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-//import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-//import reactor.core.publisher.Flux;
-//import reactor.core.publisher.Mono;
-
-/**
-   @author  shele
+/*
+ * @author shele
  */
 
 @RestController
@@ -30,6 +26,7 @@ public class CustomerController {
 
     //Get from Customer credentials as name ,password
     @GetMapping("/{id}")
+    @ApiOperation(value = "This method get customer by item id")
     public Optional<Customer> retrieveCustomer(@PathVariable Integer id) {
         return serviceCustomer.findById(id);
     }
@@ -38,26 +35,26 @@ public class CustomerController {
     @GetMapping("/find/{name}")
     public Customer FindByName(@PathVariable String name) {
 
-        return serviceCustomer.retrieveCustomerByName(name);
+        return serviceCustomer.getCustomerByName(name);
     }
-
 
 
     //Upgrade customer should return a new Customer with  replacing name , email
     @PutMapping("/update/{id}")
+    @ApiOperation(value = "This method for changing customer`s email and name")
     public Customer updateCustomer(@RequestBody Customer customer
             , @PathVariable Integer id) {
-        return serviceCustomer.changeCustomer(id);
+        return serviceCustomer.changeCustomerEmailAndName(id);
 
     }
 
     //Should  delete customer from db  by his id
     @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "This method delete customer by item id")
     public void removeCustomer(@PathVariable Integer id) {
         serviceCustomer.deleteCustomerById(id);
     }
 
-    
 
 }
 

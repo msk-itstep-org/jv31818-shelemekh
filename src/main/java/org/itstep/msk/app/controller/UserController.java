@@ -34,7 +34,7 @@ public class UserController {
         this.repo = repo;
 
     }
-    
+
     @GetMapping("/login")
     public String Login(Model model){
         model.addAttribute("customer", new Customer());
