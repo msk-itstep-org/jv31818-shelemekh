@@ -34,10 +34,8 @@ public class ServiceCustomer {
     }
 
     //Retrieve all customers where his email is not null
-    public List<Customer> getAllCustomerByEmail() {
-        return customerRepository.findAll()
-                .stream()
-                .filter(customer -> !customer.getEmail().isEmpty())
+    public List<Customer> getAllCustomer() {
+        return customerRepository.findAll().stream()
                 .collect(Collectors.toList());
     }
 

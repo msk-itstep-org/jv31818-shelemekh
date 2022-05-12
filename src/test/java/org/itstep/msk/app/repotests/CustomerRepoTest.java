@@ -1,19 +1,22 @@
 package org.itstep.msk.app.repotests;
 
+
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.repository.CustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.assertj.core.api.junit.jupiter.*;
 
+
+import java.util.Collections;
+
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 
 @ActiveProfiles("test")
@@ -22,31 +25,18 @@ import static org.junit.Assert.assertThat;
 public class CustomerRepoTest {
 
     @Autowired
-    private CustomRepository customRepository;
+    private CustomerRepository customRepository;
     @Autowired
     private TestEntityManager manager;
 
+
     @Test
-    public void testCreateCustomer(){
-      Customer customer = new Customer("1234","Jolly");
-      manager.persist(customer);
-     // Customer customer1 = new Customer("ert123","Freddy");
-     // manager.persist(customer1);
-      //actual
-        customRepository.deleteAll();
-
-      //  assertThat(customRepository.findAll(), IsEmptyCollection.empty());
-
-
-    }
-    @Test
-    public  void testGetCustomByEmail(){
-        String email ="ravi@gmail.com";
+    public void testGetCustomByEmail() {
+        String email = "ravi@gmail.com";
         Customer customer = customRepository.getCustomerByEmail(email);
 
         assertNotNull(customer);
     }
-
 
 
 }

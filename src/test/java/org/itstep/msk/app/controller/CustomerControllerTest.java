@@ -2,7 +2,7 @@ package org.itstep.msk.app.controller;
 
 import lombok.SneakyThrows;
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.repository.CustomRepository;
+import org.itstep.msk.app.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class CustomerControllerTest {
    private MockMvc testMvc;
     
     @MockBean
-    private CustomRepository repository;
+    private CustomerRepository repository;
 
     @Test
     @SneakyThrows
