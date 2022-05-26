@@ -30,7 +30,7 @@ public class AuthRequest {
     }
 
     private String customerName;
-     private String customerPassword;
+    private String customerPassword;
 
 
 }

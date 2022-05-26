@@ -10,7 +10,7 @@ public class CustomerTest {
 
     @Test
     public void constructorShouldSetCustomer(){
-        Customer customer = new Customer("1234","Enrih");
+        Customer customer = new Customer("1234","Enrih",null);
 
         assertEquals("1234", customer.getPassword());
         assertEquals("Enrih",customer.getName());

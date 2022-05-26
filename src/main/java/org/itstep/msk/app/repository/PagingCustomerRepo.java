@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * DAO interface with pagination
  */
-public interface PagingCustomer  extends PagingAndSortingRepository<Customer,Integer> {
+public interface PagingCustomerRepo extends PagingAndSortingRepository<Customer,Integer> {
 
     @Query("SELECT c from Customer c where c.name like %?1%")
     Page<Customer> findAll(String keyword, Pageable pageable);

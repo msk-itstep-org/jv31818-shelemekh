@@ -1,17 +1,23 @@
 package org.itstep.msk.app.configuration;
 
 import org.itstep.msk.app.service.CustomerDetails;
+import org.itstep.msk.app.service.CustomerDetailsImpl;
 import org.itstep.msk.app.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,13 +26,19 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan("org.itstep.msk.app.service")
 public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomerDetails customerDetails;
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new CustomerDetails();
+    }
 
     @Autowired
-    private JwtRequestFilter filter;
+    private  JwtRequestFilter filter;
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,9 +47,16 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     private DataSource dataSource;
 
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customerDetails).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(daoAuthenticationProvider());
 
     }
 
@@ -64,8 +83,9 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 .antMatchers("/", "/**").permitAll()
-                .antMatchers("/register**").permitAll()
-                .antMatchers("/customers**").fullyAuthenticated()
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/customers*/**").fullyAuthenticated()
+                .antMatchers("/products/**").permitAll()
                 .antMatchers("/admin**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()

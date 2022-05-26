@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Customer details service for authorization
  */
+
 public class CustomerDetailsImpl implements UserDetails {
 
     private Customer c;
@@ -18,6 +19,7 @@ public class CustomerDetailsImpl implements UserDetails {
     public CustomerDetailsImpl(Customer c) {
         this.c = c;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

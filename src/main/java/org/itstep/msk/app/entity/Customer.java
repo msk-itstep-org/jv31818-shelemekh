@@ -42,6 +42,18 @@ public class Customer {
     @ApiModelProperty(value = "This is customer`s email should be unique", required = true)
     private String email;
 
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    @Column(name = "code",unique = true)
+    @ApiModelProperty(value = "This is verificationcode",required = true)
+    private String verifyCode;
+
     public Customer() {
     }
 
@@ -118,9 +130,9 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public Customer(String password, String name) {
+    public Customer(String password, String name,String email) {
         this.name = name;
-        //  this.email = email;
+         this.email = email;
         this.password = password;
     }
 

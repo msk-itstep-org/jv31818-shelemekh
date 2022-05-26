@@ -43,11 +43,11 @@ public class UserController {
 
     /**
     Save in database customer with parameters  name , password.
-     if credentials are valid, return view  with successfully registration,
+     if credentials are valid, return view  with successfully registration
 
  */
     @PostMapping("/login")
-    public String successfully(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, RedirectAttributes attributes){
+    public String successfully(@Valid Customer customer, BindingResult result, RedirectAttributes attributes){
         if (result.hasErrors()) {
             return "register";
         }

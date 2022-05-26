@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,15 +14,13 @@ import org.springframework.stereotype.Service;
  *
  * @author shele
  */
-@Service
+@Service("customerDetails")
 public class CustomerDetails implements UserDetailsService {
 
-    private final CustomerRepository customerRepo;
-
     @Autowired
-    public CustomerDetails(CustomerRepository customerRepo) {
-        this.customerRepo = customerRepo;
-    }
+    private  CustomerRepository customerRepo;
+
+
 
 
     @Override

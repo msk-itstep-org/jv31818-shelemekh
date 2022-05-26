@@ -4,7 +4,8 @@ create table if not exists customer (
           name varchar(20) not null,
           email varchar (20),
           phone varchar (20),
-          password varchar(10) not null
+          password varchar(10) not null,
+        code varchar(100)
 
 );
 

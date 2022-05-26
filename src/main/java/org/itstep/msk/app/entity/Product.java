@@ -4,15 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,7 +27,7 @@ public class Product {
     private double totalPrice;
 
 
-    @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Customer.class)
     @JoinColumn(name = "id", insertable = false,
             updatable = true, referencedColumnName = "id", nullable = true)
     @JsonIgnore
@@ -61,6 +53,7 @@ public class Product {
 
     public Product() {
     }
+
 
     public Set<Customer> getCustomer() {
         return customer;

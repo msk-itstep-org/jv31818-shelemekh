@@ -1,16 +1,18 @@
 package org.itstep.msk.app.service;
 
-import javassist.NotFoundException;
 import lombok.SneakyThrows;
-import lombok.val;
 import org.itstep.msk.app.entity.Customer;
+import org.itstep.msk.app.exeption.CustomerExeption;
 import org.itstep.msk.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,7 @@ public class ServiceCustomer {
     }
 
     //Retrieve all customers where his email is not null
+    @Cacheable("storeCache")
     public List<Customer> getAllCustomer() {
         return customerRepository.findAll().stream()
                 .collect(Collectors.toList());
@@ -41,19 +44,21 @@ public class ServiceCustomer {
 
     // Get specific customer by his id
     @SneakyThrows
-    public Optional<Customer> findById(Integer id) {
-        return Optional.ofNullable(customerRepository.findById(id).orElseThrow(
-                () -> new org.webjars.NotFoundException("not such " + id + " found")));
+    @Cacheable(value = "storeCache", key = "#customerId")
+    public Optional<Customer> findById(Integer customerId) {
+        return Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(
+                () -> new org.webjars.NotFoundException("not such " + customerId + " found")));
     }
 
     /**
      * Updates email and name of customer
      *
-     * @param id
+     * @param custId
      * @return customer with upgrading email and name
      */
-    public Customer changeCustomerEmailAndName(Integer id) {
-        Optional<Customer> customerOptional = customerRepository.findById(id);
+    @CachePut(value = "storeCache", key = "#custId")
+    public Customer changeCustomerEmailAndName(Integer custId) {
+        Optional<Customer> customerOptional = customerRepository.findById(custId);
         if (customerOptional.isPresent()) {
             Customer customer1 = new Customer();
             customer1.setEmail(customerOptional.get().getEmail());
@@ -68,13 +73,15 @@ public class ServiceCustomer {
     /**
      * Delete by specified id
      *
-     * @param id
+     * @param cId
      */
-    public void deleteCustomerById(Integer id) {
-        Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("does not exists ")));
+    @CacheEvict(value = "storeCache", key = "#cId")
+    public void deleteCustomerById(Integer cId) {
+        Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepository.findById(cId)
+                .orElseThrow(() -> new CustomerExeption("does not exists ", HttpStatus.NOT_FOUND)));
         customerRepository.delete(optionalCustomer.get());
     }
+
 
 
     /**

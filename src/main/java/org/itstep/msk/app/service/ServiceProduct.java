@@ -5,6 +5,9 @@ import lombok.SneakyThrows;
 import org.itstep.msk.app.entity.Product;
 import org.itstep.msk.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +25,13 @@ public class ServiceProduct {
     }
 
     @SneakyThrows
-    public Optional<Product> findById(Integer id) {
-        return Optional.ofNullable(productRepository.findById(id).orElseThrow(
+    @Cacheable(value = "storeCache", key = "#prodId")
+    public Optional<Product> findById(Integer prodId) {
+        return Optional.ofNullable(productRepository.findById(prodId).orElseThrow(
                 () -> new org.webjars.NotFoundException("not found such product")));
     }
 
+    @Cacheable(value = "storeCache", unless = "#result == null")
     public List<Product> findAllProduct() {
         return productRepository.findAll()
                 .stream()
@@ -35,8 +40,9 @@ public class ServiceProduct {
     }
 
     @SneakyThrows
-    public Product updateProduct(Integer id) {
-        Optional<Product> productOptional = productRepository.findById(id);
+    @CachePut(value = "products", key = "#productId")
+    public Product updateProduct(Integer productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
         if (!productOptional.isPresent()) {
             throw new NotFoundException("not such product " + productOptional.get());
         }
@@ -47,10 +53,11 @@ public class ServiceProduct {
     }
 
     @SneakyThrows
-    public void removeProdById(Integer id) {
-        if (id == null) {
-            throw new NoSuchFieldException("not such field" + id + "exist in database ");
+    @CacheEvict(value = "storeCache", key = "#productId")
+    public void removeProdById(Integer productId) {
+        if (productId== null) {
+            throw new NoSuchFieldException("not such field" + productId + "exist in database ");
         }
-        productRepository.deleteById(id);
+        productRepository.deleteById(productId);
     }
 }

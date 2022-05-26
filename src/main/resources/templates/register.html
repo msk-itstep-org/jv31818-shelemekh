@@ -49,8 +49,8 @@
     <h2 >Please, enter your login and password</h2>
 </br>
 
-        <form method="POST"  th:action="@{/register/login}"  th:object="${customer}" style="max-width: 600px; margin: 0 auto"
-              onsubmit="return checkEmailUnique(this);">
+        <form method="POST"  th:action="@{/register/login}"   th:object="${customer}" style="max-width: 600px; margin: 0 auto"
+              onclick=return checkEmailUnique(this);>
             <div class="border border-secondary rounded p-3">
             <div class="form-group-row">
 
