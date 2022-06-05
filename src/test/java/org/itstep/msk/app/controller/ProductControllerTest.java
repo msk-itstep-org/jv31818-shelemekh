@@ -23,15 +23,12 @@ class ProductControllerTest {
     private MockMvc mvc;
 
     @BeforeEach
-   public void setup(){
+    public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build();
     }
-
-
-
 
     @Test
     @SneakyThrows

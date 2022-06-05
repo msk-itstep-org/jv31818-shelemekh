@@ -17,7 +17,8 @@ import java.util.List;
 
 /**
  * @author shele
- *
+ *Basic user controller which involves incomig
+ * request and then show a user's page of registration
  */
 @Controller
 @RequestMapping("/register")

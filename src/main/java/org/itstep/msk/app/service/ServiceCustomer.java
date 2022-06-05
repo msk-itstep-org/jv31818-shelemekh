@@ -53,12 +53,12 @@ public class ServiceCustomer {
     /**
      * Updates email and name of customer
      *
-     * @param custId
+     * @param customerId
      * @return customer with upgrading email and name
      */
-    @CachePut(value = "storeCache", key = "#custId")
-    public Customer changeCustomerEmailAndName(Integer custId) {
-        Optional<Customer> customerOptional = customerRepository.findById(custId);
+    @CachePut(value = "storeCache", key = "#customerId")
+    public Customer changeCustomerEmailAndName(Integer customerId) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer1 = new Customer();
             customer1.setEmail(customerOptional.get().getEmail());
