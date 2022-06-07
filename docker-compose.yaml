@@ -1,11 +1,36 @@
 version: '3'
+networks:
+  outside-nw:
 services:
-  docker-mysql:
-    image: mysql:8
-    restart: always
+  application:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - 3307:3306
+      - 8090
+      - 5701
     environment:
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=db
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://database:3306/testdb'
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_FLYWAY_URL: 'jdbc:mysql://database:3306/testdb'
+      SPRING_FLYWAY_USER: root
+      SPRING_FLYWAY_PASSWORD: password
+    networks:
+      - outside-nw
+    depends_on:
+      - database
+    restart: always
+
+  database:
+        image: 'mysql:8.0.21'
+        environment:
+          MYSQL_DATABASE: db
+          MYSQL_USER: root
+          MYSQL_PASSWORD: password
+        ports:
+          - '3306:3306'
+        volumes:
+          - ~/data/mysql8:/var/lib/mysql
+        networks:
+          - outside-nw
