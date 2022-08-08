@@ -15,6 +15,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "SELECT c from Customer c where c.email= :email ORDER BY c.email")
     Customer getCustomerByEmail(@Param("email") String email);
 
+
     void deleteById(@Param("id") Integer id);
 
 

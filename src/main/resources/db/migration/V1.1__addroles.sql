@@ -19,8 +19,8 @@ create table  if not exists product (
 
 
 
-create table  if not exists role (
-id integer not null auto_increment primary key,
+create table  if not exists  role (
+id integer  unsigned not null auto_increment primary key,
 name varchar (100) not null
 
 
@@ -40,6 +40,13 @@ create table if not exists cart
     id integer not null auto_increment primary key,
     prod_list varchar (100)
 
+);
+
+create table if not exists category(
+    id integer  not null auto_increment primary key
+    references product(id),
+    category_name varchar(100) not null,
+    image varchar(20) not null
 );
 
 

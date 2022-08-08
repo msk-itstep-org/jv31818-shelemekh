@@ -1,6 +1,7 @@
 version: '3'
 networks:
   outside-nw:
+    external: true
 services:
   application:
     build:
@@ -32,5 +33,6 @@ services:
           - '3307:3306'
         volumes:
           - ~/data/mysql8:/var/lib/mysql
+
         networks:
           - outside-nw
