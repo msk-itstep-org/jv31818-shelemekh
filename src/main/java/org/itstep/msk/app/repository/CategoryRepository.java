@@ -7,13 +7,17 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CategoryRepository extends PagingAndSortingRepository<Category,Integer> {
 
-    Category findDistinctByName(String name);
+    Optional<Category>findFirstByName(String name);
 
-    @Modifying
-    @Query("update Category c set c.name = :name")
+    @Modifying(clearAutomatically = true)
+    @Query("update Category  c set c.name = :name")
     void updateCategoryName(@Param("name") String name);
+
+
 
 }

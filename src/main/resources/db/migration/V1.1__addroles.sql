@@ -46,7 +46,7 @@ create table if not exists category(
     id integer  not null auto_increment primary key
     references product(id),
     category_name varchar(100) not null,
-    image varchar(20) not null
+    image varchar(20)
 );
 
 

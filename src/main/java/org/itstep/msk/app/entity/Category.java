@@ -7,13 +7,14 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +23,11 @@ public class Category {
 
     @Column(name = "category_name", unique = true, nullable = false)
     private String name;
-    @Column(name = "image", nullable = false)
-    private String image;
 
-    @OneToMany(targetEntity = Product.class, cascade = CascadeType.PERSIST)
+    @Column(name = "image")
+    private transient String image;
+
+    @OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id", insertable = false, updatable = true, referencedColumnName = "id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
