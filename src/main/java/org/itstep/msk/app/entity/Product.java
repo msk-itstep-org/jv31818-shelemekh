@@ -11,6 +11,12 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "product")
+@NamedEntityGraph(name = "product-entity-graph",attributeNodes = {
+        @NamedAttributeNode("id"),
+        @NamedAttributeNode("name"),
+        @NamedAttributeNode("totalPrice"),
+        @NamedAttributeNode("customer")
+})
 public class Product {
 
     @Id
@@ -27,7 +33,7 @@ public class Product {
     private double totalPrice;
 
 
-    @OneToMany(targetEntity = Customer.class)
+    @OneToMany(targetEntity = Customer.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "id", insertable = false,
             updatable = true, referencedColumnName = "id", nullable = true)
     @JsonIgnore
@@ -64,8 +70,8 @@ public class Product {
     }
 
 
-    public String getId() {
-        return String.valueOf(id);
+    public Integer getId() {
+        return id;
 
     }
 

@@ -1,23 +1,24 @@
 package org.itstep.msk.app.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.itstep.msk.app.entity.Category;
 import org.itstep.msk.app.entity.model.CategoryDTO;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CategoryMapper {
 
-    private static final ModelMapper MAPPER = new ModelMapper();
+   private static ModelMapper mapper;
 
     public static Category fromDto(CategoryDTO categoryDTO) {
-        MAPPER.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Category category = new Category();
         category.setId(categoryDTO.getId());
         category.setImage(categoryDTO.getImage());
         category.setName(categoryDTO.getName());
-        return MAPPER.map(categoryDTO, Category.class);
+        mapper.map(categoryDTO,Category.class);
+        return category;
     }
 
     public static CategoryDTO fromEntity(Category category) {
@@ -25,7 +26,7 @@ public class CategoryMapper {
         categoryDTO.setId(category.getId());
         categoryDTO.setImage(category.getImage());
         categoryDTO.setName(category.getName());
-        return MAPPER.map(category, CategoryDTO.class);
+        return mapper.map(category, CategoryDTO.class);
     }
 
 }

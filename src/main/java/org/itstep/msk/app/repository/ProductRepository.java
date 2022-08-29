@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p from Product p where p.id =:id")
-    Optional<Product> findById(Integer id);
+    Optional<Product> findById(@Param("id") Integer id);
 
-    @Query("SELECT p from Product p where p.name is not  null ")
+    @Query("SELECT p from Product p where p.name =: name and p.name is not null ")
     Optional<Product> findByName(@Param("name") String name);
 }
 

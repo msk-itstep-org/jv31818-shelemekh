@@ -5,15 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +13,13 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "customer")
+@NamedEntityGraph(name = "customer-entity-graph",
+attributeNodes = {
+        @NamedAttributeNode(value = "id"),
+        @NamedAttributeNode(value = "name"),
+        @NamedAttributeNode(value = "email"),
+        @NamedAttributeNode(value = "password")
+})
 public class Customer {
 
     @Id
@@ -51,7 +50,7 @@ public class Customer {
     }
 
     @Column(name = "code",unique = true)
-    @ApiModelProperty(value = "This is verificationcode",required = true)
+    @ApiModelProperty(value = "This is verification code",required = true)
     private String verifyCode;
 
     public Customer() {

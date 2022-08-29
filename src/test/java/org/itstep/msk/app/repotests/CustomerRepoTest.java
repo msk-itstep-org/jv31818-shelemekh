@@ -5,10 +5,15 @@ import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.startupcheck.OneShotStartupCheckStrategy;
@@ -26,9 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @DataJpaTest
 @Transactional
-//@TestPropertySource("/application-test.properties")
-//@ExtendWith(SpringExtension.class)
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource("/application-test.properties")
+@ExtendWith(SpringExtension.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 
 @Testcontainers
 public class CustomerRepoTest {
@@ -36,32 +41,32 @@ public class CustomerRepoTest {
     @Autowired
     private CustomerRepository customRepository;
 
-    private Customer customer;
+    private Customer customer, customer1;
 
-    @Container
-    private static MySQLContainer container = (MySQLContainer) new MySQLContainer("mysql:8.0.26")
-            .withStartupCheckStrategy(
-                    new OneShotStartupCheckStrategy().withTimeout(Duration.ofSeconds(30))
-            );
+    //  @Container
+    //   private static MySQLContainer container = (MySQLContainer) new MySQLContainer("mysql:8.0.26")
+    //       .withStartupCheckStrategy(
+    //            new OneShotStartupCheckStrategy().withTimeout(Duration.ofSeconds(30))
+    //    );
 
 
-    @DynamicPropertySource
-    private static void initProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.username", container::getUsername);
-        registry.add("spring.datasource.password", container::getPassword);
-        registry.add("spring.datasource.driver-class-name",container::getDriverClassName);
-    }
+    //  @DynamicPropertySource
+    // private static void initProps(DynamicPropertyRegistry registry) {
+    //   registry.add("spring.datasource.url", container::getJdbcUrl);
+    //   registry.add("spring.datasource.username", container::getUsername);
+    //    registry.add("spring.datasource.password", container::getPassword);
+    //  registry.add("spring.datasource.driver-class-name",container::getDriverClassName);
+    // }
 
-    @Test
-    void getContainerIp(){
-        assertThat(container.getContainerId()).isNotNull();
-    }
+    //   @Test
+    //  void getContainerIp(){
+    //   assertThat(container.getContainerId()).isNotNull();
+    //  }
 
     @BeforeEach
     void setUp() {
         customRepository.deleteAll();
-        customer = new Customer("12344ert", "Ivan", "zreo041990@gmai.com");
+        customer = new Customer("12344ert", "Ivan", "zreo041990@gmail.com");
         customer.setId(2);
         customer.setPhoneNumber("+38745699934");
         customRepository.save(customer);
@@ -69,7 +74,7 @@ public class CustomerRepoTest {
 
 
     @Test
-    //  @Sql("/customer_test.sql")
+    @Sql("/customer_test.sql")
     public void testShouldWorkWell() {
         Customer saveCustomer = customRepository.findByName("Ivan");
         assertThat(saveCustomer.getName()).isNotEmpty();
@@ -77,7 +82,7 @@ public class CustomerRepoTest {
     }
 
     @Test
-    // @Sql("/customer_test.sql")
+    @Sql("/customer_test.sql")
     public void updateTest() {
         customer.setName("Mike");
         customRepository.save(customer);
@@ -87,7 +92,7 @@ public class CustomerRepoTest {
     }
 
     @Test
-    //  @Sql("/customer_test.sql")
+    @Sql("/customer_test.sql")
     public void deleteTest() {
         customRepository.delete(customer);
         assertFalse(customRepository.existsById(customer.getId()));

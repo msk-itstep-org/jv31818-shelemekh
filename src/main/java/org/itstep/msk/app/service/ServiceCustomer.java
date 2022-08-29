@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,8 +39,7 @@ public class ServiceCustomer {
     //Retrieve all customers where his email is not null
     @Cacheable("storeCache")
     public List<Customer> getAllCustomer() {
-        return customerRepository.findAll().stream()
-                .collect(Collectors.toList());
+        return new ArrayList<Customer>(customerRepository.findAll());
     }
 
     // Get specific customer by his id
@@ -66,7 +66,7 @@ public class ServiceCustomer {
             customerRepository.save(customer1);
             return customer1;
         }
-        return customerOptional.orElseThrow(()-> new DataAccessResourceFailureException("not such customer found"));
+        return customerOptional.orElseThrow(() -> new DataAccessResourceFailureException("not such customer found"));
     }
 
 
@@ -83,9 +83,9 @@ public class ServiceCustomer {
     }
 
 
-
     /**
-     * Check for duplicates emails of customers
+     * Check for duplicates emails of customer
+     *
      * @param email
      * @return
      */
@@ -94,10 +94,7 @@ public class ServiceCustomer {
             return false;
         }
         Customer customerByEmail = customerRepository.getCustomerByEmail(email);
-        List<String> emails = customerRepository.findAll()
-                .stream()
-                .map(Customer::getEmail)
-                .collect(Collectors.toList());
+        List<String> emails = customerRepository.customerEmails(email);
         if (emails.contains(customerByEmail.getEmail())) {
             return false;
         }

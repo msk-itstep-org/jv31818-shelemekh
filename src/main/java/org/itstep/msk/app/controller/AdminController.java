@@ -36,7 +36,7 @@ public class AdminController {
 
     @PutMapping("/admin/update")
     public Product changeProduct(@RequestBody Product prod, @RequestParam String name) {
-        if (!prod.getId().isEmpty()&& !name.isEmpty()) {
+        if (prod.getId()==0 && !name.isEmpty()) {
             return adminServiceImp.updateProduct(name);
         }
         throw new DataIntegrityViolationException("not such fields exists");
