@@ -35,6 +35,6 @@ class CustomerControllerTest {
         customer.setName("jessy");
         customer.setPassword("1234");
     given(this.repository.findById(id)).willReturn(java.util.Optional.of(new Customer("1234", "jessy",null)));
-        testMvc.perform(get("customers/{id}").contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
+        testMvc.perform(get("/customers/{id}").contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
     }
 }

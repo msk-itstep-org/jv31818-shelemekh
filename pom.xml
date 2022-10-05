@@ -25,8 +25,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.hibernate.orm.tooling</groupId>
+            <artifactId>hibernate-enhance-maven-plugin</artifactId>
+            <version>4.2.10.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -110,8 +113,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -215,10 +216,21 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
-        
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm.tooling/hibernate-enhance-maven-plugin -->
+        <dependency>
+            <groupId>org.hibernate.orm.tooling</groupId>
+            <artifactId>hibernate-enhance-maven-plugin</artifactId>
+            <version>6.1.2.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.21</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -233,7 +245,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <!-- https://mvnrepository.com/artifact/org.hibernate.orm.tooling/hibernate-enhance-maven-plugin -->
     <build>
         <resources>
             <resource>
@@ -269,6 +281,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

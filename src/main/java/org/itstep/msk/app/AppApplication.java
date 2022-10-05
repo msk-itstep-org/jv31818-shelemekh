@@ -21,14 +21,12 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
     }
 
-    @Bean
-    public ModelMapper modelMapper(){
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-        return mapper;
+//    @Bean
+  //  public ModelMapper modelMapper(){
+   //     ModelMapper mapper = new ModelMapper();
+      //  mapper.getConfiguration()
+        //        .setMatchingStrategy(MatchingStrategies.STRICT)
+         //       .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+       // return mapper;
     }
-}
+

@@ -2,7 +2,7 @@ package org.itstep.msk.app.service;
 
 import lombok.SneakyThrows;
 import org.itstep.msk.app.entity.Customer;
-import org.itstep.msk.app.exeption.CustomerExeption;
+import org.itstep.msk.app.exeption.CustomerException;
 import org.itstep.msk.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -78,7 +78,7 @@ public class ServiceCustomer {
     @CacheEvict(value = "storeCache", key = "#cId")
     public void deleteCustomerById(Integer cId) {
         Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepository.findById(cId)
-                .orElseThrow(() -> new CustomerExeption("does not exists ", HttpStatus.NOT_FOUND)));
+                .orElseThrow(() -> new CustomerException("does not exists ", HttpStatus.NOT_FOUND)));
         customerRepository.delete(optionalCustomer.get());
     }
 
@@ -90,7 +90,7 @@ public class ServiceCustomer {
      * @return
      */
     public boolean isCustomerEmailUnique(String email) {
-        if (email == null) {
+        if (email == null || email.isEmpty()) {
             return false;
         }
         Customer customerByEmail = customerRepository.getCustomerByEmail(email);

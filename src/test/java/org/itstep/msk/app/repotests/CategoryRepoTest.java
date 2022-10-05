@@ -46,8 +46,8 @@ public class CategoryRepoTest {
         categoryRepository.save(category1);
 
         categoryRepository.updateCategoryName(category1.getName());
-        var category2 = categoryRepository.findFirstByName(category1.getName());
-        assertEquals(category2.get().getName(), category1.getName());
+        var category2 = categoryRepository.findByName(category1.getName());
+        assertEquals(category2.getName(), category1.getName());
 
     }
 
@@ -63,9 +63,8 @@ public class CategoryRepoTest {
     @Test
     @DisplayName("test for checks correct returns category by its name")
     void should_return_category_by_name() {
-        var currentCategory = categoryRepository.findFirstByName(category.getName());
-        assertEquals(currentCategory.get().getName(), "flood");
-        assertThat(currentCategory.isPresent()).isInstanceOf(Boolean.class);
+        var currentCategory = categoryRepository.findByName(category.getName());
+        assertEquals(currentCategory.getName(), "flood");
     }
 
 
