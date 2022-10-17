@@ -91,14 +91,14 @@ public class Customer {
     @JoinTable(name = "custom_roles", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns =
     @JoinColumn(name = "roles_id"))
     @JsonIgnore
-    private Set<Role> role;
+    private Set<Role> roles;
 
     public Set<Role> getRole() {
-        return this.role;
+        return this.roles;
     }
 
     public void setRole(final Set<Role> role) {
-        this.role = role;
+        this.roles = role;
     }
 
     public Integer getId() {
@@ -141,9 +141,6 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
                 '}';
     }
 }

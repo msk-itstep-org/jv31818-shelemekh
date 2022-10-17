@@ -5,10 +5,7 @@ import org.itstep.msk.app.entity.model.CategoryDTO;
 import org.itstep.msk.app.service.CategoryServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,11 @@ public class CategoryController {
             , value = "/find/{name}")
     public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name) {
         return ResponseEntity.ok(categoryService.findCategoryByName(name));
+    }
+
+    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/change/{name}")
+    public ResponseEntity<CategoryDTO> getUpdatedCategory(@PathVariable String name) {
+        return ResponseEntity.accepted().body(categoryService.getUpdatedCategory(name));
+
     }
 }

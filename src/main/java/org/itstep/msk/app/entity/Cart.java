@@ -22,7 +22,6 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", productList=" + productList +
                 '}';
     }
 

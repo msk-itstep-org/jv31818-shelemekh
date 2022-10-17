@@ -27,7 +27,7 @@ public class Role {
     private String name;
 
 
-   @ManyToMany(mappedBy = "role" ,cascade =  CascadeType.ALL , fetch =  FetchType.LAZY)
+   @ManyToMany(mappedBy = "roles" ,cascade =  CascadeType.ALL , fetch =  FetchType.LAZY)
    @JsonIgnore
     private Set<Customer> custom ;
 
@@ -36,7 +36,6 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", custom=" + custom +
                 '}';
     }
 
@@ -46,14 +45,12 @@ public class Role {
         if (!(o instanceof Role))
             return false;
         final Role role = (Role) o;
-        return Objects.equals(this.id, role.id) &&
-                Objects.equals(this.name, role.name) &&
-                Objects.equals(this.custom, role.custom);
+        return Objects.equals(this.id, role.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.custom);
+        return Objects.hash(this.id, this.name);
     }
 
     public Role() {

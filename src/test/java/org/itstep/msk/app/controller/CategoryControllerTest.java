@@ -75,4 +75,5 @@ public class CategoryControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(dto1.getName()));
     }
+
 }

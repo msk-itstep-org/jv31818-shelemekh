@@ -39,8 +39,6 @@ public class Category implements Serializable {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", prodCategories=" + prodCategories +
                 '}';
     }
 

@@ -9,19 +9,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
     @Query(value = "select c from Category c where c.name= :name")
+    @EntityGraph(value = "category-entity-graph")
     Category findByName(@Param("name") String name);
 
     @Modifying(clearAutomatically = true)
     @Query("update Category  c set c.name = :name")
     void updateCategoryName(@Param("name") String name);
 
-    @EntityGraph(value = "category-entity-graph")
+    @EntityGraph(value = "category-entity-graph",type = EntityGraph.EntityGraphType.FETCH)
     List<Category> findAll();
 
 

@@ -1,6 +1,7 @@
 package org.itstep.msk.app.repository;
 
 import org.itstep.msk.app.entity.Customer;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer getCustomerByEmail(@Param("email") String email);
 
     @Query(value = "select c.email from Customer  c  where c.email= :email order by c.email")
+    @EntityGraph(value = "customer-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
     List<String> customerEmails(@Param("email") String email);
 
     @Modifying(clearAutomatically = true)

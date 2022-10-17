@@ -15,7 +15,7 @@ import java.util.Set;
         @NamedAttributeNode("id"),
         @NamedAttributeNode("name"),
         @NamedAttributeNode("totalPrice"),
-        @NamedAttributeNode("customer")
+        @NamedAttributeNode("customers")
 })
 public class Product {
 
@@ -24,7 +24,7 @@ public class Product {
     @Column(unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "name_product", unique = true)
+    @Column(name = "name_product")
     @ApiModelProperty(value = "This is name of product ",required = true)
     private String name;
 
@@ -37,36 +37,37 @@ public class Product {
     @JoinColumn(name = "id", insertable = false,
             updatable = true, referencedColumnName = "id", nullable = true)
     @JsonIgnore
-    private Set<Customer> customer;
+    private Set<Customer> customers;
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Product product = (Product) o;
-        return Double.compare(product.totalPrice, totalPrice) == 0 &&
-                id.equals(product.id) &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(customer, product.customer);
+
+        if (!id.equals(product.id)) return false;
+        return name.equals(product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
-
 
     public Product() {
     }
 
 
     public Set<Customer> getCustomer() {
-        return customer;
+        return customers;
     }
 
     public void setCustomer(Set<Customer> customer) {
-        this.customer = customer;
+        this.customers = customer;
     }
 
 
@@ -97,7 +98,6 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", totalPrice=" + totalPrice +
-                ", customer=" + customer +
                 '}';
     }
 }

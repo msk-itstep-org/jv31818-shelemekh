@@ -16,6 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Optional<Product> findById(@Param("id") Integer id);
 
     @Query("SELECT p from Product p where p.name =: name and p.name is not null ")
+    @EntityGraph("product-entity-graph")
     Optional<Product> findByName(@Param("name") String name);
     @EntityGraph(value = "product-entity-graph")
     List<Product> findAll();
