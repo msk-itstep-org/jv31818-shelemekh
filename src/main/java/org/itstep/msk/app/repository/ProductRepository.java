@@ -7,13 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p from Product p where p.id =:id")
-    Optional<Product> findById(@Param("id") Integer id);
+    @EntityGraph("product-entity-graph")
+    Optional<Product> findById(@Param("id") @NotNull Integer id);
 
     @Query("SELECT p from Product p where p.name =: name and p.name is not null ")
     @EntityGraph("product-entity-graph")

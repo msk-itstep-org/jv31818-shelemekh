@@ -36,25 +36,6 @@ public class CustomerRepoTest {
 
     private Customer customer, customer1;
 
-    //  @Container
-    //   private static MySQLContainer container = (MySQLContainer) new MySQLContainer("mysql:8.0.26")
-    //       .withStartupCheckStrategy(
-    //            new OneShotStartupCheckStrategy().withTimeout(Duration.ofSeconds(30))
-    //    );
-
-
-    //  @DynamicPropertySource
-    // private static void initProps(DynamicPropertyRegistry registry) {
-    //   registry.add("spring.datasource.url", container::getJdbcUrl);
-    //   registry.add("spring.datasource.username", container::getUsername);
-    //    registry.add("spring.datasource.password", container::getPassword);
-    //  registry.add("spring.datasource.driver-class-name",container::getDriverClassName);
-    // }
-
-    //   @Test
-    //  void getContainerIp(){
-    //   assertThat(container.getContainerId()).isNotNull();
-    //  }
 
     @BeforeEach
     void setUp() {

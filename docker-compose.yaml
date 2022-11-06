@@ -25,12 +25,18 @@ services:
 
   database:
         image: 'mysql:8.0.21'
+        mem_reservation: 512m
         environment:
           MYSQL_DATABASE: db
           MYSQL_USER: root
           MYSQL_PASSWORD: password
         ports:
           - '3307:3306'
+        healthcheck:
+          test: "usr/bin/database --user=root --password=password --execute \"SHOW DATABASES;\""
+          interval: 5s
+          timeout: 2s
+          retries: 60
         volumes:
           - ~/data/mysql8:/var/lib/mysql
 

@@ -3,9 +3,11 @@ package org.itstep.msk.app.controller;
 import org.itstep.msk.app.entity.model.CategoryDTO;
 import org.itstep.msk.app.mapper.CategoryMapper;
 import org.itstep.msk.app.repository.CategoryRepository;
+import org.itstep.msk.app.service.CategoryService;
 import org.itstep.msk.app.service.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +19,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +39,7 @@ public class CategoryControllerTest {
 
     @MockBean
     private CategoryMapper categoryMapper;
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -74,6 +79,15 @@ public class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/category/find/{name}", name)
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(dto1.getName()));
+    }
+
+    @Test
+    void test_update_CategoryDto_by_item_name() throws Exception {
+        final String cName = dto1.getName();
+        when(service.getUpdatedCategory(anyString())).thenReturn(any());
+        mockMvc.perform(MockMvcRequestBuilders.patch("/category/change/{name}", cName)
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isAccepted());
+
     }
 
 }

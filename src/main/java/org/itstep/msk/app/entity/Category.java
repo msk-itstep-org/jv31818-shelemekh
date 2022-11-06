@@ -3,11 +3,11 @@ package org.itstep.msk.app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,11 +15,10 @@ import java.util.Set;
 @Table(name = "category")
 @NoArgsConstructor
 @NamedEntityGraph(name = "category-entity-graph",
-attributeNodes = {
-        @NamedAttributeNode("id"),
-        @NamedAttributeNode("name"),
-        @NamedAttributeNode("prodCategories")
-}
+        attributeNodes = {
+                @NamedAttributeNode("id"),
+                @NamedAttributeNode("name")
+        }
 )
 public class Category implements Serializable {
 
@@ -51,7 +50,7 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private Integer id;
 
     @Column(name = "category_name", unique = true, nullable = false)
@@ -60,10 +59,10 @@ public class Category implements Serializable {
     @Column(name = "image")
     private transient String image;
 
-    @OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = true, referencedColumnName = "id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "category",fetch =FetchType.LAZY,
+            cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
-    private Set<Product> prodCategories;
+   // @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private Set<Product> prodCategories = new HashSet<>();
 
 }

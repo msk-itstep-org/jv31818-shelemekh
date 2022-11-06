@@ -1,6 +1,6 @@
 create table if not exists customer (
           id  integer  unsigned not null auto_increment primary key
-          references  product(id),
+          references  product(id) on delete cascade,
           name varchar(20) not null,
           email varchar (20),
           phone varchar (20),
