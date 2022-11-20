@@ -11,12 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DataJpaTest(properties = {"spring.jpa.hibernate.ddl-auto=update","spring.flyway.enable=false",
+@DataJpaTest(properties = {"spring.jpa.hibernate.ddl-auto=create-drop", "spring.flyway.enable=false",
         "spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect"})
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -34,20 +32,25 @@ public class ProductRepoTests extends TestContainerBase {
 
         Product entity = new Product();
         entity.setName("Plane");
-        entity.setId(4);
         entity.setTotalPrice(12.33);
         saveProduct = productRepository.save(entity);
 
         assertEquals(entity, saveProduct);
 
     }
-//TODO fix test case with id of product
     @Test
     @DisplayName("get all products test")
-  //  @Sql("/product_test.sql")
     void test_find_all_products() {
-        List<Product> productList = productRepository.findAll();
+        var  productList = productRepository.findAll();
         assertThat(productList.size()).isGreaterThan(0);
+
+    }
+    @Test
+    @DisplayName("should get a product by item id")
+    void test_find_product_by_Id(){
+        var actualProduct = productRepository.findById(saveProduct.getId()).get();
+        assertThat(actualProduct).isNotNull()
+                .isEqualTo(saveProduct);
 
     }
 }
