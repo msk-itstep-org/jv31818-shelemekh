@@ -71,7 +71,7 @@ public class ServiceCustomer {
 
 
     /**
-     * Delete by specified id
+     * Delete by specified id and delete from cache
      *
      * @param cId
      */

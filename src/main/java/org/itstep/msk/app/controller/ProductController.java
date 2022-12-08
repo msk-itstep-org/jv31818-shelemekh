@@ -35,22 +35,22 @@ public class ProductController {
         return serviceProduct.findAllProduct();
     }
 
-    // Given product by its id
-    @GetMapping("/find/{id}")
+    // Fetch product by item id
+    @GetMapping("/{id}")
     public Optional<Product> oneProduct(@PathVariable Integer id) {
         return serviceProduct.findById(id);
 
     }
 
-    // Update product finds by item id
-    @PutMapping(value = "/update/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}
+    // Update product finds by item  <p>id</p>
+    @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}
             , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Product updateProduct(@PathVariable Integer id, @Valid @RequestBody Product product) {
         return serviceProduct.updateProduct(id);
     }
 
-    // Delete product from db by its id
-    @DeleteMapping("/product/{id}")
+    // Delete product from by item id
+    @DeleteMapping("/{id}")
     public void deleteProdById(@PathVariable Integer id, @RequestBody Product product) {
         serviceProduct.removeProdById(id);
     }

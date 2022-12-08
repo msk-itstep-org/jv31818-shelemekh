@@ -23,12 +23,12 @@ public class CategoryController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE
-            , value = "/find/{name}")
+            , value = "/{name}")
     public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name) {
         return ResponseEntity.ok(categoryService.findCategoryByName(name));
     }
 
-    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/change/{name}")
+    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/{name}")
     public ResponseEntity<CategoryDTO> getUpdatedCategory(@PathVariable String name) {
         return ResponseEntity.accepted().body(categoryService.getUpdatedCategory(name));
 

@@ -13,13 +13,28 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    /**
+     * Find product by item id if product is present
+     * @param id
+     * @return
+     */
     @Query("SELECT p from Product p where p.id =:id")
     @EntityGraph("product-entity-graph")
     Optional<Product> findById(@Param("id") @NotNull Integer id);
 
+    /**
+     * Find product by item name id name of product is present
+     * @param name
+     * @return product
+     */
     @Query("SELECT p from Product p where p.name =: name and p.name is not null ")
     @EntityGraph("product-entity-graph")
     Optional<Product> findByName(@Param("name") String name);
+
+    /**
+     * Find all products from db
+     * @return
+     */
     @EntityGraph(value = "product-entity-graph")
     List<Product> findAll();
 }

@@ -1,5 +1,6 @@
 package org.itstep.msk.app.service;
 
+import lombok.RequiredArgsConstructor;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ import org.springframework.stereotype.Service;
  * @author shele
  */
 @Service("customerDetails")
+@RequiredArgsConstructor
 public class CustomerDetails implements UserDetailsService {
 
-    @Autowired
-    private  CustomerRepository customerRepo;
+    private final CustomerRepository customerRepo;
 
 
 

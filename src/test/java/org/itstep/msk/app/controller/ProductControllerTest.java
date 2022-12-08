@@ -40,7 +40,7 @@ class ProductControllerTest {
     @SneakyThrows
     public void testGetOneProductById() {
         //in case , if there is none of rows  test will be passed
-        mvc.perform(get("/products/find/2")).andExpect(status().is2xxSuccessful());
+        mvc.perform(get("/products/2")).andExpect(status().is2xxSuccessful());
     }
 
 

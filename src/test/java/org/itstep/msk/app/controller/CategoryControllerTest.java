@@ -76,7 +76,7 @@ public class CategoryControllerTest {
     void test_get_current_Category_Dto_by_item_name() throws Exception {
         final String name = dto1.getName();
         given(service.findCategoryByName(anyString())).willReturn(dto1);
-        mockMvc.perform(MockMvcRequestBuilders.get("/category/find/{name}", name)
+        mockMvc.perform(MockMvcRequestBuilders.get("/category/{name}", name)
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(dto1.getName()));
     }
@@ -85,7 +85,7 @@ public class CategoryControllerTest {
     void test_update_CategoryDto_by_item_name() throws Exception {
         final String cName = dto1.getName();
         when(service.getUpdatedCategory(anyString())).thenReturn(any());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/category/change/{name}", cName)
+        mockMvc.perform(MockMvcRequestBuilders.patch("/category/{name}", cName)
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isAccepted());
 
     }

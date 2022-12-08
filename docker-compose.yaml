@@ -23,6 +23,13 @@ services:
       - database
     restart: always
 
+  grafana:
+    image: grafana/grafana:7.5.7
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
+
   database:
         image: 'mysql:8.0.21'
         mem_reservation: 512m

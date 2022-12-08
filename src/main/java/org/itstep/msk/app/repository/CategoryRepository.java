@@ -13,14 +13,27 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
+    /**
+     * Find category of product by item name
+     * @param name
+     * @return
+     */
     @Query(value = "select c from Category c where c.name= :name")
     @EntityGraph(value = "category-entity-graph")
     Category findByName(@Param("name") String name);
 
+    /**
+     * Find and update category by item name
+     * @param name
+     */
     @Modifying(clearAutomatically = true)
     @Query("update Category  c set c.name = :name")
     void updateCategoryName(@Param("name") String name);
 
+    /**
+     * Find all category from db
+     * @return
+     */
     @EntityGraph(value = "category-entity-graph",type = EntityGraph.EntityGraphType.FETCH)
     List<Category> findAll();
 

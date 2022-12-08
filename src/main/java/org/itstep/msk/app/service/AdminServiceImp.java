@@ -24,11 +24,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AdminServiceImp {
 
-    @Autowired
-    private ProductRepository productRepository;
 
-    @Autowired
-    private CustomerRepository customRepository;
+    private final ProductRepository productRepository;
+    private final CustomerRepository customRepository;
 
     @Transactional(readOnly = true)
     public Product updateProduct(String name) {
@@ -48,7 +46,7 @@ public class AdminServiceImp {
     public void deleteCustomer(Integer id) {
         Optional<Customer> optionalCustomer = Optional.ofNullable(customRepository.findById(id)
                 .orElseThrow(() -> new org.webjars.NotFoundException("customer not found ")));
-        optionalCustomer.ifPresent(customer -> customRepository.delete(customer));
+        optionalCustomer.ifPresent(customRepository::delete);
     }
 
 
