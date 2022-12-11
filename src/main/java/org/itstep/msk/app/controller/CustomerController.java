@@ -34,7 +34,6 @@ public class CustomerController {
     //Get customer by name , email
     @GetMapping("/{name}")
     public Customer findByName(@PathVariable String name) {
-
         return serviceCustomer.getCustomerByName(name);
     }
 
@@ -48,7 +47,7 @@ public class CustomerController {
 
     }
 
-    //Should  delete customer from db  by his id
+    //Should  delete customer from db  by customer's id
     @DeleteMapping("/{id}")
     @ApiOperation(value = "This method delete customer by item id")
     public void removeCustomer(@PathVariable Integer id) {

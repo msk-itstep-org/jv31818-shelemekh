@@ -4,6 +4,7 @@ package org.itstep.msk.app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.itstep.msk.app.validation.Password;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -78,6 +79,7 @@ public class Customer {
     @Column(name = "password", nullable = false)
     @NotNull
     @JsonIgnore
+    @Password
     private String password;
 
     public String getPassword() {

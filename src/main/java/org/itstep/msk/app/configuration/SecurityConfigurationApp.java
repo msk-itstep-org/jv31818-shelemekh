@@ -1,13 +1,12 @@
 package org.itstep.msk.app.configuration;
 
 import org.itstep.msk.app.service.CustomerDetails;
-import org.itstep.msk.app.service.CustomerDetailsImpl;
 import org.itstep.msk.app.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -84,8 +83,10 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/", "/**").permitAll()
                 .antMatchers("/register/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/customers*/**").fullyAuthenticated()
                 .antMatchers("/products/**").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/products/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/admin**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()

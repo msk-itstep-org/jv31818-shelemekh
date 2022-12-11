@@ -1,13 +1,12 @@
 package org.itstep.msk.app.service;
 
-import lombok.RequiredArgsConstructor;
+
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,12 +15,9 @@ import org.springframework.stereotype.Service;
  * @author shele
  */
 @Service("customerDetails")
-@RequiredArgsConstructor
 public class CustomerDetails implements UserDetailsService {
-
-    private final CustomerRepository customerRepo;
-
-
+    @Autowired
+    private CustomerRepository customerRepo;
 
 
     @Override
