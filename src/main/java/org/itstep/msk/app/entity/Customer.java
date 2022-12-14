@@ -89,6 +89,9 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
+    @Column(name = "reset_password_token", length = 30)
+    @JsonIgnore
+    private String resetPassword;
 
     @ManyToMany
     @JoinTable(name = "custom_roles", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns =

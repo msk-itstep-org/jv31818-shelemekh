@@ -1,6 +1,7 @@
 package org.itstep.msk.app.service;
 
 import lombok.SneakyThrows;
+import net.bytebuddy.utility.RandomString;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.exeption.CustomerException;
 import org.itstep.msk.app.repository.CustomerRepository;
@@ -12,6 +13,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +65,7 @@ public class ServiceCustomer {
             Customer customer1 = new Customer();
             customer1.setEmail(customerOptional.get().getEmail());
             customer1.setName(customerOptional.get().getName());
+            customer1.setResetPassword(customerOptional.get().getResetPassword());
             customerRepository.save(customer1);
             return customer1;
         }
@@ -99,6 +102,25 @@ public class ServiceCustomer {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Update customer's email via specific token
+     * incoming from customer's request
+     * @param email
+     * @return
+     * @throws CustomerException
+     */
+    public String updateResetPasswordToken(@NotNull String email) throws CustomerException {
+        Customer customer = customerRepository.getCustomerByEmail(email);
+        if (customer != null) {
+            String token = RandomString.make(20);
+            customer.setResetPassword(token);
+            customerRepository.save(customer);
+            return token;
+        } else {
+            throw new CustomerException("Customer not found!", HttpStatus.BAD_REQUEST);
+        }
     }
 }
 
