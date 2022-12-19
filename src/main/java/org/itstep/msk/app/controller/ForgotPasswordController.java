@@ -3,6 +3,7 @@ package org.itstep.msk.app.controller;
 import lombok.RequiredArgsConstructor;
 import org.itstep.msk.app.exeption.CustomerException;
 import org.itstep.msk.app.service.ServiceCustomer;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class ForgotPasswordController {
 
     private final ServiceCustomer serviceCustomer;
 
-    @GetMapping("/forgot_password")
+    @GetMapping(value = "/forgot_password",produces = MediaType.TEXT_HTML_VALUE)
     public String resetPasswordFormRequest() {
         return "forgot_password_form";
     }

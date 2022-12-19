@@ -105,6 +105,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- Web security and administration-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
