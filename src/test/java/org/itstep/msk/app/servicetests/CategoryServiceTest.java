@@ -2,7 +2,6 @@ package org.itstep.msk.app.servicetests;
 
 import org.itstep.msk.app.entity.Category;
 import org.itstep.msk.app.entity.model.CategoryDTO;
-import org.itstep.msk.app.exeption.CategoryException;
 import org.itstep.msk.app.mapper.CategoryMapper;
 import org.itstep.msk.app.repository.CategoryRepository;
 import org.itstep.msk.app.service.CategoryService;
@@ -65,34 +64,4 @@ public class CategoryServiceTest {
         verify(repository, times(1)).findAll();
         assertThat(list).isNotNull();
     }
-
-    @Test
-    void shouldReturnCategoryByItemName() throws CategoryException {
-     //   Category category3 = new Category();
-       // category3.setId(4);
-        //category3.setName("Rer");
-        //category3.setImage("Camera");
-        //repository.save(category3);
-        //String itemName = category3.getName();
-        //when(repository.findByName(anyString())).thenReturn(category3);
-       // service = new CategoryServiceImpl(repository,mapper);
-        //var actualDto = categoryService.findCategoryByName(itemName);
-        //verify(repository, times(1)).findByName(category3.getName());
-        //assertThat(actualDto).isNull();
-
-
-    }
-
-
-
-    @Test
-    void shouldReturnUpdatedCategoryDTO() {
-        //given(repository.findByName(anyString())).willReturn(category1);
-        //category1.setName("Heli");
-        //category1.setId(1);
-        //when(repository.save(any())).thenReturn(any());
-        //var Dto = categoryService.getUpdatedCategory(category1.getName());
-        //assertThat(Dto).isNotNull();
-    }
-
 }
