@@ -1,6 +1,7 @@
 package org.itstep.msk.app.configuration;
 
 import org.itstep.msk.app.service.CustomerDetails;
+import org.itstep.msk.app.service.FailedAttemptLoginHandler;
 import org.itstep.msk.app.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,13 +31,12 @@ import javax.sql.DataSource;
 public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new CustomerDetails();
     }
 
     @Autowired
-    private  JwtRequestFilter filter;
-
+    private JwtRequestFilter filter;
 
 
     @Bean
@@ -46,7 +46,7 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
 
     private DataSource dataSource;
 
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
@@ -82,23 +82,22 @@ public class SecurityConfigurationApp extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 .antMatchers("/", "/**").permitAll()
-                .antMatchers("/register/**").permitAll()
+                .antMatchers("/register/**","/login-locked","/login-disable").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/customers*/**").fullyAuthenticated()
                 .antMatchers("/products/**").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/products/**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/products/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/admin**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").failureHandler(new FailedAttemptLoginHandler())
                 .defaultSuccessUrl("/registersuccess")
-
                 .failureUrl("/login")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")
                 .and().rememberMe().key("AbcDefHijKnRopQs_12345")
-                .tokenValiditySeconds(7*24*60*60)
+                .tokenValiditySeconds(7 * 24 * 60 * 60)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

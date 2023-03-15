@@ -12,7 +12,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = UserController.class)
+@WebMvcTest(controllers = LoginController.class)
 public class UserControllerTest {
 
     @Autowired

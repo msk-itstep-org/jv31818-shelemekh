@@ -2,6 +2,7 @@ package org.itstep.msk.app.service;
 
 import lombok.SneakyThrows;
 import net.bytebuddy.utility.RandomString;
+import org.aspectj.apache.bcel.classfile.Utility;
 import org.itstep.msk.app.entity.Customer;
 import org.itstep.msk.app.exeption.CustomerException;
 import org.itstep.msk.app.repository.CustomerRepository;
@@ -11,8 +12,11 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
+import javax.mail.internet.MimeUtility;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +111,7 @@ public class ServiceCustomer {
     /**
      * Update customer's email via specific token
      * incoming from customer's request
+     *
      * @param email
      * @return
      * @throws CustomerException

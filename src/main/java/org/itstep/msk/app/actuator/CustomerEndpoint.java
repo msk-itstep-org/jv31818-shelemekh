@@ -43,12 +43,10 @@ public class CustomerEndpoint {
             customer.setName(name);
             customerRepository.save(customer);
         }
-
     }
 
     @DeleteOperation
     public void deleteCustomerById(@Selector Integer id) {
         customerRepository.deleteById(id);
-
     }
 }
